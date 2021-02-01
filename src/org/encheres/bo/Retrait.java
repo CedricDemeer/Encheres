@@ -2,10 +2,10 @@ package org.encheres.bo;
 
 public class Retrait {
 
-
 	private String rue; 
 	private String code_postal; 
 	private String ville;
+	
 	public String getRue() {
 		return rue;
 	}
