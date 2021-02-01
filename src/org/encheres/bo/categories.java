@@ -1,6 +1,7 @@
 package org.encheres.bo;
 
 public class categories {
+	//ceci est un commentaire
 private int no_categorie;
 private String libelle;
 public int getNo_categorie() {
