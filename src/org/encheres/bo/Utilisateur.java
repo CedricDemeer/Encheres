@@ -2,7 +2,6 @@ package org.encheres.bo;
 
 public class Utilisateur  {
 	
-	private static final long serialVersionUID = 1L;
 	
 	private int noUtilisateur;
 	private String pseudo; 
