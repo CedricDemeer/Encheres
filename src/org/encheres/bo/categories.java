@@ -13,6 +13,8 @@ public String getLibelle() {
 	return libelle;
 }
 public void setLibelle(String libelle) {
+	
+	//YR test commit 
 	this.libelle = libelle;
 }
 
