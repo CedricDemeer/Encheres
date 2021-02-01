@@ -1,11 +1,9 @@
 package org.encheres.bo;
 
-import java.io.Serializable;
 
-public class ArticleVendu implements Serializable{
+public class ArticleVendu {
 	
 	
-	private static final long serialVersionUID = 1L;
 	private int noArticle;
 	private String nomArticle;
 	private String description ;
@@ -13,9 +11,7 @@ public class ArticleVendu implements Serializable{
 	private String dateFinEncheres ;
 	private int miseAPrix ;
 	private int prixVente;
-	//boolean ? 0 en attente de récupération et 1 récupéré ? 
-	//ou int avec 0 en attente de récupération et 1 récupéré ?
-	private boolean etatVente;
+	private String etatVente;
 	public int getNoArticle() {
 		return noArticle;
 	}
@@ -58,12 +54,58 @@ public class ArticleVendu implements Serializable{
 	public void setPrixVente(int prixVente) {
 		this.prixVente = prixVente;
 	}
-	public boolean isEtatVente() {
+	
+	public String getEtatVente() {
 		return etatVente;
 	}
-	public void setEtatVente(boolean etatVente) {
+	
+	public void setEtatVente(String etatVente) {
+		this.etatVente = etatVente;
+	}
+	
+	public ArticleVendu() {
+		super();
+	}
+	
+	
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
+			String dateFinEncheres, String etatVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.etatVente = etatVente;
+	}
+	
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
+			String dateFinEncheres, int miseAPrix, String etatVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.etatVente = etatVente;
+	}
+	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
+			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 	}
 
+	
+	
 	
 }
