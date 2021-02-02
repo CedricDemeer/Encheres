@@ -149,7 +149,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return user;
 	}
 
 }
