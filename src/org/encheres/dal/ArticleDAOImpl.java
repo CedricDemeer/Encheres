@@ -1,7 +1,6 @@
 package org.encheres.dal;
 
 import java.util.List;
-
 import org.encheres.bo.ArticleVendu;
 
 public class ArticleDAOImpl implements ArticleDAO{
