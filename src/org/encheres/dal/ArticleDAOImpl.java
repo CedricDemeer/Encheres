@@ -35,7 +35,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 	}
 
 	@Override
-	public void delete(ArticleVendu article) {
+	public void delete(int noArticle) {
 		// TODO Auto-generated method stub
 		
 	}
