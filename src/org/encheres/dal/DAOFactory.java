@@ -5,6 +5,4 @@ public abstract class DAOFactory {
 		return new UtilisateurDAOJDBCImpl();
 	}
 	
-	
-	
 }

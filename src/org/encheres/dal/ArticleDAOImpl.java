@@ -1,5 +1,7 @@
 package org.encheres.dal;
 
+import java.util.List;
+
 import org.encheres.bo.ArticleVendu;
 
 public class ArticleDAOImpl implements ArticleDAO{
@@ -46,12 +48,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		return null;
 	}
 
-	@Override
-	public void delete(int noArticle) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void prixVenteFinal(int noArticle) {
 		// TODO Auto-generated method stub
@@ -68,6 +65,12 @@ public class ArticleDAOImpl implements ArticleDAO{
 	public void ajoutImageArticle(int noArticle) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<ArticleVendu> selectAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
