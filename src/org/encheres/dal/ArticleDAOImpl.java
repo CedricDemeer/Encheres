@@ -1,15 +1,13 @@
 package org.encheres.dal;
 
 import java.util.List;
-<<<<<<< HEAD
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-=======
->>>>>>> branch 'master' of https://github.com/CedricDemeer/Encheres
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Enchere;
 import org.encheres.bo.Retrait;
