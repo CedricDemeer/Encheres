@@ -96,8 +96,8 @@ public class ArticleDAOImpl implements ArticleDAO{
 	public void update(ArticleVendu article) {
 		// on doit pouvoir faire les modif de l'article : 
 		//ajout d'une photo
-		//ajout du prix de vent initial
-		//ajout du prix de vent final
+		//ajout du prix de vente initial
+		//ajout du prix de vente final
 		
 	}
 
@@ -116,11 +116,10 @@ public class ArticleDAOImpl implements ArticleDAO{
 						rs.getString("nomArticle"),
 						rs.getString("description"),
 						rs.getDate("date_debut_enchere"),
-						
-						//je suis en train de le faire 
-						
-						
-							
+						rs.getDate("date_fin_enchere"),
+						rs.getInt("prix_initial"),
+						rs.getInt("prix_vente"),
+						rs.getString("etat_vente")
 						));
 			}
 			
