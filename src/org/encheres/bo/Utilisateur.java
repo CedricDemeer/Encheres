@@ -20,6 +20,7 @@ public class Utilisateur  {
 	private int credit;
 	private boolean administrateur;
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
+	private List<ArticleVendu> listeVentes = new ArrayList<ArticleVendu>();
 	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -100,10 +101,12 @@ public class Utilisateur  {
 		this.listeEncheres = listeEncheres;
 	}
 	
-	
-	
-	
-	
+	public List<ArticleVendu> getListeVentes() {
+		return listeVentes;
+	}
+	public void setListeVentes(List<ArticleVendu> listeVentes) {
+		this.listeVentes = listeVentes;
+	}
 	public Utilisateur() {
 		super();
 		administrateur = false;
@@ -179,6 +182,23 @@ public class Utilisateur  {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.listeEncheres = listeEncheres;
+	}
+	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville, String motDePasse, List<Enchere> listeEncheres,
+			List<ArticleVendu> listeVentes) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.listeEncheres = listeEncheres;
+		this.listeVentes = listeVentes;
 	}
 	
 	

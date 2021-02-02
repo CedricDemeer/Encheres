@@ -1,5 +1,7 @@
 package org.encheres.bo;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleVendu {
 	
@@ -12,6 +14,10 @@ public class ArticleVendu {
 	private int miseAPrix ;
 	private int prixVente;
 	private String etatVente;
+	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
+	private Retrait lieuRetrait;
+	
+	
 	public int getNoArticle() {
 		return noArticle;
 	}
@@ -63,6 +69,21 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 	
+	public List<Enchere> getListeEncheres() {
+		return listeEncheres;
+	}
+	public void setListeEncheres(List<Enchere> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+	
+	
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
+	}
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
+	}
+	
 	public ArticleVendu() {
 		super();
 	}
@@ -104,7 +125,46 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 	}
+	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
+			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.listeEncheres = listeEncheres;
+	}
+	public ArticleVendu(String nomArticle, String description, String dateDebutEncheres, String dateFinEncheres,
+			String etatVente, List<Enchere> listeEncheres) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.etatVente = etatVente;
+		this.listeEncheres = listeEncheres;
+	}
+	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
+			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
+			Retrait lieuRetrait) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.listeEncheres = listeEncheres;
+		this.lieuRetrait = lieuRetrait;
+	}
 
+	
 	
 	
 	
