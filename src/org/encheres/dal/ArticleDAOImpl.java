@@ -1,12 +1,15 @@
 package org.encheres.dal;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+=======
+>>>>>>> branch 'master' of https://github.com/CedricDemeer/Encheres
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Enchere;
 import org.encheres.bo.Retrait;
@@ -52,13 +55,13 @@ public class ArticleDAOImpl implements ArticleDAO{
 				article.setNoArticle(rs.getInt(1));
 				article.setNomArticle(rs.getString(2));
 				article.setDescription(rs.getString(3));
-				article.setDateDebutEncheres(rs.getString(4));
-				article.setDateFinEncheres(rs.getString(5));
+				article.setDateDebutEncheres(rs.getDate(4));
+				article.setDateFinEncheres(rs.getDate(5));
 				article.setMiseAPrix(rs.getInt(6));
 				article.setPrixVente(rs.getInt(7));
 				//manque no_utilisateur
 				//manque no_categorie
-				article.setDateFinEncheres(rs.getString(10));
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
