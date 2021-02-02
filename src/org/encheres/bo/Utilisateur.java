@@ -19,7 +19,7 @@ public class Utilisateur  {
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
-	private List<Enchère> listeEncheres = new ArrayList<Enchère>();
+	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
 	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -93,10 +93,10 @@ public class Utilisateur  {
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
-	public List<Enchère> getListeEncheres() {
+	public List<Enchere> getListeEncheres() {
 		return listeEncheres;
 	}
-	public void setListeEncheres(List<Enchère> listeEncheres) {
+	public void setListeEncheres(List<Enchere> listeEncheres) {
 		this.listeEncheres = listeEncheres;
 	}
 	
@@ -152,7 +152,7 @@ public class Utilisateur  {
 		this.administrateur = administrateur;
 	}
 	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, List<Enchère> listeEncheres) {
+			String rue, String codePostal, String ville, String motDePasse, List<Enchere> listeEncheres) {
 		super();
 		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
@@ -168,7 +168,7 @@ public class Utilisateur  {
 	}
 	
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue, String codePostal,
-			String ville, String motDePasse, List<Enchère> listeEncheres) {
+			String ville, String motDePasse, List<Enchere> listeEncheres) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
