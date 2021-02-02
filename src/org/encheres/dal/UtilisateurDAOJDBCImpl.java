@@ -46,11 +46,36 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ "\r\n"
 			+ "from (UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur\r\n"
 			+ "where u.no_utilisateur=?;";
+	private static String INSERT= "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	
 	@Override
 	public void insert(Utilisateur user) {
-		// TODO Auto-generated method stub
-
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1, user.getPseudo());
+			pstmt.setString(2, user.getNom());
+			pstmt.setString(3, user.getEmail());
+			pstmt.setString(4, user.getTelephone());
+			pstmt.setString(5, user.getRue());
+			pstmt.setString(6, user.getCodePostal());
+			pstmt.setString(7, user.getVille());
+			pstmt.setString(8, user.getMotDePasse());
+			pstmt.setInt(9, user.getCredit());
+			pstmt.setBoolean(10, user.isAdministrateur());
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next())
+			{
+				user.setNoUtilisateur(rs.getInt(1));
+			}
+			
+			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
