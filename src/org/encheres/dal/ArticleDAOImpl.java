@@ -117,7 +117,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 						rs.getString("description"),
 						rs.getDate("date_debut_enchere"),
 						
-						
+						//je suis en train de le faire 
 						
 						
 							
