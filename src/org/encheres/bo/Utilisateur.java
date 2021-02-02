@@ -1,5 +1,9 @@
 package org.encheres.bo;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Utilisateur  {
 	
 	
@@ -15,6 +19,7 @@ public class Utilisateur  {
 	private String motDePasse;
 	private int credit;
 	private boolean administrateur;
+	private List<Enchère> listeEncheres = new ArrayList<Enchère>();
 	
 	public int getNoUtilisateur() {
 		return noUtilisateur;
@@ -88,6 +93,16 @@ public class Utilisateur  {
 	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
+	public List<Enchère> getListeEncheres() {
+		return listeEncheres;
+	}
+	public void setListeEncheres(List<Enchère> listeEncheres) {
+		this.listeEncheres = listeEncheres;
+	}
+	
+	
+	
+	
 	
 	public Utilisateur() {
 		super();
@@ -135,6 +150,35 @@ public class Utilisateur  {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+	}
+	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, List<Enchère> listeEncheres) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.listeEncheres = listeEncheres;
+	}
+	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String rue, String codePostal,
+			String ville, String motDePasse, List<Enchère> listeEncheres) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.listeEncheres = listeEncheres;
 	}
 	
 	
