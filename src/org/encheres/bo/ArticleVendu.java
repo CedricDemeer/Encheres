@@ -16,6 +16,7 @@ public class ArticleVendu {
 	private String etatVente;
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
 	private Retrait lieuRetrait;
+	private String image;
 	
 	
 	public int getNoArticle() {
@@ -82,6 +83,14 @@ public class ArticleVendu {
 	}
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
+	}
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	public ArticleVendu() {
