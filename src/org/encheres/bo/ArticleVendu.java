@@ -15,7 +15,7 @@ public class ArticleVendu {
 	private int prixVente;
 	private String etatVente;
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
-	private List<Retrait> listeRetrait = new ArrayList<Retrait>();
+	private Retrait lieuRetrait;
 	
 	
 	public int getNoArticle() {
@@ -77,12 +77,13 @@ public class ArticleVendu {
 	}
 	
 	
-	public List<Retrait> getListeRetrait() {
-		return listeRetrait;
+	public Retrait getLieuRetrait() {
+		return lieuRetrait;
 	}
-	public void setListeRetrait(List<Retrait> listeRetrait) {
-		this.listeRetrait = listeRetrait;
+	public void setLieuRetrait(Retrait lieuRetrait) {
+		this.lieuRetrait = lieuRetrait;
 	}
+	
 	public ArticleVendu() {
 		super();
 	}
@@ -149,7 +150,7 @@ public class ArticleVendu {
 	}
 	public ArticleVendu(int noArticle, String nomArticle, String description, String dateDebutEncheres,
 			String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
-			List<Retrait> listeRetrait) {
+			Retrait lieuRetrait) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -160,9 +161,10 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 		this.listeEncheres = listeEncheres;
-		this.listeRetrait = listeRetrait;
+		this.lieuRetrait = lieuRetrait;
 	}
 
+	
 	
 	
 	
