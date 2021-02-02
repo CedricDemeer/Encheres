@@ -1,12 +1,20 @@
 package org.encheres.dal;
 
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.encheres.bo.ArticleVendu;
+import org.encheres.bo.Enchere;
+import org.encheres.bo.Retrait;
+import org.encheres.bo.Utilisateur;
 
 public class ArticleDAOImpl implements ArticleDAO{
 
-	private static final String SELECT_ALL = "SELECT no_article, nom_article FROM ARTICLES_VENDUS";
+	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
 	
 	private static final String SELECT_BY_ID = "SELECT a.no_article,"
 			+ "nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente, "
@@ -25,21 +33,52 @@ public class ArticleDAOImpl implements ArticleDAO{
 	/*private static final String INSERT_ARTICLE2 = "INSERT INTO ARTICLES_VENDUS (no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image)"
 			+ "     VALUES(?,?,?,?,?,?,?,?,?,?,?)";*/
 	private static final String DELETE_ARTICLE = "delete from ARTICLES_VENDUS where no_article=?";
-	private static final String UPDATE_DATEVENTE_ARTICLE="update ARTICLES_VENDUS set date_fin_enchere=? where no_article=?";
-	private static final String UPDATE_PRIXVENTE_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
+	private static final String UPDATE_PRIXVENTE_INITIAL_ARTICLE="update ARTICLES_VENDUS set prix_initial=? where no_article=?";
+	private static final String UPDATE_PRIXVENTE_FINAL_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
 	private static final String UPDATE_IMAGE_ARTICLE="update ARTICLES_VENDUS set image=? where no_article=?";
 	
 	
 	
 	@Override
 	public void insert(ArticleVendu article) {
-		// TODO Auto-generated method stub
 		
+		try(Connection cnx = ConnectionProvider.getConnection()){
+			cnx.setAutoCommit(false);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next())
+			{
+				article.setNoArticle(rs.getInt(1));
+				article.setNomArticle(rs.getString(2));
+				article.setDescription(rs.getString(3));
+				article.setDateDebutEncheres(rs.getString(4));
+				article.setDateFinEncheres(rs.getString(5));
+				article.setMiseAPrix(rs.getInt(6));
+				article.setPrixVente(rs.getInt(7));
+				//manque no_utilisateur
+				//manque no_categorie
+				article.setDateFinEncheres(rs.getString(10));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+				
+				
 	}
 
 	@Override
 	public void delete(int noArticle) {
-		// TODO Auto-generated method stub
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ARTICLE);
+			pstmt.setInt(1, noArticle);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -50,28 +89,45 @@ public class ArticleDAOImpl implements ArticleDAO{
 	}
 
 	
-	@Override
-	public void prixVenteFinal(int noArticle) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
-	public void dateVenteFinale(int noArticle) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void ajoutImageArticle(int noArticle) {
-		// TODO Auto-generated method stub
+	public void update(ArticleVendu article) {
+		// on doit pouvoir faire les modif de l'article : 
+		//ajout d'une photo
+		//ajout du prix de vent initial
+		//ajout du prix de vent final
 		
 	}
 
 	@Override
 	public List<ArticleVendu> selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ArticleVendu> ListeArticles = new ArrayList<ArticleVendu>();
+		
+		try (Connection cnx = ConnectionProvider.getConnection()){
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				ListeArticles.add(new ArticleVendu(
+						rs.getInt("noArticle"),
+						rs.getString("nomArticle"),
+						rs.getString("description"),
+						rs.getDate("date_debut_enchere"),
+						
+						
+						
+						
+							
+						));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ListeArticles;
 	}
 
 	

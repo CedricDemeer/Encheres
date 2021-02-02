@@ -8,8 +8,6 @@ public interface ArticleDAO {
 	public void delete(int noArticle);
 	public List<ArticleVendu> selectAll();
 	public ArticleVendu selectById(int noArticle);
-	public void prixVenteFinal(int noArticle);
-	public void dateVenteFinale(int noArticle);
-	public void ajoutImageArticle(int noArticle);
+	public void update(ArticleVendu article);
 	
 }
