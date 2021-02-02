@@ -172,8 +172,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 		}catch(Exception e)
 		{
 			e.printStackTrace();
-		}
-		
+		}		
 		return user;
 	}
 
