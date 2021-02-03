@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,7 +18,7 @@
     <!--icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <title>ENI-Encheres : Liste des enchères</title>
+    <title>ENI-Encheres : Liste des enchÃ¨res</title>
 </head>
 <body>
     <div class="container-fluid">
@@ -27,9 +31,18 @@
                     <strong>ENI-Encheres</strong>
                 </a>
 
-                <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
+                <a class="navbar-brand" href="#" alt="GÃ©rer mon profil" title="GÃ©rer mon profil">
                     <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
+                    <span class="align-middle text-muted"></span>
+                   	<c:choose> 
+                    <c:when test="${!empty sessionScope.user}">
+                    ${user.getNom()} ${user.getPrenom()} ${user.getCredit()} crédits(s)
+                    </c:when>
+                    <c:when test="${empty sessionScope.user}">
+                     XXX xx crédits(s)
+                    </c:when>
+                 
+                    </c:choose>
                 </a>
 
                 <ul class="navbar-nav ml-auto">
@@ -41,9 +54,9 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#" alt="Administrer le site">Administrer</a> 
                             <a class="dropdown-item" href="#" alt="Vendre un article">Vendre un article</a>
-                            <a class="dropdown-item" href="#" alt="Me déconnecter">Me déconnecter</a>
-                            <a class="dropdown-item" href="register.html" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
-                            <a class="dropdown-item" href="login.html" alt="Se connecter à ENI-Encheres">Me connecter</a>
+                            <a class="dropdown-item" href="#" alt="Me dÃ©connecter">Me dÃ©connecter</a>
+                            <a class="dropdown-item" href="register.html" alt="S'inscrire Ã  ENI-Encheres">M'inscrire</a>
+                            <a class="dropdown-item" href="login.html" alt="Se connecter Ã  ENI-Encheres">Me connecter</a>
                         </div>
                     </li>  
                     <!-- Links for medium screen-->
@@ -54,13 +67,13 @@
                         <a class="nav-link" href="#" alt="Vendre un article">Vendre un article</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Me déconnecter">Me déconnecter</a>
+                        <a class="nav-link" href="#" alt="Me dÃ©connecter">Me dÃ©connecter</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./Inscription" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
+                        <a class="nav-link" href="./Inscription" alt="S'inscrire Ã  ENI-Encheres">M'inscrire</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./Connexion" alt="Se connecter à ENI-Encheres">Me connecter</a>
+                        <a class="nav-link" href="./Connexion" alt="Se connecter Ã  ENI-Encheres">Me connecter</a>
                     </li>
                 </ul>
             </nav>
@@ -69,7 +82,7 @@
         <main>
             <!--title-->
             <div class="mx-auto text-center">
-                <h1>Enchères</h1>
+                <h1>EnchÃ¨res</h1>
             </div>
             <!--erreur-->
             <div class="d-flex alert-danger">
@@ -78,7 +91,7 @@
                 </div>
             
                 <ul class="col-9 list-unstyled p-2">
-                    <li>un message d'erreur éventuellement !</li>
+                    <li>un message d'erreur Ã©ventuellement !</li>
                     <li>un autre message....</li>
                 </ul>
             </div>
@@ -92,12 +105,12 @@
                                 <input type="text" class="form-control" id="filter-input" name="q" placeholder="articles contenant...">
                         </div>
                         <div class="form-group">
-                            <label for="categories-select">Catégories</label>
+                            <label for="categories-select">CatÃ©gories</label>
                             <select class="form-control" id="categories-select" name="categorie">
                                 <option selected>Toutes</option>
                                 <option name="categorie" value="">Informatique</option>
                                 <option name="categorie" value="">Ameublement</option>
-                                <option name="categorie" value="">Vêtement</option>
+                                <option name="categorie" value="">VÃªtement</option>
                                 <option name="categorie" value="">Sport & Loisirs</option>
                             </select>
                         </div>
@@ -112,17 +125,17 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" checked name="encheres" value="ouvertes" id="ouvertes">Enchères ouvertes
+                                    <input type="checkbox" class="form-check-input" checked name="encheres" value="ouvertes" id="ouvertes">EnchÃ¨res ouvertes
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="encours" id="encours">Mes enchères en cours
+                                    <input type="checkbox" class="form-check-input" name="encheres" value="encours" id="encours">Mes enchÃ¨res en cours
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="remportees" id="remportees">Mes enchères remportées
+                                    <input type="checkbox" class="form-check-input" name="encheres" value="remportees" id="remportees">Mes enchÃ¨res remportÃ©es
                                 </label>
                             </div>
                         </div>
@@ -139,12 +152,12 @@
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="nondebutees" id="nondebutees">Mes ventes non débutées
+                                    <input type="checkbox" class="form-check-input" name="ventes" value="nondebutees" id="nondebutees">Mes ventes non dÃ©butÃ©es
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="terminees" id="terminees">Mes ventes terminées
+                                    <input type="checkbox" class="form-check-input" name="ventes" value="terminees" id="terminees">Mes ventes terminÃ©es
                                 </label>
                             </div>
                         </div>
@@ -156,7 +169,7 @@
                 </button>
             </form>
 
-            <!--enchères-->
+            <!--enchÃ¨res-->
             <div class="row justify-content-center border-top card-deck">
                 <div class="col-12 col-sm-6 p-2" >
                     <div class="card">
@@ -169,12 +182,12 @@
                             </div>
                             <ul class="col-9 list-unstyled p-2">
                                 <li>Prix : 0 point(s)</li>
-                                <li>Meilleure enchère : 0 point(s)</li>
-                                <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
+                                <li>Meilleure enchÃ¨re : 0 point(s)</li>
+                                <li>Fin de l'enchÃ¨re : dd-MM-yyyy HH:mm</li>
                                 <li>Vendeur : xxxxxxxxx</li>
                             </ul>
                         </div>
-                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
+                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
                             <img class="small-icon" src="images/bid.svg">
                         </a>
                     </div>
@@ -190,12 +203,12 @@
                             </div>
                             <ul class="col-9 list-unstyled p-2">
                                 <li>Prix : 0 point(s)</li>
-                                <li>Meilleure enchère : 0 point(s)</li>
-                                <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
+                                <li>Meilleure enchÃ¨re : 0 point(s)</li>
+                                <li>Fin de l'enchÃ¨re : dd-MM-yyyy HH:mm</li>
                                 <li>Vendeur : xxxxxxxxx</li>
                             </ul>
                         </div>
-                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
+                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
                             <img class="small-icon" src="images/bid.svg">
                         </a>
                     </div>
@@ -211,12 +224,12 @@
                         </div>
                         <ul class="col-9 list-unstyled p-2">
                             <li>Prix : 0 point(s)</li>
-                            <li>Meilleure enchère : 0 point(s)</li>
-                            <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
+                            <li>Meilleure enchÃ¨re : 0 point(s)</li>
+                            <li>Fin de l'enchÃ¨re : dd-MM-yyyy HH:mm</li>
                             <li>Vendeur : xxxxxxxxx</li>
                         </ul>
                     </div>
-                    <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchère">
+                    <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
                         <img class="small-icon" src="images/bid.svg">
                     </a>
                 </div>

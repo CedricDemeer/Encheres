@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,9 +30,9 @@
                     <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
                     <strong>ENI-Encheres</strong>
                 </a>
-                <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
+                <a class="navbar-brand" href="#" alt="GÃ©rer mon profil" title="GÃ©rer mon profil">
                     <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
+                    <span class="align-middle text-muted">XXXXX xxx, 0 crÃ©dit(s)</span>
                 </a>
             </nav>
         </header>
@@ -47,14 +51,20 @@
                 </div>
             
                 <ul class="col-9 list-unstyled p-2">
-                    <li>un message d'erreur éventuellement !</li>
-                    <li>un autre message....</li>
+                    <c:if test="${!empty bool}">
+                    
+                    <li>${bool}
+                     </li>
+                     
+                    </c:if>
+                     
+                    <li> </li>
                 </ul>
             </div>
             <!--formulaire-->
-            <form class="form-login" action="#" method="">
+             <form class="form-login" action="<%=request.getContextPath()%>/Connexion" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>
-                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo" placeholder="Pseudo" required autofocus>
+                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo"  value="<%=request.getParameter("pseudo")%>" placeholder="Pseudo" required autofocus>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Mot de passe" required>
                 <div class="checkbox mb-3">
@@ -85,3 +95,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+            
