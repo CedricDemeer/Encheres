@@ -27,15 +27,15 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "date_fin_enchere,"
 			+ "prix_initial,"
 			+ "prix_vente, "
-			+ "a.no_utilisateur as no_user, "
+			+ "u.no_utilisateur as no_user, "
 			+ "u.pseudo as pseudo,"
-			+ "a.no_categorie,"
+			+ "a.no_categorie as no_categorie,"
 			+ "etat_vente,"
 			+ "image,"
 			+ "r.rue as rue,"
 			+ "r.code_postal as cp,"
 			+ "r.ville as ville, "
-			+ "c.libelle,"
+			+ "c.libelle as libelle,"
 			+ "e.no_utilisateur as ench_no_utilisateur, "
 			+ "e.date_enchere as ench_date, "
 			+ "e.montant_enchere as ench_montant"
@@ -146,25 +146,24 @@ public class ArticleDAOImpl implements ArticleDAO{
 			
 			while(rs.next())
 			{
-				ArticleVendu ArticleCourant=new ArticleVendu();
 				if(premiereLigne) {
-					ArticleCourant = ArticleBuilder(rs);
+					item = ArticleBuilder(rs);
 					premiereLigne = false;
 				}
 				//si il y a bien un utilisateur (normalement oui)
 				if(rs.getString("no_user")!=null) {
-					
+					item.setUtilisateur(userBuilder(rs));
 				}
 				//si il y a bien un lieu de retrait
 				//Alors on récupère le RETRAIT
 				if(rs.getString("rue")!=null) {
-					
+					item.setLieuRetrait(retraitBuilder(rs));
 				}
 				
 				//si il y a bien un catégorie
 				//alors on récupère cette Catégorie
 				if(rs.getString("libelle")!=null) {
-
+					item.setCategorie(categorieBuilder(rs));
 				}
 				
 				if(rs.getString("no_user_enchere")!=null) //si il y a une enchere
