@@ -87,7 +87,6 @@ public class ArticleVendu {
 		this.lieuRetrait = lieuRetrait;
 	}
 	
-	
 	public String getImage() {
 		return image;
 	}

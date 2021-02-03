@@ -3,6 +3,7 @@ package org.encheres.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ "from (UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur\r\n"
 			+ "where u.no_utilisateur=?;";
 	private static String INSERT= "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static String DELETE= "delete from UTILISATEURS where no_utilisateur=?";
+	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
 	
 	@Override
 	public void insert(Utilisateur user) {
@@ -80,8 +83,16 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 
 	@Override
 	public void delete(Utilisateur user) {
-		// TODO Auto-generated method stub
-
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
+			pstmt.setInt(1, user.getNoUtilisateur());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -174,6 +185,40 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			e.printStackTrace();
 		}		
 		return user;
+	}
+
+	@Override
+	public void Update(Utilisateur user) {
+		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			try
+			{
+				PreparedStatement pstmt = cnx.prepareStatement(UPDATE_USER);				
+				pstmt.setString(1, user.getTelephone()); //telephone
+				pstmt.setString(2, user.getVille()); //ville
+				pstmt.setBoolean(3, user.isAdministrateur()); //administrateur
+				pstmt.setString(4, user.getCodePostal()); //code_postal
+				pstmt.setInt(5, user.getCredit()); //credit
+				pstmt.setString(6, user.getEmail()); //email
+				pstmt.setString(7, user.getMotDePasse()); //mot_de_passe
+				pstmt.setString(8, user.getNom()); //nom
+				pstmt.setString(9, user.getPrenom()); //prenom
+				pstmt.setString(10, user.getPseudo()); //pseudo
+				pstmt.setString(11, user.getRue()); //rue
+				pstmt.setInt(11, user.getNoUtilisateur()); //no_utilisateur
+				pstmt.executeUpdate();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				cnx.rollback();
+				throw e;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		}
 	}
 
 }
