@@ -60,14 +60,15 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getPseudo());
 			pstmt.setString(2, user.getNom());
-			pstmt.setString(3, user.getEmail());
-			pstmt.setString(4, user.getTelephone());
-			pstmt.setString(5, user.getRue());
-			pstmt.setString(6, user.getCodePostal());
-			pstmt.setString(7, user.getVille());
-			pstmt.setString(8, user.getMotDePasse());
-			pstmt.setInt(9, user.getCredit());
-			pstmt.setBoolean(10, user.isAdministrateur());
+			pstmt.setString(3, user.getPrenom());
+			pstmt.setString(4, user.getEmail());
+			pstmt.setString(5, user.getTelephone());
+			pstmt.setString(6, user.getRue());
+			pstmt.setString(7, user.getCodePostal());
+			pstmt.setString(8, user.getVille());
+			pstmt.setString(9, user.getMotDePasse());
+			pstmt.setInt(10, user.getCredit());
+			pstmt.setBoolean(11, user.isAdministrateur());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next())
