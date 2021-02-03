@@ -45,20 +45,17 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "			LEFT JOIN ENCHERES e ON (a.no_article = e.no_article AND e.no_utilisateur = (SELECT TOP(1) ec.no_utilisateur FROM ENCHERES ec WHERE ec.no_article = a.no_article ORDER BY date_enchere DESC))"
 			+ "			WHERE a.no_article=?";
 	
-	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente)"
-			+ "			+ \"     VALUES(?,?,?,?,?,?,?,?,?,?)";
-	//a voir pour l'image si on garde 'image' ou non
-	/*private static final String INSERT_ARTICLE2 = "INSERT INTO ARTICLES_VENDUS (no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image)"
-			+ "     VALUES(?,?,?,?,?,?,?,?,?,?,?)";*/
+	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image)"
+			+ "     VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from ARTICLES_VENDUS where no_article=?";
 	private static final String UPDATE_PRIXVENTE_INITIAL_ARTICLE="update ARTICLES_VENDUS set prix_initial=? where no_article=?";
 	private static final String UPDATE_PRIXVENTE_FINAL_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
 	private static final String UPDATE_IMAGE_ARTICLE="update ARTICLES_VENDUS set image=? where no_article=?";
-	
 	private static String UPDATE_ARTICLE= "update ARTICLES_VENDUS set date_debut_enchere=?, date_fin_enchere=?, description=?, etat_vente=?, image=?, nom_article=?, prix_initial=?, prix_vente=? where no_article=?";
     
+	
     @Override
-    public void update(ArticleVendu a) {
+    public void update(ArticleVendu article) {
         try(Connection cnx = ConnectionProvider.getConnection())
         {
             try
@@ -66,13 +63,13 @@ public class ArticleDAOImpl implements ArticleDAO{
                 PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ARTICLE);                
                 pstmt.setDate(1, null); //date_debut_enchere
                 pstmt.setDate(2, null); //date_fin_enchere
-                pstmt.setString(3, a.getDescription()); //description
-                pstmt.setString(4, a.getEtatVente()); //etat_vente
-                pstmt.setString(5, a.getImage()); //image
-                pstmt.setString(6, a.getNomArticle(); //nom_article
-                pstmt.setInt(7, a.getMiseAPrix()); //prix_initial
-                pstmt.setInt(8, a.getPrixVente()); //prix_vente
-                pstmt.setInt(9, a.getNoArticle()); //no_article
+                pstmt.setString(3, article.getDescription()); //description
+                pstmt.setString(4, article.getEtatVente()); //etat_vente
+                pstmt.setString(5, article.getImage()); //image
+                pstmt.setString(6, article.getNomArticle()); //nom_article
+                pstmt.setInt(7, article.getMiseAPrix()); //prix_initial
+                pstmt.setInt(8, article.getPrixVente()); //prix_vente
+                pstmt.setInt(9, article.getNoArticle()); //no_article
                 
                 pstmt.executeUpdate();
             }
@@ -100,6 +97,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next())
 			{
+				
 				article.setNoArticle(rs.getInt(1));
 				article.setNomArticle(rs.getString(2));
 				article.setDescription(rs.getString(3));
@@ -109,6 +107,8 @@ public class ArticleDAOImpl implements ArticleDAO{
 				article.setPrixVente(rs.getInt(7));
 				//manque no_utilisateur
 				//manque no_categorie
+				article.setEtatVente(rs.getString(10));
+				article.setImage(rs.getString(11));
 				
 			}
 		} catch (SQLException e) {
@@ -161,10 +161,10 @@ public class ArticleDAOImpl implements ArticleDAO{
 					
 				}
 				
+				//si il y a bien un catégorie
+				//alors on récupère cette Catégorie
 				if(rs.getString("libelle")!=null) {
-					item.getCategorie().add(new Categories(
-							rs.getString("libelle")
-							));
+
 				}
 						
 			}
@@ -188,17 +188,22 @@ public class ArticleDAOImpl implements ArticleDAO{
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
-			ArticleVendu ArticleCourant=new ArticleVendu();
+			ArticleVendu ArticleConsulte=new ArticleVendu();
 			while(rs.next()) {
-				if(rs.getInt("no_article")!=ArticleCourant.getNoArticle()) {
-					ArticleCourant = ArticleBuilder(rs);
-					ListeArticles.add(ArticleCourant);
+				if(rs.getInt("no_article")!=ArticleConsulte.getNoArticle()) {
+					ArticleConsulte = ArticleBuilder(rs);
+					ListeArticles.add(ArticleConsulte);
 				}
 				Categories categorie = categorieBuilder(rs);
-				ArticleCourant.getCategorie();
+				//ici il faut ajouter la catégorie à mon article consulté
+				// mais avec un add. il faut que je modifie la class Categories
+				ArticleConsulte.getCategorie();
 				
 				Utilisateur utilisateur = userBuilder(rs);
-				ArticleCourant.getUtilisateur();
+				ArticleConsulte.getUtilisateur();
+				
+				Retrait retrait = retraitBuilder(rs);
+				ArticleConsulte.getLieuRetrait();
 			}
 		}
 		catch (Exception e)
