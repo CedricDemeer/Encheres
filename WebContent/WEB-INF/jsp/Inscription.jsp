@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -26,10 +29,12 @@
                     <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
                     <strong>ENI-Encheres</strong>
                 </a>
+               <!--
                 <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
                     <img class="small-icon" src="images/user.svg">
                     <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
                 </a>
+                -->
             </nav>
         </header>
 
@@ -41,6 +46,7 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             <!--erreur-->
+           <!--
             <div class="d-flex alert-danger">
                 <div class="col-3 p-2">
                     <img class="small-icon" src="images/error.svg">
@@ -50,9 +56,10 @@
                     <li>un message d'erreur éventuellement !</li>
                     <li>un autre message....</li>
                 </ul>
-            </div>            
+            </div>     
+            -->       
             <!--formulaire-->
-            <form class="form-register needs-validation" novalidate>
+            <form class="form-register needs-validation" novalidate method="post" action="">
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="pseudo">Pseudo</label>

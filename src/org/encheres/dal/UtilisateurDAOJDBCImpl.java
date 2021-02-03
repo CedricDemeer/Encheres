@@ -3,10 +3,12 @@ package org.encheres.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.encheres.bo.ArticleVendu;
+import org.encheres.bo.Categories;
 import org.encheres.bo.Enchere;
 import org.encheres.bo.Utilisateur;
 
@@ -15,38 +17,41 @@ import org.encheres.bo.Utilisateur;
 public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 	
 	private static final String SELECT_ALL = "SELECT * FROM UTILISATEURS";
-	private static final String SELECT_BY_ID = "select\r\n"
-			+ "	u.no_utilisateur as no_user,\r\n"
-			+ "	u.pseudo as pseudo,\r\n"
-			+ "	u.nom as nom,\r\n"
-			+ "	u.prenom as prenom,\r\n"
-			+ "	u.email as email,\r\n"
-			+ "	u.telephone as tel,\r\n"
-			+ "	u.rue as rue,\r\n"
-			+ "	u.code_postal as cp,\r\n"
-			+ "	u.ville as ville,\r\n"
-			+ "	u.mot_de_passe as mdp,\r\n"
-			+ "	u.credit as credit,\r\n"
-			+ "	u.administrateur as admin,\r\n"
-			+ "	a.no_article as no_article,\r\n"
-			+ "	a.nom_article as nom_article,\r\n"
-			+ "	a.description as description_article,\r\n"
-			+ "	a.date_debut_enchere as date_debut_article,\r\n"
-			+ "	a.date_fin_enchere as date_fin_article,\r\n"
-			+ "	a.prix_initial as miseAPrix_article,\r\n"
-			+ "	a.prix_vente as prix_vente_article,\r\n"
-			+ "	a.no_utilisateur as no_user_article,\r\n"
-			+ "	a.no_categorie as no_cat_article,\r\n"
-			+ "	a.etat_vente as stat_article,\r\n"
-			+ "	a.image as image_article,\r\n"
-			+ "	e.date_enchere as date_enchere,\r\n"
-			+ "	e.montant_enchere as montant_enchere,\r\n"
-			+ "	e.no_article as no_article_enchere,\r\n"
-			+ "	e.no_utilisateur as no_user_enchere\r\n"
-			+ "\r\n"
-			+ "from (UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur\r\n"
-			+ "where u.no_utilisateur=?;";
+	private static final String SELECT_BY_ID = "select"
+			+ "	u.no_utilisateur as no_user,"
+			+ "	u.pseudo as pseudo,"
+			+ "	u.nom as nom,"
+			+ "	u.prenom as prenom,"
+			+ "	u.email as email,"
+			+ "	u.telephone as tel,"
+			+ "	u.rue as rue,"
+			+ "	u.code_postal as cp,"
+			+ "	u.ville as ville,"
+			+ "	u.mot_de_passe as mdp,"
+			+ "	u.credit as credit,"
+			+ "	u.administrateur as admin,"
+			+ "	a.no_article as no_article,"
+			+ "	a.nom_article as nom_article,"
+			+ "	a.description as description_article,"
+			+ "	a.date_debut_enchere as date_debut_article,"
+			+ "	a.date_fin_enchere as date_fin_article,"
+			+ "	a.prix_initial as miseAPrix_article,"
+			+ "	a.prix_vente as prix_vente_article,"
+			+ "	a.no_utilisateur as no_user_article,"
+			+ "	a.no_categorie as no_cat_article,"
+			+ "	a.etat_vente as stat_article,"
+			+ "	a.image as image_article,"
+			+ "	e.date_enchere as date_enchere,"
+			+ "	e.montant_enchere as montant_enchere,"
+			+ "	e.no_article as no_article_enchere,"
+			+ "	e.no_utilisateur as no_user_enchere,"
+			+ "	c.libelle as libelle_cat,"
+			+ "	c.no_categorie as no_cat"
+			+ " from ((UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur)left join CATEGORIES c on a.no_categorie=c.no_categorie"
+			+ " where u.no_utilisateur=?;";
 	private static String INSERT= "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static String DELETE= "delete from UTILISATEURS where no_utilisateur=?";
+	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
 	
 	@Override
 	public void insert(Utilisateur user) {
@@ -80,8 +85,16 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 
 	@Override
 	public void delete(Utilisateur user) {
-		// TODO Auto-generated method stub
-
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
+			pstmt.setInt(1, user.getNoUtilisateur());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -147,7 +160,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 				}
 				if(rs.getString("nom_article")!=null) //si il y a un nom article sur la ligne
 				{
-					user.getListeVentes().add(new ArticleVendu(
+					ArticleVendu  a = new ArticleVendu(
 							rs.getInt("no_article"),
 							rs.getString("nom_article"),
 							rs.getString("description_article"),
@@ -155,16 +168,17 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 							rs.getDate("date_fin_article"),
 							rs.getInt("miseAPrix_article"),
 							rs.getInt("prix_vente_article"),
-							rs.getString("stat_article"),
-							rs.getString("image_article"),
-							rs.getInt("no_user_article"),
-							rs.getInt("no_cat_article")));
-					/*int noArticle, String nomArticle, String description, String dateDebutEncheres,
-					String dateFinEncheres, int miseAPrix, int prixVente, String etatVente, String image*/
+							rs.getString("stat_article")
+							);
+					
+					a.setImage(rs.getString("image_article"));
+					a.setUtilisateur(user);
+					a.setCategorie(new Categories(rs.getInt("no_cat"),rs.getString("libelle_cat")));
+					user.getListeVentes().add(a);
+					
 				}
-				if(rs.getString("no_user_enchere")!=null) //ligne suivante nom_article
+				if(rs.getString("no_user_enchere")!=null) //si il y a une enchere
 				{
-					//listeCourse.getArticles().add(new Article(rs.getInt("id_article"), rs.getString("nom_article"), rs.getBoolean("coche")));
 					user.getListeEncheres().add(new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"), rs.getInt("no_user_enchere"),rs.getInt("no_article_enchere")));
 				}
 				
@@ -174,6 +188,40 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			e.printStackTrace();
 		}		
 		return user;
+	}
+
+	@Override
+	public void Update(Utilisateur user) {
+		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			try
+			{
+				PreparedStatement pstmt = cnx.prepareStatement(UPDATE_USER);				
+				pstmt.setString(1, user.getTelephone()); //telephone
+				pstmt.setString(2, user.getVille()); //ville
+				pstmt.setBoolean(3, user.isAdministrateur()); //administrateur
+				pstmt.setString(4, user.getCodePostal()); //code_postal
+				pstmt.setInt(5, user.getCredit()); //credit
+				pstmt.setString(6, user.getEmail()); //email
+				pstmt.setString(7, user.getMotDePasse()); //mot_de_passe
+				pstmt.setString(8, user.getNom()); //nom
+				pstmt.setString(9, user.getPrenom()); //prenom
+				pstmt.setString(10, user.getPseudo()); //pseudo
+				pstmt.setString(11, user.getRue()); //rue
+				pstmt.setInt(11, user.getNoUtilisateur()); //no_utilisateur
+				pstmt.executeUpdate();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				cnx.rollback();
+				throw e;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();			
+		}
 	}
 
 }

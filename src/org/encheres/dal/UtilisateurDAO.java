@@ -9,5 +9,6 @@ public interface UtilisateurDAO {
 	public void delete(Utilisateur user);
 	public List<Utilisateur> selectAll();
 	public Utilisateur selectById(int id);
+	public void Update(Utilisateur user);
 
 }

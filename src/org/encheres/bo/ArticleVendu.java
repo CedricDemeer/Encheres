@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ArticleVendu {
 	
-	
 	private int noArticle;
 	private String nomArticle;
 	private String description ;
@@ -18,8 +17,8 @@ public class ArticleVendu {
 	private List<Enchere> listeEncheres = new ArrayList<Enchere>();
 	private Retrait lieuRetrait;
 	private String image;
-	private int no_categorie;
-	private int no_utilisateur;
+	private Categories categorie;
+	private Utilisateur utilisateur;
 	
 	
 	public int getNoArticle() {
@@ -88,7 +87,6 @@ public class ArticleVendu {
 		this.lieuRetrait = lieuRetrait;
 	}
 	
-	
 	public String getImage() {
 		return image;
 	}
@@ -96,21 +94,25 @@ public class ArticleVendu {
 		this.image = image;
 	}
 	
+	
+	public Categories getCategorie() {
+		return categorie;
+	}
+	public void setCategorie(Categories categorie) {
+		this.categorie = categorie;
+	}
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
+	
 	public ArticleVendu() {
 		super();
 	}
-	public int getNo_categorie() {
-		return no_categorie;
-	}
-	public void setNo_categorie(int no_categorie) {
-		this.no_categorie = no_categorie;
-	}
-	public int getNo_utilisateur() {
-		return no_utilisateur;
-	}
-	public void setNo_utilisateur(int no_utilisateur) {
-		this.no_utilisateur = no_utilisateur;
-	}
+	
 	
 	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
@@ -148,21 +150,7 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 	}
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, String image, int no_user, int no_cat) {
-		super();
-		this.noArticle = noArticle;
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAPrix = miseAPrix;
-		this.prixVente = prixVente;
-		this.etatVente = etatVente;
-		this.image = image;
-		this.no_utilisateur = no_user;
-		this.no_categorie = no_cat;
-	}
+	
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
 			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres) {
 		super();
@@ -200,6 +188,43 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 		this.listeEncheres = listeEncheres;
 		this.lieuRetrait = lieuRetrait;
+	}
+	
+	
+	
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
+			int miseAPrix, String etatVente, List<Enchere> listeEncheres, Retrait lieuRetrait, Categories categorie,
+			Utilisateur utilisateur) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.etatVente = etatVente;
+		this.listeEncheres = listeEncheres;
+		this.lieuRetrait = lieuRetrait;
+		this.categorie = categorie;
+		this.utilisateur = utilisateur;
+	}
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
+			Retrait lieuRetrait, String image, Categories categorie, Utilisateur utilisateur) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.prixVente = prixVente;
+		this.etatVente = etatVente;
+		this.listeEncheres = listeEncheres;
+		this.lieuRetrait = lieuRetrait;
+		this.image = image;
+		this.categorie = categorie;
+		this.utilisateur = utilisateur;
 	}
 	
 
