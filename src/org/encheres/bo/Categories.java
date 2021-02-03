@@ -3,7 +3,7 @@ package org.encheres.bo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class categories {
+public class Categories {
 	private int no_categorie;
 	private String libelle;
 	private List<ArticleVendu> articleCategorie = new ArrayList<ArticleVendu>();
@@ -28,16 +28,16 @@ public class categories {
 	public void setArticleCategorie(List<ArticleVendu> articleCategorie) {
 		this.articleCategorie = articleCategorie;
 	}
-	public categories() {
+	public Categories() {
 		super();
 	}
-	public categories(int no_categorie, String libelle) {
+	public Categories(int no_categorie, String libelle) {
 		super();
 		this.no_categorie = no_categorie;
 		this.libelle = libelle;
 	}
 	
-	public categories(int no_categorie, String libelle, List<ArticleVendu> articleCategorie) {
+	public Categories(int no_categorie, String libelle, List<ArticleVendu> articleCategorie) {
 		super();
 		this.no_categorie = no_categorie;
 		this.libelle = libelle;

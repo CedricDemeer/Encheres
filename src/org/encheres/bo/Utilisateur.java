@@ -200,6 +200,11 @@ public class Utilisateur  {
 		this.listeEncheres = listeEncheres;
 		this.listeVentes = listeVentes;
 	}
+	public Utilisateur(int noUtilisateur, String pseudo) {
+		super();
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+	}
 	
 	
 	
