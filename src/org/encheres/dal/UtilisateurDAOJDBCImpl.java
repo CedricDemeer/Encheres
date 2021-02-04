@@ -11,6 +11,7 @@ import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
 import org.encheres.bo.Enchere;
 import org.encheres.bo.Utilisateur;
+import org.encheres.exceptions.BusinessException;
 import org.encheres.exceptions.DALException;
 
 
@@ -88,7 +89,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
 	
 	@Override
-	public void insert(Utilisateur user) throws DALException {
+	public void insert(Utilisateur user) throws DALException, BusinessException {
+		BusinessException erreurs = new BusinessException();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -115,6 +117,16 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 		catch(SQLException e)
 		{
 			e.printStackTrace();
+			
+			if(e.getMessage().contains("utilisateurs_pseudo_uq")) {
+				erreurs.ajouterErreur("Pseudo déjà utiliser");
+			}
+			if(e.getMessage().contains("utilisateurs_email_uq")) {
+				erreurs.ajouterErreur("Email déjà utiliser");
+			}
+			if (erreurs.hasErreurs()) {
+				throw erreurs;
+			}
 			throw new DALException (e.getMessage());
 		}
 		
@@ -202,8 +214,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 							rs.getInt("no_article"),
 							rs.getString("nom_article"),
 							rs.getString("description_article"),
-							rs.getDate("date_debut_article"),
-							rs.getDate("date_fin_article"),
+							rs.getDate("date_debut_article").toLocalDate(),
+							rs.getDate("date_fin_article").toLocalDate(),
 							rs.getInt("miseAPrix_article"),
 							rs.getInt("prix_vente_article"),
 							rs.getString("stat_article")
@@ -254,6 +266,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			{
 				e.printStackTrace();
 				cnx.rollback();
+				
 				throw e;
 			}
 		} catch (SQLException e) {
@@ -299,8 +312,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 							rs.getInt("no_article"),
 							rs.getString("nom_article"),
 							rs.getString("description_article"),
-							rs.getDate("date_debut_article"),
-							rs.getDate("date_fin_article"),
+							rs.getDate("date_debut_article").toLocalDate(),
+							rs.getDate("date_fin_article").toLocalDate(),
 							rs.getInt("miseAPrix_article"),
 							rs.getInt("prix_vente_article"),
 							rs.getString("stat_article")
