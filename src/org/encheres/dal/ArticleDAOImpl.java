@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
@@ -48,9 +47,9 @@ public class ArticleDAOImpl implements ArticleDAO{
 	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image)"
 			+ "     VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from ARTICLES_VENDUS where no_article=?";
-	private static final String UPDATE_PRIXVENTE_INITIAL_ARTICLE="update ARTICLES_VENDUS set prix_initial=? where no_article=?";
-	private static final String UPDATE_PRIXVENTE_FINAL_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
-	private static final String UPDATE_IMAGE_ARTICLE="update ARTICLES_VENDUS set image=? where no_article=?";
+	//private static final String UPDATE_PRIXVENTE_INITIAL_ARTICLE="update ARTICLES_VENDUS set prix_initial=? where no_article=?";
+	//private static final String UPDATE_PRIXVENTE_FINAL_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
+	//private static final String UPDATE_IMAGE_ARTICLE="update ARTICLES_VENDUS set image=? where no_article=?";
 	private static String UPDATE_ARTICLE= "update ARTICLES_VENDUS set date_debut_enchere=?, date_fin_enchere=?, description=?, etat_vente=?, image=?, nom_article=?, prix_initial=?, prix_vente=? where no_article=?";
     
 	
