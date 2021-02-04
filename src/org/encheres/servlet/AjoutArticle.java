@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.encheres.bll.ArticleManager;
+import org.encheres.bll.CategorieManager;
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
 import org.encheres.bo.Retrait;
@@ -32,6 +33,11 @@ public class AjoutArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		CategorieManager catManager = new CategorieManager();
+		
+		request.setAttribute("listCategories", catManager.getListCategories());
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/AjoutArticle.jsp");
 		rd.forward(request, response);
 	}
@@ -61,7 +67,7 @@ public class AjoutArticle extends HttpServlet {
 		//A gerer dans jsp + ici
 		art.setImage("");
 		
-		int no_cat = 0;
+		/*int no_cat = 0;
 		String libelle = null;
 		
 		switch (request.getParameter("Categorie")) {
@@ -84,12 +90,15 @@ public class AjoutArticle extends HttpServlet {
 
 		default:
 			break;
-		}
+		}*/
 		//lever une exception
 		
-		if(no_cat != 0) 
-		{
-			Categories cat = new Categories(no_cat, libelle);
+		//if(no_cat != 0) 
+		//{
+		
+		//COnnection a la BDD pour récup l'id de la Categorie
+		CategorieManager CatMgr = new CategorieManager();		
+		Categories cat = CatMgr.getCategorieByLibelle(request.getParameter("Categorie"));
 			
 		
 		//on récupère le no_categorie contenu dans cat pour le mettre dans notre article
@@ -143,7 +152,7 @@ public class AjoutArticle extends HttpServlet {
 			rd.forward(request, response);	
 			test=false;
 		}
-		}
+		//}
 		
 		if(test==true) {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");

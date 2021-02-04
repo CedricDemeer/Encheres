@@ -10,6 +10,11 @@ public abstract class DAOFactory {
 		return new ArticleDAOImpl();
 			
 	}
+
+
+	public static CategorieDAO getCategorieDAO() {
+		return new CategorieDAOImpl();
+	}
 	
 	
 }

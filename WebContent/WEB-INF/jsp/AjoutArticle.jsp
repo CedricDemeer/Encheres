@@ -82,10 +82,14 @@
 							class="text-muted">*</span></label>
 				    <br/>
 				        <select name="Categorie">
-				        	<option value="Ameublement" selected="selected">Ameublement</option>
+				        	<c:forEach var="c" items="${listCategories}">
+				      			<option value="${c.libelle }" >${c.libelle }</option>
+				        	</c:forEach>
+				        	
+				        	<!--  <option value="Ameublement" selected="selected">Ameublement</option>
 				        	<option value="Informatique">Informatique</option>
 				        	<option value="SportEtLoisirs">Sports & Loisirs</option>
-				        	<option value="Vetement">Vêtements</option>
+				        	<option value="Vetement">Vêtements</option>-->
 				        </select>
 				        <div class="invalid-feedback">
 				            Ce champ est invalide !
