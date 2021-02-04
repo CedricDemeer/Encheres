@@ -32,7 +32,7 @@
                 </a>
                 <a class="navbar-brand" href="#" alt="GÃ©rer mon profil" title="GÃ©rer mon profil">
                     <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crÃ©dit(s)</span>
+                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
                 </a>
             </nav>
         </header>
@@ -64,7 +64,7 @@
             <!--formulaire-->
              <form class="form-login" action="<%=request.getContextPath()%>/Connexion" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>
-                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo"  value="<%=request.getParameter("pseudo")%>" placeholder="Pseudo" required autofocus>
+                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo" placeholder="Pseudo" value="<%=request.getParameter("pseudo")%>" required autofocus>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Mot de passe" required>
                 <div class="checkbox mb-3">

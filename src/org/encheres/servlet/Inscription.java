@@ -69,6 +69,7 @@ public class Inscription extends HttpServlet {
 				}
 				
 				
+				
 				if(test==true) {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 				rd.forward(request, response);
