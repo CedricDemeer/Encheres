@@ -44,12 +44,13 @@ public class UtilisateurManager {
 	
 	/**
 	 * @param pseudo Le no_utilisateur
+	 * @param email L'email de l'utilisateur
 	 * @return l'utilisateur
 	 */
-	public Utilisateur selectUtilisateurParPseudoOuEmail(String pseudo) {
+	public Utilisateur selectUtilisateurParPseudoOuEmail(String pseudo, String email) {
 
 		Utilisateur user = null;		
-		user = UtilisateurDAO.selectByPseudoOrEmail(pseudo);	
+		user = UtilisateurDAO.selectByPseudoOrEmail(pseudo, email);	
 		return user;
 	}
 	

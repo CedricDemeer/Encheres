@@ -50,13 +50,13 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ "	c.no_categorie as no_cat"
 			+ " from ((UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur)left join CATEGORIES c on a.no_categorie=c.no_categorie"
 			+ " where u.no_utilisateur=?;";
-	private static final String SELECT_BY_PSEUDO = "select"
+	private static final String SELECT_BY_PSEUDO_OR_EMAIL = "select"
 			+ "	u.no_utilisateur as no_user,"
 			//+ "	u.pseudo as pseudo,"
 			+ " u.no_utilisateur as no_user,"
 			+ "	u.nom as nom,"
 			+ "	u.prenom as prenom,"
-			+ "	u.email as email,"
+			//+ "	u.email as email,"
 			+ "	u.telephone as tel,"
 			+ "	u.rue as rue,"
 			+ "	u.code_postal as cp,"
@@ -82,7 +82,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ "	c.libelle as libelle_cat,"
 			+ "	c.no_categorie as no_cat"
 			+ " from ((UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur)left join CATEGORIES c on a.no_categorie=c.no_categorie"
-			+ " where u.pseudo=?;";
+			+ " where u.pseudo=? OR u.email=?;";
 	private static String INSERT= "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static String DELETE= "delete from UTILISATEURS where no_utilisateur=?";
 	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
@@ -265,12 +265,13 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public Utilisateur selectByPseudoOrEmail(String pseudo) {
+	public Utilisateur selectByPseudoOrEmail(String pseudo, String email) {
 		Utilisateur user = null;
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO_OR_EMAIL);
 			pstmt.setString(1, pseudo);
+			pstmt.setString(2, email);
 			ResultSet rs = pstmt.executeQuery();
 			boolean premiereLigne = true;
 			while(rs.next())
