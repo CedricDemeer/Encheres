@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encheres.bll.UtilisateurManager;
 import org.encheres.bo.Utilisateur;
+import org.encheres.exceptions.BusinessException;
 
 /**
  * Servlet implementation class Inscription
@@ -40,6 +41,7 @@ public class Inscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//récup de variable du formulaire
+				Boolean test=true;
 				String pseudo = request.getParameter("pseudo");
 				String nom = request.getParameter("lastname");
 				String prenom = request.getParameter("firstname");
@@ -55,10 +57,23 @@ public class Inscription extends HttpServlet {
 				Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, password);
 				System.out.println(pseudo+ nom + prenom);
 				//envoi a la BLL
-				UserMgr.AjoutUtilisateur(user);
 				
+				try {
+					UserMgr.AjoutUtilisateur(user);
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					request.setAttribute("erreurs", e.getListeMessagesErreur());
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Inscription.jsp");
+					rd.forward(request, response);	
+					test=false;
+				}
+				
+				
+				if(test==true) {
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 				rd.forward(request, response);
+				}
+				
 	}
 
 }

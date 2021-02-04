@@ -11,6 +11,7 @@ import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
 import org.encheres.bo.Enchere;
 import org.encheres.bo.Utilisateur;
+import org.encheres.exceptions.DALException;
 
 
 
@@ -54,7 +55,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
 	
 	@Override
-	public void insert(Utilisateur user) {
+	public void insert(Utilisateur user) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -78,23 +79,28 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			
 			
 		}
-		catch(Exception e)
+		catch(SQLException e)
 		{
+			
 			e.printStackTrace();
+			throw new DALException (e.getMessage());
+			
 		}
+		
 	}
 
 	@Override
-	public void delete(Utilisateur user) {
+	public void delete(Utilisateur user) throws DALException {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 			pstmt.setInt(1, user.getNoUtilisateur());
 			pstmt.executeUpdate();
 			
-		}catch(Exception e)
+		}catch(SQLException e)
 		{
 			e.printStackTrace();
+			throw new DALException(e.getMessage());
 		}
 	}
 

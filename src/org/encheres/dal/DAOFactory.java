@@ -5,4 +5,11 @@ public abstract class DAOFactory {
 		return new UtilisateurDAOJDBCImpl();
 	}
 	
+	
+	public static ArticleDAO getArticleDAO() {
+		return new ArticleDAOImpl();
+			
+	}
+	
+	
 }
