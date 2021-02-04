@@ -90,7 +90,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			cnx.setAutoCommit(false);
+			//cnx.setAutoCommit(false);
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
 									
 				pstmt.setString(1, article.getNomArticle());
@@ -109,6 +109,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 				if(rs.next())
 				{
 					article.setNoArticle(rs.getInt(1));
+					System.err.println(rs.getInt(1));
 				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

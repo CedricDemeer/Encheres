@@ -66,7 +66,7 @@
                     </div>
                 
                     <div class="col-md-6 mb-3">
-                        <label for="dateFinEncheres">Date de début de l'enchère <span
+                        <label for="dateFinEncheres">Date de fin de l'enchère <span
 							class="text-muted">*</span></label>
                         <input type="date" class="form-control" id="dateFinEncheres" name="dateFinEncheres"  value="" required>
                         <div class="invalid-feedback">
