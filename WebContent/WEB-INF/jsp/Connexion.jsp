@@ -23,18 +23,8 @@
 <body>
     <div class="container-fluid">
         <!--emptyHeader-->
-        <header>
-            <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
-                <!-- Brand/logo -->
-                <a class="navbar-brand" href="index.html">
-                    <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
-                    <strong>ENI-Encheres</strong>
-                </a>
-                <a class="navbar-brand" href="#" alt="GÃ©rer mon profil" title="GÃ©rer mon profil">
-                    <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted">XXXXX xxx, 0 crédit(s)</span>
-                </a>
-            </nav>
+       <header>
+           <%@ include file="navbar.html"%>
         </header>
 
         <!--main bloc-->
@@ -45,22 +35,24 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/user.svg" alt="">
             </div>
             <!--erreur-->
+             <c:if test="${!empty bool}">
             <div class="d-flex alert-danger">
                 <div class="col-3 p-2">
                     <img class="small-icon" src="images/error.svg">
                 </div>
             
                 <ul class="col-9 list-unstyled p-2">
-                    <c:if test="${!empty bool}">
+                   
                     
                     <li>${bool}
                      </li>
                      
-                    </c:if>
+                    
                      
                     <li> </li>
                 </ul>
             </div>
+            </c:if>
             <!--formulaire-->
              <form class="form-login" action="<%=request.getContextPath()%>/Connexion" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>

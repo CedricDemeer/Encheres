@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.encheres.bll.UtilisateurManager;
 import org.encheres.bo.Utilisateur;
@@ -71,8 +72,14 @@ public class Inscription extends HttpServlet {
 				
 				
 				if(test==true) {
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
-				rd.forward(request, response);
+				
+					//enregistrement dans la session
+					HttpSession session=request.getSession();
+					session.setAttribute("user", user);
+					
+					//redirection si pas d'exceptions
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
+					rd.forward(request, response);
 				}
 				
 	}
