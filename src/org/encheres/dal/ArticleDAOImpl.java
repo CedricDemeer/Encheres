@@ -44,8 +44,8 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "			LEFT JOIN ENCHERES e ON (a.no_article = e.no_article AND e.no_utilisateur = (SELECT TOP(1) ec.no_utilisateur FROM ENCHERES ec WHERE ec.no_article = a.no_article ORDER BY date_enchere DESC))"
 			+ "			WHERE a.no_article=?";
 	
-	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (no_article,nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image)"
-			+ "     VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS (nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image)"
+			+ "     VALUES(?,?,?,?,?,?,?,?,?,?)";
 	private static final String DELETE_ARTICLE = "delete from ARTICLES_VENDUS where no_article=?";
 	//private static final String UPDATE_PRIXVENTE_INITIAL_ARTICLE="update ARTICLES_VENDUS set prix_initial=? where no_article=?";
 	//private static final String UPDATE_PRIXVENTE_FINAL_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
@@ -60,8 +60,8 @@ public class ArticleDAOImpl implements ArticleDAO{
             try
             {
                 PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ARTICLE);                
-                pstmt.setDate(1, null); //date_debut_enchere
-                pstmt.setDate(2, null); //date_fin_enchere
+                pstmt.setDate(1, java.sql.Date.valueOf(article.getDateDebutEncheres())); //date_debut_enchere
+                pstmt.setDate(2, java.sql.Date.valueOf(article.getDateFinEncheres())); //date_fin_enchere
                 pstmt.setString(3, article.getDescription()); //description
                 pstmt.setString(4, article.getEtatVente()); //etat_vente
                 pstmt.setString(5, article.getImage()); //image
@@ -92,24 +92,24 @@ public class ArticleDAOImpl implements ArticleDAO{
 		{
 			cnx.setAutoCommit(false);
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
-			
-			ResultSet rs = pstmt.getGeneratedKeys();
-			if(rs.next())
-			{
+									
+				pstmt.setString(1, article.getNomArticle());
+				pstmt.setString(2, article.getDescription());
+				pstmt.setDate(3, java.sql.Date.valueOf(article.getDateDebutEncheres()));
+				pstmt.setDate(4, java.sql.Date.valueOf(article.getDateFinEncheres()));
+				pstmt.setInt(5, article.getMiseAPrix());
+				pstmt.setInt(6, article.getPrixVente());
+				//no_utilisateur,
+				//no_categorie,
+				pstmt.setString(9, article.getEtatVente());
+				pstmt.setString(10, article.getImage());
+				pstmt.executeUpdate();
+				ResultSet rs = pstmt.getGeneratedKeys();
 				
-				article.setNoArticle(rs.getInt(1));
-				article.setNomArticle(rs.getString(2));
-				article.setDescription(rs.getString(3));
-				article.setDateDebutEncheres(rs.getDate(4));
-				article.setDateFinEncheres(rs.getDate(5));
-				article.setMiseAPrix(rs.getInt(6));
-				article.setPrixVente(rs.getInt(7));
-				//manque no_utilisateur
-				//manque no_categorie
-				article.setEtatVente(rs.getString(10));
-				article.setImage(rs.getString(11));
-				
-			}
+				if(rs.next())
+				{
+					article.setNoArticle(rs.getInt(1));
+				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
