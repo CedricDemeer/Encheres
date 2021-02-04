@@ -1,5 +1,6 @@
 package org.encheres.bo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +10,8 @@ public class ArticleVendu {
 	private int noArticle;
 	private String nomArticle;
 	private String description ;
-	private Date dateDebutEncheres;
-	private Date dateFinEncheres ;
+	private LocalDate dateDebutEncheres;
+	private LocalDate dateFinEncheres ;
 	private int miseAPrix ;
 	private int prixVente;
 	private String etatVente;
@@ -39,16 +40,16 @@ public class ArticleVendu {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getDateDebutEncheres() {
+	public LocalDate getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
-	public void setDateDebutEncheres(Date dateDebutEncheres) {
+	public void setDateDebutEncheres(LocalDate dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
-	public Date getDateFinEncheres() {
+	public LocalDate getDateFinEncheres() {
 		return dateFinEncheres;
 	}
-	public void setDateFinEncheres(Date dateFinEncheres) {
+	public void setDateFinEncheres(LocalDate dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 	public int getMiseAPrix() {
@@ -115,8 +116,8 @@ public class ArticleVendu {
 	
 	
 	
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, String etatVente) {
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, String etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -127,8 +128,8 @@ public class ArticleVendu {
 	}
 	
 	
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, String etatVente) {
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, String etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -138,8 +139,8 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 		this.etatVente = etatVente;
 	}
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente) {
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, String etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -151,8 +152,8 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 	
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres) {
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -164,7 +165,7 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 		this.listeEncheres = listeEncheres;
 	}
-	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			String etatVente, List<Enchere> listeEncheres) {
 		super();
 		this.nomArticle = nomArticle;
@@ -174,8 +175,8 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 		this.listeEncheres = listeEncheres;
 	}
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
 			Retrait lieuRetrait) {
 		super();
 		this.noArticle = noArticle;
@@ -192,7 +193,16 @@ public class ArticleVendu {
 	
 	
 	
-	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres, Date dateFinEncheres,
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int miseAPrix) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+	}
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
 			int miseAPrix, String etatVente, List<Enchere> listeEncheres, Retrait lieuRetrait, Categories categorie,
 			Utilisateur utilisateur) {
 		super();
@@ -208,8 +218,8 @@ public class ArticleVendu {
 		this.utilisateur = utilisateur;
 	}
 	
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAPrix, int prixVente, String etatVente, List<Enchere> listeEncheres,
 			Retrait lieuRetrait, String image, Categories categorie, Utilisateur utilisateur) {
 		super();
 		this.noArticle = noArticle;
@@ -225,6 +235,10 @@ public class ArticleVendu {
 		this.image = image;
 		this.categorie = categorie;
 		this.utilisateur = utilisateur;
+	}
+	public ArticleVendu(String nomArticle2, String description2, LocalDate dateDebutEncheres2,
+			LocalDate dateFinEncheres2, String miseAPrix2) {
+		// TODO Auto-generated constructor stub
 	}
 	
 
