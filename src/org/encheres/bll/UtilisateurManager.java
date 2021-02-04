@@ -27,6 +27,12 @@ public class UtilisateurManager {
 		return UtilisateurDAO.selectAll();
 	}
 
+	public void Testmanager()
+	{
+		System.out.println("test");
+
+	}
+
 	/**
 	 * @param id Le no_utilisateur
 	 * @return l'utilisateur
@@ -41,7 +47,7 @@ public class UtilisateurManager {
 		}
 		return user;
 	}
-	
+
 	/**
 	 * @param pseudo Le no_utilisateur
 	 * @param email L'email de l'utilisateur
@@ -53,7 +59,7 @@ public class UtilisateurManager {
 		user = UtilisateurDAO.selectByPseudoOrEmail(pseudo, email);	
 		return user;
 	}
-	
+
 	/**
 	 * @param u L'utilisateur a ajouter dans la BDD
 	 * @return l'utilisateur
@@ -62,6 +68,8 @@ public class UtilisateurManager {
 	public Utilisateur AjoutUtilisateur(Utilisateur  u) throws BusinessException {
 		BusinessException exception =new BusinessException();
 		//vÃ©rif sur l'utilisateur, les champs obligatoire en BDD
+
+
 
 
 		try {
@@ -111,17 +119,82 @@ public class UtilisateurManager {
 	 * @throws BusinessException
 	 */
 
-	public Utilisateur modifierUtilisateur (Utilisateur u) throws BusinessException {
+	public Utilisateur modifierUtilisateur (Utilisateur u) throws BusinessException 
+	{
 		BusinessException exception= new BusinessException();
 
 
 		UtilisateurDAO.Update(u);
 
-
-
-
 		return u;
 	}
 
+
+
+
+	public void validerUtilisateur(Utilisateur u, String motDePasse ) throws BusinessException
+	{
+		BusinessException BusinessException= new BusinessException();
+
+		if(u.getPseudo().length()>30 || u.getPseudo()=="") {
+
+			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30");
+
+		}
+		if(u.getNom().length()>30 || u.getNom()=="") {
+
+			BusinessException.ajouterErreur("Nom inexistant ou taille > à 30");
+
+		}
+
+		if(u.getPrenom().length()>30 || u.getPrenom()=="") {
+
+			BusinessException.ajouterErreur("Prenom inexistant ou taille > à 30");
+
+		}
+
+		if(u.getEmail().length()>20 || u.getEmail()=="") {
+
+			BusinessException.ajouterErreur("Email inexistant ou taille > à 30");
+
+		}
+
+		if(u.getRue().length()>30 || u.getRue()=="") {
+
+			BusinessException.ajouterErreur("Rue inexistant ou taille > à 30");
+
+		}
+		if(u.getCodePostal().length()>10 || u.getCodePostal()=="") {
+
+			BusinessException.ajouterErreur("CodePostale inexistant ou taille > à 30");
+
+		}
+		if(u.getVille().length()>30 || u.getVille()=="") {
+
+			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30");
+
+
+		}	
+		if(!u.getMotDePasse().equals(motDePasse)) {
+
+			BusinessException.ajouterErreur("Mot de passe différent");
+
+		}
+
+
+		if (BusinessException.hasErreurs())
+		{
+
+			throw BusinessException;
+
+		}
+
+
+		AjoutUtilisateur(u);
+
+	}
+
+	
+	
 
 }

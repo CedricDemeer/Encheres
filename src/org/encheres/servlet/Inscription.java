@@ -54,12 +54,15 @@ public class Inscription extends HttpServlet {
 				String code_postal = request.getParameter("zipcode");
 				String ville = request.getParameter("city");
 				String password = request.getParameter("password");
+				String confirm_password= request.getParameter("confirm_password");
 				//création du utilisateur manager
 				UtilisateurManager UserMgr = new UtilisateurManager();
 				//création de l'utilisateur
 				Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, password);
 				System.out.println(pseudo+ nom + prenom);
 				//envoi a la BLL
+				
+				
 				
 				try {
 					UserMgr.AjoutUtilisateur(user);

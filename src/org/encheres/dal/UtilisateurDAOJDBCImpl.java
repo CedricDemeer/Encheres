@@ -51,6 +51,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ "	c.no_categorie as no_cat"
 			+ " from ((UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur)left join CATEGORIES c on a.no_categorie=c.no_categorie"
 			+ " where u.no_utilisateur=?;";
+	
 	private static final String SELECT_BY_PSEUDO_OR_EMAIL = "select"
 			+ "	u.no_utilisateur as no_user,"
 			//+ "	u.pseudo as pseudo,"
@@ -119,10 +120,10 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			e.printStackTrace();
 			
 			if(e.getMessage().contains("utilisateurs_pseudo_uq")) {
-				erreurs.ajouterErreur("Pseudo dÃ©jÃ  utiliser");
+				erreurs.ajouterErreur("Pseudo déjà  utilisé");
 			}
 			if(e.getMessage().contains("utilisateurs_email_uq")) {
-				erreurs.ajouterErreur("Email dÃ©jÃ  utiliser");
+				erreurs.ajouterErreur("Email déjà  utilisé");
 			}
 			if (erreurs.hasErreurs()) {
 				throw erreurs;

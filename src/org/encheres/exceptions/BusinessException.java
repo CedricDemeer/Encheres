@@ -12,7 +12,7 @@ private List<String> listeMessagesErreur;
 		listeMessagesErreur = new ArrayList<String>();
 	}
 	
-	public void ajouterErreur(String message) {
+	public  void ajouterErreur(String message) {
 		//TODO gérer les doublons dans la liste
 		if (!listeMessagesErreur.contains(message)) {
 			listeMessagesErreur.add(message);
