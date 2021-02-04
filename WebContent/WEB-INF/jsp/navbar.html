@@ -27,6 +27,7 @@
                             <img class="small-icon" src="images/menu.svg" alt="Menu ENI-Encheres">
                         </a>
                         <div class="dropdown-menu">
+                       
                             <a class="dropdown-item" href="#" alt="Administrer le site">Administrer</a> 
                             <a class="dropdown-item" href="#" alt="Vendre un article">Vendre un article</a>
                             <a class="dropdown-item" href="#" alt="Me dÃ©connecter">Me déconnecter</a>
@@ -35,9 +36,20 @@
                         </div>
                     </li>  
                     <!-- Links for medium screen-->
+                      	<c:choose> 
+                    <c:when test="${sessionScope.user.isAdministrateur()==true}">
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href=./Administrer alt="Administrer le site">Administrer</a>
                     </li> 
+                    </c:when>
+                    <c:when test="${sessionScope.user.isAdministrateur()==false}">
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link" href=./Gérer  alt="Gérer Profil">Gérer Profil</a>
+                    </li> 
+                    </c:when>
+                 
+                    </c:choose>
+                   
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="#" alt="Vendre un article">Vendre un article</a>
                     </li>

@@ -59,9 +59,7 @@ public class Connexion extends HttpServlet {
 
 		utilisateurs=utilisateurManager.selectToutLesUtilisateur();
 
-		//request.setAttribute("liste", identifiant);
-		//request.setAttribute("liste1", password);
-
+		
 		for (int i=0;i<utilisateurs.size();i++)
 		{
 			String u1=utilisateurs.get(i).getPseudo().trim();
@@ -88,14 +86,11 @@ public class Connexion extends HttpServlet {
 		}else
 		{
 			cnx=true;
-			request.setAttribute("bool","identifiant ou mot de passe erronÃ©");
+			request.setAttribute("bool","identifiant ou mot de passe erroné");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Connexion.jsp");
 			rd.forward(request, response);
 
 		}
-
-
-
 
 
 	}

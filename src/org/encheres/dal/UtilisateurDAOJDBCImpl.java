@@ -114,10 +114,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 		}
 		catch(SQLException e)
 		{
-			
 			e.printStackTrace();
 			throw new DALException (e.getMessage());
-			
 		}
 		
 	}
