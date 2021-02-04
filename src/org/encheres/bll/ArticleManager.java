@@ -5,6 +5,7 @@ import org.encheres.dal.ArticleDAO;
 import org.encheres.dal.DAOFactory;
 import org.encheres.dal.UtilisateurDAO;
 import org.encheres.exceptions.BusinessException;
+import org.encheres.exceptions.DALException;
 
 public class ArticleManager {
 
@@ -21,8 +22,13 @@ public class ArticleManager {
 		}
 
 		public void AjoutArticle(ArticleVendu article) throws BusinessException{
-			// TODO Auto-generated method stub
-			
+			//BusinessException exception =new BusinessException();
+			//vérif sur l'utilisateur, les champs obligatoire en BDD
+
+
+			ArticleDAO.insert(article);
+
+
 		}
 		
 		
