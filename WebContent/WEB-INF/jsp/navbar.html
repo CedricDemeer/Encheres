@@ -11,12 +11,11 @@
                     <span class="align-middle text-muted"></span>
                    	<c:choose> 
                     <c:when test="${!empty sessionScope.user}">
-                    ${user.getNom()} ${user.getPrenom()} ${user.getCredit()} crédits(s)
+                    ${user.getNom()} ${user.getPrenom()} ${user.getCredit()} crï¿½dits(s)
                     </c:when>
                     <c:when test="${empty sessionScope.user}">
-                     XXX xx crédits(s)
+                     XXX xx crï¿½dits(s)
                     </c:when>
-                 
                     </c:choose>
                 </a>
 
@@ -30,7 +29,7 @@
                        
                             <a class="dropdown-item" href="#" alt="Administrer le site">Administrer</a> 
                             <a class="dropdown-item" href="#" alt="Vendre un article">Vendre un article</a>
-                            <a class="dropdown-item" href="" alt="Me dÃ©connecter">Me déconnecter</a>
+                            <a class="dropdown-item" href="" alt="Me dÃ©connecter">Me dï¿½connecter</a>
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Inscription" alt="S'inscrire Ã  ENI-Encheres">M'inscrire</a>
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Connexion" alt="Se connecter Ã  ENI-Encheres">Me connecter</a>
                         </div>
@@ -44,7 +43,7 @@
                     </c:when>
                     <c:when test="${sessionScope.user.isAdministrateur()==false}">
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href=./Gï¿½rer  alt="Gï¿½rer Profil">Gérer Profil</a>
+                        <a class="nav-link" href=./Gï¿½rer  alt="Gï¿½rer Profil">Gï¿½rer Profil</a>
                     </li> 
                     </c:when>
                  
@@ -54,7 +53,7 @@
                         <a class="nav-link" href="#" alt="Vendre un article">Vendre un article</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Me dÃ©connecter">Me déconnecter</a>
+                        <a class="nav-link" href="#" alt="Me dÃ©connecter">Me dï¿½connecter</a>
                     </li>
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="./Inscription" alt="S'inscrire Ã  ENI-Encheres">M'inscrire</a>
