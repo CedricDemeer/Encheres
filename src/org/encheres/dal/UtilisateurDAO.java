@@ -11,5 +11,6 @@ public interface UtilisateurDAO {
 	public List<Utilisateur> selectAll();
 	public Utilisateur selectById(int id);
 	public void Update(Utilisateur user);
+	public Utilisateur selectByPseudoOrEmail(String pseudo);
 
 }

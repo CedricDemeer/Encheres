@@ -50,6 +50,39 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ "	c.no_categorie as no_cat"
 			+ " from ((UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur)left join CATEGORIES c on a.no_categorie=c.no_categorie"
 			+ " where u.no_utilisateur=?;";
+	private static final String SELECT_BY_PSEUDO = "select"
+			+ "	u.no_utilisateur as no_user,"
+			//+ "	u.pseudo as pseudo,"
+			+ " u.no_utilisateur as no_user,"
+			+ "	u.nom as nom,"
+			+ "	u.prenom as prenom,"
+			+ "	u.email as email,"
+			+ "	u.telephone as tel,"
+			+ "	u.rue as rue,"
+			+ "	u.code_postal as cp,"
+			+ "	u.ville as ville,"
+			+ "	u.mot_de_passe as mdp,"
+			+ "	u.credit as credit,"
+			+ "	u.administrateur as admin,"
+			+ "	a.no_article as no_article,"
+			+ "	a.nom_article as nom_article,"
+			+ "	a.description as description_article,"
+			+ "	a.date_debut_enchere as date_debut_article,"
+			+ "	a.date_fin_enchere as date_fin_article,"
+			+ "	a.prix_initial as miseAPrix_article,"
+			+ "	a.prix_vente as prix_vente_article,"
+			+ "	a.no_utilisateur as no_user_article,"
+			+ "	a.no_categorie as no_cat_article,"
+			+ "	a.etat_vente as stat_article,"
+			+ "	a.image as image_article,"
+			+ "	e.date_enchere as date_enchere,"
+			+ "	e.montant_enchere as montant_enchere,"
+			+ "	e.no_article as no_article_enchere,"
+			+ "	e.no_utilisateur as no_user_enchere,"
+			+ "	c.libelle as libelle_cat,"
+			+ "	c.no_categorie as no_cat"
+			+ " from ((UTILISATEURS u left join ARTICLES_VENDUS a on u.no_utilisateur=a.no_utilisateur) left join ENCHERES e on u.no_utilisateur=e.no_utilisateur)left join CATEGORIES c on a.no_categorie=c.no_categorie"
+			+ " where u.pseudo=?;";
 	private static String INSERT= "insert into UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static String DELETE= "delete from UTILISATEURS where no_utilisateur=?";
 	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
@@ -229,6 +262,68 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();			
 		}
+	}
+
+	@Override
+	public Utilisateur selectByPseudoOrEmail(String pseudo) {
+		Utilisateur user = null;
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			pstmt.setString(1, pseudo);
+			ResultSet rs = pstmt.executeQuery();
+			boolean premiereLigne = true;
+			while(rs.next())
+			{
+				if(premiereLigne) //user
+				{
+					user = new Utilisateur(
+							rs.getInt("no_user"),
+							//rs.getString("pseudo"),
+							pseudo,
+							rs.getString("nom"),
+							rs.getString("prenom"),
+							rs.getString("email"),
+							rs.getString("tel"),
+							rs.getString("rue"),
+							rs.getString("cp"),
+							rs.getString("ville"),
+							rs.getString("mdp"),
+							rs.getInt("credit"),
+							rs.getBoolean("admin"));
+					
+					premiereLigne=false;
+				}
+				if(rs.getString("nom_article")!=null) //si il y a un nom article sur la ligne
+				{
+					ArticleVendu  a = new ArticleVendu(
+							rs.getInt("no_article"),
+							rs.getString("nom_article"),
+							rs.getString("description_article"),
+							rs.getDate("date_debut_article"),
+							rs.getDate("date_fin_article"),
+							rs.getInt("miseAPrix_article"),
+							rs.getInt("prix_vente_article"),
+							rs.getString("stat_article")
+							);
+					
+					a.setImage(rs.getString("image_article"));
+					a.setUtilisateur(user);
+					a.setCategorie(new Categories(rs.getInt("no_cat"),rs.getString("libelle_cat")));
+					user.getListeVentes().add(a);
+					
+				}
+				if(rs.getString("no_user_enchere")!=null) //si il y a une enchere
+				{
+					user.getListeEncheres().add(new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"), rs.getInt("no_user_enchere"),rs.getInt("no_article_enchere")));
+				}
+				
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}		
+		return user;
 	}
 
 }

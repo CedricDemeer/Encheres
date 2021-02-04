@@ -41,6 +41,18 @@ public class UtilisateurManager {
 		}
 		return user;
 	}
+	
+	/**
+	 * @param pseudo Le no_utilisateur
+	 * @return l'utilisateur
+	 */
+	public Utilisateur selectUtilisateurParPseudoOuEmail(String pseudo) {
+
+		Utilisateur user = null;		
+		user = UtilisateurDAO.selectByPseudoOrEmail(pseudo);	
+		return user;
+	}
+	
 	/**
 	 * @param u L'utilisateur a ajouter dans la BDD
 	 * @return l'utilisateur
@@ -67,7 +79,7 @@ public class UtilisateurManager {
 
 	/**
 	 * 
-	 * @param u L'utilisateur à supprimer
+	 * @param u L'utilisateur ï¿½ supprimer
 	 * @return l'utilisateur
 	 * @throws BusinessException
 	 */
