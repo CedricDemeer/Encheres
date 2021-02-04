@@ -52,11 +52,10 @@ public class AjoutArticle extends HttpServlet {
 		LocalDate dateFinEncheres = null;
 		
 		int miseAPrix = Integer.parseInt(request.getParameter("prixInitial"));
-		
 		ArticleVendu art = new ArticleVendu();
 		art.setNomArticle(nomArticle);
 		art.setDescription(description);
-		art.setPrixVente(miseAPrix);
+		art.setMiseAPrix(miseAPrix);
 		art.setEtatVente("CR");
 		
 		//A gerer dans jsp + ici
