@@ -216,8 +216,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 							rs.getInt("no_article"),
 							rs.getString("nom_article"),
 							rs.getString("description_article"),
-							rs.getDate("date_debut_article"),
-							rs.getDate("date_fin_article"),
+							rs.getDate("date_debut_article").toLocalDate(),
+							rs.getDate("date_fin_article").toLocalDate(),
 							rs.getInt("miseAPrix_article"),
 							rs.getInt("prix_vente_article"),
 							rs.getString("stat_article")
@@ -314,8 +314,8 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 							rs.getInt("no_article"),
 							rs.getString("nom_article"),
 							rs.getString("description_article"),
-							rs.getDate("date_debut_article"),
-							rs.getDate("date_fin_article"),
+							rs.getDate("date_debut_article").toLocalDate(),
+							rs.getDate("date_fin_article").toLocalDate(),
 							rs.getInt("miseAPrix_article"),
 							rs.getInt("prix_vente_article"),
 							rs.getString("stat_article")
