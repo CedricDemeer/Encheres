@@ -166,7 +166,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 					item.setCategorie(categorieBuilder(rs));
 				}
 				
-				if(rs.getString("no_user_enchere")!=null) //si il y a une enchere
+				if(rs.getString("ench_no_utilisateur")!=null) //si il y a une enchere
 				{
 					item.getListeEncheres().add(
 							new Enchere(
@@ -204,16 +204,11 @@ public class ArticleDAOImpl implements ArticleDAO{
 					ArticleConsulte = ArticleBuilder(rs);
 					ListeArticles.add(ArticleConsulte);
 				}
-				Categories categorie = categorieBuilder(rs);
-				//ici il faut ajouter la catégorie à mon article consulté
-				// mais avec un add. il faut que je modifie la class Categories
-				ArticleConsulte.getCategorie();
-				
-				Utilisateur utilisateur = userBuilder(rs);
-				ArticleConsulte.getUtilisateur();
-				
-				Retrait retrait = retraitBuilder(rs);
-				ArticleConsulte.getLieuRetrait();
+				//ici il faut ajouter la catégorie , l'utilisateur et le lieu de retrait
+				//à chaque article.
+				ArticleConsulte.setCategorie(categorieBuilder(rs));
+				ArticleConsulte.setUtilisateur(userBuilder(rs));
+				ArticleConsulte.setLieuRetrait(retraitBuilder(rs));
 			}
 		}
 		catch (Exception e)
