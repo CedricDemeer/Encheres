@@ -18,71 +18,19 @@
     <!--icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <title>ENI-Encheres : Liste des enchÃ¨res</title>
+    <title>ENI-Encheres : Liste des enchères</title>
 </head>
 <body>
     <div class="container-fluid">
         <!--fullHeader-->
         <header>
-            <nav class="pr-5 navbar navbar-expand-sm bg-dark navbar-dark align-top justify-content-between">
-                <!-- Brand/logo -->
-                <a class="navbar-brand" href="index.html">
-                    <img class="small-icon" src="images/trocenchere.svg" alt="Accueil ENI-Encheres">
-                    <strong>ENI-Encheres</strong>
-                </a>
-
-                <a class="navbar-brand" href="#" alt="GÃ©rer mon profil" title="GÃ©rer mon profil">
-                    <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted"></span>
-                   	<c:choose> 
-                    <c:when test="${!empty sessionScope.user}">
-                    ${user.getNom()} ${user.getPrenom()} ${user.getCredit()} crédits(s)
-                    </c:when>
-                    <c:when test="${empty sessionScope.user}">
-                     XXX xx crédits(s)
-                    </c:when>
-                 
-                    </c:choose>
-                </a>
-
-                <ul class="navbar-nav ml-auto">
-                    <!-- Dropdown for small screen -->
-                    <li class="nav-item dropdown d-lg-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            <img class="small-icon" src="images/menu.svg" alt="Menu ENI-Encheres">
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#" alt="Administrer le site">Administrer</a> 
-                            <a class="dropdown-item" href="#" alt="Vendre un article">Vendre un article</a>
-                            <a class="dropdown-item" href="#" alt="Me dÃ©connecter">Me dÃ©connecter</a>
-                            <a class="dropdown-item" href="register.html" alt="S'inscrire Ã  ENI-Encheres">M'inscrire</a>
-                            <a class="dropdown-item" href="login.html" alt="Se connecter Ã  ENI-Encheres">Me connecter</a>
-                        </div>
-                    </li>  
-                    <!-- Links for medium screen-->
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href=./Administrer alt="Administrer le site">Administrer</a>
-                    </li> 
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Vendre un article">Vendre un article</a>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="#" alt="Me dÃ©connecter">Me dÃ©connecter</a>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./Inscription" alt="S'inscrire Ã  ENI-Encheres">M'inscrire</a>
-                    </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="./Connexion" alt="Se connecter Ã  ENI-Encheres">Me connecter</a>
-                    </li>
-                </ul>
-            </nav>
+           <%@ include file="navbar.html"%>
         </header>
         <!--main bloc-->
         <main>
             <!--title-->
             <div class="mx-auto text-center">
-                <h1>EnchÃ¨res</h1>
+                <h1>Enchères</h1>
             </div>
             <!--erreur-->
             <div class="d-flex alert-danger">
@@ -91,7 +39,7 @@
                 </div>
             
                 <ul class="col-9 list-unstyled p-2">
-                    <li>un message d'erreur Ã©ventuellement !</li>
+                    <li>un message d'erreur éventuellement !</li>
                     <li>un autre message....</li>
                 </ul>
             </div>
@@ -105,12 +53,12 @@
                                 <input type="text" class="form-control" id="filter-input" name="q" placeholder="articles contenant...">
                         </div>
                         <div class="form-group">
-                            <label for="categories-select">CatÃ©gories</label>
+                            <label for="categories-select">Catégories</label>
                             <select class="form-control" id="categories-select" name="categorie">
                                 <option selected>Toutes</option>
                                 <option name="categorie" value="">Informatique</option>
                                 <option name="categorie" value="">Ameublement</option>
-                                <option name="categorie" value="">VÃªtement</option>
+                                <option name="categorie" value="">Vétement</option>
                                 <option name="categorie" value="">Sport & Loisirs</option>
                             </select>
                         </div>
@@ -125,17 +73,17 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" checked name="encheres" value="ouvertes" id="ouvertes">EnchÃ¨res ouvertes
+                                    <input type="checkbox" class="form-check-input" checked name="encheres" value="ouvertes" id="ouvertes">Enchères ouvertes
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="encours" id="encours">Mes enchÃ¨res en cours
+                                    <input type="checkbox" class="form-check-input" name="encheres" value="encours" id="encours">Mes enchères en cours
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="remportees" id="remportees">Mes enchÃ¨res remportÃ©es
+                                    <input type="checkbox" class="form-check-input" name="encheres" value="remportees" id="remportees">Mes enchères remportées
                                 </label>
                             </div>
                         </div>
@@ -152,12 +100,12 @@
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="nondebutees" id="nondebutees">Mes ventes non dÃ©butÃ©es
+                                    <input type="checkbox" class="form-check-input" name="ventes" value="nondebutees" id="nondebutees">Mes ventes non débutées
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="terminees" id="terminees">Mes ventes terminÃ©es
+                                    <input type="checkbox" class="form-check-input" name="ventes" value="terminees" id="terminees">Mes ventes terminées
                                 </label>
                             </div>
                         </div>
@@ -182,8 +130,8 @@
                             </div>
                             <ul class="col-9 list-unstyled p-2">
                                 <li>Prix : 0 point(s)</li>
-                                <li>Meilleure enchÃ¨re : 0 point(s)</li>
-                                <li>Fin de l'enchÃ¨re : dd-MM-yyyy HH:mm</li>
+                                <li>Meilleure enchère : 0 point(s)</li>
+                                <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
                                 <li>Vendeur : xxxxxxxxx</li>
                             </ul>
                         </div>
@@ -203,8 +151,8 @@
                             </div>
                             <ul class="col-9 list-unstyled p-2">
                                 <li>Prix : 0 point(s)</li>
-                                <li>Meilleure enchÃ¨re : 0 point(s)</li>
-                                <li>Fin de l'enchÃ¨re : dd-MM-yyyy HH:mm</li>
+                                <li>Meilleure enchère : 0 point(s)</li>
+                                <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
                                 <li>Vendeur : xxxxxxxxx</li>
                             </ul>
                         </div>
@@ -224,8 +172,8 @@
                         </div>
                         <ul class="col-9 list-unstyled p-2">
                             <li>Prix : 0 point(s)</li>
-                            <li>Meilleure enchÃ¨re : 0 point(s)</li>
-                            <li>Fin de l'enchÃ¨re : dd-MM-yyyy HH:mm</li>
+                            <li>Meilleure enchère : 0 point(s)</li>
+                            <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
                             <li>Vendeur : xxxxxxxxx</li>
                         </ul>
                     </div>
