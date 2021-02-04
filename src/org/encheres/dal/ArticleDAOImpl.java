@@ -99,8 +99,8 @@ public class ArticleDAOImpl implements ArticleDAO{
 				pstmt.setDate(4, java.sql.Date.valueOf(article.getDateFinEncheres()));
 				pstmt.setInt(5, article.getMiseAPrix());
 				pstmt.setInt(6, article.getPrixVente());
-				//no_utilisateur 
-				//no_categorie
+				pstmt.setInt(7, article.getUtilisateur().getNoUtilisateur());
+				pstmt.setInt(8, article.getCategorie().getNo_categorie());
 				pstmt.setString(9, article.getEtatVente());
 				pstmt.setString(10, article.getImage());
 				pstmt.executeUpdate();
