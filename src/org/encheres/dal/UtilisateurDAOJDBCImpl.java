@@ -120,10 +120,10 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			e.printStackTrace();
 			
 			if(e.getMessage().contains("utilisateurs_pseudo_uq")) {
-				erreurs.ajouterErreur("Pseudo d�j� utilis�");
+				erreurs.ajouterErreur("Pseudo déjà utilisé");
 			}
 			if(e.getMessage().contains("utilisateurs_email_uq")) {
-				erreurs.ajouterErreur("Email d�j�  utilis�");
+				erreurs.ajouterErreur("Email déjà  utilisé");
 			}
 			if (erreurs.hasErreurs()) {
 				throw erreurs;
@@ -242,12 +242,10 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 	}
 
 	@Override
-	public void Update(Utilisateur user) {
-		
+	public void Update(Utilisateur user) throws BusinessException {
+		BusinessException erreurs = new BusinessException();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
-			try
-			{
 				PreparedStatement pstmt = cnx.prepareStatement(UPDATE_USER);				
 				pstmt.setString(1, user.getTelephone()); //telephone
 				pstmt.setString(2, user.getVille()); //ville
@@ -262,16 +260,19 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 				pstmt.setString(11, user.getRue()); //rue
 				pstmt.setInt(11, user.getNoUtilisateur()); //no_utilisateur
 				pstmt.executeUpdate();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-				cnx.rollback();
-				
-				throw e;
-			}
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
+			if(e.getMessage().contains("utilisateurs_pseudo_uq")) {
+				erreurs.ajouterErreur("Pseudo déjà utilisé");
+			}else if(e.getMessage().contains("utilisateurs_email_uq")) {
+				erreurs.ajouterErreur("Email déjà  utilisé");
+			}else{
+				erreurs.ajouterErreur(e.getMessage());
+			}
+			if (erreurs.hasErreurs()) {
+				throw erreurs;
+			}
 			e.printStackTrace();			
 		}
 	}

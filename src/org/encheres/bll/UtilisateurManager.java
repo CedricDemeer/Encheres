@@ -1,6 +1,5 @@
 package org.encheres.bll;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.encheres.bo.Utilisateur;
@@ -138,46 +137,46 @@ public class UtilisateurManager {
 
 		if(u.getPseudo().length()>30 || u.getPseudo()=="") {
 
-			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("Pseudo inexistant ou taille > ï¿½ 30");
 
 		}
 		if(u.getNom().length()>30 || u.getNom()=="") {
 
-			BusinessException.ajouterErreur("Nom inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("Nom inexistant ou taille > ï¿½ 30");
 
 		}
 
 		if(u.getPrenom().length()>30 || u.getPrenom()=="") {
 
-			BusinessException.ajouterErreur("Prenom inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("Prenom inexistant ou taille > ï¿½ 30");
 
 		}
 
 		if(u.getEmail().length()>20 || u.getEmail()=="") {
 
-			BusinessException.ajouterErreur("Email inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("Email inexistant ou taille > ï¿½ 30");
 
 		}
 
 		if(u.getRue().length()>30 || u.getRue()=="") {
 
-			BusinessException.ajouterErreur("Rue inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("Rue inexistant ou taille > ï¿½ 30");
 
 		}
 		if(u.getCodePostal().length()>10 || u.getCodePostal()=="") {
 
-			BusinessException.ajouterErreur("CodePostale inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("CodePostale inexistant ou taille > ï¿½ 30");
 
 		}
 		if(u.getVille().length()>30 || u.getVille()=="") {
 
-			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30");
+			BusinessException.ajouterErreur("Pseudo inexistant ou taille > ï¿½ 30");
 
 
 		}	
 		if(!u.getMotDePasse().equals(motDePasse)) {
 
-			BusinessException.ajouterErreur("Mot de passe différent");
+			BusinessException.ajouterErreur("Mot de passe diffï¿½rent");
 
 		}
 

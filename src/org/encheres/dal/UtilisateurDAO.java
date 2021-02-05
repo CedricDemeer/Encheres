@@ -11,7 +11,7 @@ public interface UtilisateurDAO {
 	public void delete(Utilisateur user) throws DALException;
 	public List<Utilisateur> selectAll();
 	public Utilisateur selectById(int id);
-	public void Update(Utilisateur user);
+	public void Update(Utilisateur user) throws BusinessException;
 	public Utilisateur selectByPseudoOrEmail(String pseudo, String email);
 
 }
