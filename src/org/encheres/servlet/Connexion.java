@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,7 @@ public class Connexion extends HttpServlet {
 		String identifiant;
 		String password;
 		boolean cnx=false;
+		Cookie[] cookies = request.getCookies(); 
 		Utilisateur user= new Utilisateur();
 
 		identifiant=request.getParameter("pseudo");
@@ -60,6 +62,8 @@ public class Connexion extends HttpServlet {
 		utilisateurs=utilisateurManager.selectToutLesUtilisateur();
 
 		
+
+
 		for (int i=0;i<utilisateurs.size();i++)
 		{
 			String u1=utilisateurs.get(i).getPseudo().trim();
@@ -73,6 +77,7 @@ public class Connexion extends HttpServlet {
 			}
 		}
 
+
 		if (cnx==true)
 		{
 
@@ -80,20 +85,41 @@ public class Connexion extends HttpServlet {
 			session.setAttribute("user", user);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 			rd.forward(request, response);
-			
+
 
 
 		}else
 		{
 			cnx=true;
-			request.setAttribute("bool","identifiant ou mot de passe erroné");
+			request.setAttribute("bool","identifiant ou mot de passe erronï¿½");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Connexion.jsp");
 			rd.forward(request, response);
 
 		}
 
+	
+		
+		Cookie unCookie= new Cookie("pseudo",user.getPseudo());
+		unCookie.setMaxAge(-1);     
+		response.addCookie(unCookie);   
+
+		for(Cookie unCookie1:cookies)    {    
+			if (unCookie1.getName()=="pseudo") {
+
+				user=utilisateurManager.selectUtilisateurParPseudo(unCookie1.getValue());
+				HttpSession session=request.getSession();
+				session.setAttribute("user", user);
+
+
+			}
+		}
 
 	}
-
-
+	
 }
+
+
+
+
+
+

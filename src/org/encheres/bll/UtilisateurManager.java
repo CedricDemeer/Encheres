@@ -63,6 +63,7 @@ public class UtilisateurManager {
     }
 	
 	
+    
 	
 	/**
 	 * @param u L'utilisateur a ajouter dans la BDD
