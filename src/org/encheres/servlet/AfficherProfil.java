@@ -8,11 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.encheres.bll.UtilisateurManager;
 import org.encheres.bo.Utilisateur;
-import org.encheres.exceptions.BusinessException;
 
 /**
  * Servlet implementation class AfficherProfil
@@ -31,7 +29,7 @@ public class AfficherProfil extends HttpServlet {
 		String pseudoProfil = request.getParameter("profil");
 		
 		//récupération des info du user dans la BDD via le manager
-		user = userMng.selectUtilisateurParPseudoOuEmail(pseudoProfil, "");
+		user = userMng.selectUtilisateurParPseudo(pseudoProfil);
 		
 		
 		//int userID = Integer.parseInt(request.getParameter("id"));
