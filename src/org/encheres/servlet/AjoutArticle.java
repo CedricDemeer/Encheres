@@ -1,18 +1,23 @@
 package org.encheres.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Calendar;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.encheres.bll.ArticleManager;
 import org.encheres.bll.CategorieManager;
@@ -22,10 +27,14 @@ import org.encheres.bo.Retrait;
 import org.encheres.bo.Utilisateur;
 import org.encheres.exceptions.BusinessException;
 
+
+
+
 /**
  * Servlet implementation class AjoutArticle
  */
 @WebServlet("/AjoutArticle")
+@MultipartConfig
 public class AjoutArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -68,6 +77,36 @@ public class AjoutArticle extends HttpServlet {
 		art.setEtatVente("CR");
 		
 		//A gerer dans jsp + ici
+		 //récupérer l’image provenant de la JSP	
+		 Part filePart = request.getPart("photo");
+		 
+		 //si l’utilisateur a saisi une image 		 
+		 if(filePart != null && filePart.getSize() > 0) 
+		 {
+			//récupérer le nom de l’image
+		     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+		     
+		     //séparer le nom et l’extension
+		     String[] fn = fileName.split("(\\.)");
+		     
+		     //stocker l’extension
+		     String ext = fn[(fn.length-1)];
+		     /*
+		     if(!ext.isEmpty()) {
+		    	 //mettre en place un mécanisme ici, pour générer un nom de fichier unique 
+		    	 //afin d’éviter les écrasements de fichier
+		    	 UUID uuid = UUID.randomUUID();
+	             String rand = uuid.toString();
+
+	             System.out.println("Random UUID String = " + rand);
+		     
+	             //recréer le nom complet
+			     fileName = rand.toLowerCase() + "." + ext;
+			     
+			     InputStream fileContent = filePart.getInputStream();
+		     }*/
+
+		 }
 		art.setImage("");
 		
 		

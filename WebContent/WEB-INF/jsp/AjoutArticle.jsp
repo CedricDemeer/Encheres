@@ -33,7 +33,7 @@
                 <img class="mb-4 large-icon rounded-circle" src="images/article.svg" alt="">
             </div>
             
-            <form class="form-register needs-validation" novalidate method="post" action="">
+            <form class="form-register needs-validation" novalidate method="post" action="" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="nomArticle">Nom de l'article <span
@@ -54,8 +54,15 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="row">
+				<div class="row">
+					<div class="col-md-9">
+						<label for="image">Ajouter une image à votre article <span
+							class="text-muted">(Optionel mais fortement conseillé)</span></label> <input
+							type="file" class="form-control" id="photo" name="photo"
+							accept="image/png, image/jpeg">
+					</div>
+				</div>
+				<div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="dateDebutEncheres">Date de début de l'enchère <span
 							class="text-muted">*</span></label>
