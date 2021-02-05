@@ -53,12 +53,12 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			+ " where u.no_utilisateur=?;";
 	
 	private static final String SELECT_BY_PSEUDO_OR_EMAIL = "select"
-			+ "	u.no_utilisateur as no_user,"
-			//+ "	u.pseudo as pseudo,"
+			//+ "	u.no_utilisateur as no_user,"
+			+ "	u.pseudo as pseudo,"
 			+ " u.no_utilisateur as no_user,"
 			+ "	u.nom as nom,"
 			+ "	u.prenom as prenom,"
-			//+ "	u.email as email,"
+			+ "	u.email as email,"
 			+ "	u.telephone as tel,"
 			+ "	u.rue as rue,"
 			+ "	u.code_postal as cp,"
@@ -287,13 +287,25 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			{
 				if(premiereLigne) //user
 				{
+					String m_email;
+					String m_pseudo;
+					
+					if(pseudo=="pasdepseudo") {
+						m_pseudo=rs.getString("pseudo");
+					}else {
+						m_pseudo=pseudo;
+					}
+					if(email=="pasdemail") {
+						m_email=rs.getString("email");
+					}else {
+						m_email=email;
+					}
 					user = new Utilisateur(
-							rs.getInt("no_user"),
-							//rs.getString("pseudo"),
-							pseudo,
+							rs.getInt("no_user"),							
+							m_pseudo,							
 							rs.getString("nom"),
-							rs.getString("prenom"),
-							rs.getString("email"),
+							rs.getString("prenom"),							
+							m_email,
 							rs.getString("tel"),
 							rs.getString("rue"),
 							rs.getString("cp"),
