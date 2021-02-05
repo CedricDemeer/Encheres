@@ -16,7 +16,31 @@ import org.encheres.bo.Utilisateur;
 
 public class ArticleDAOImpl implements ArticleDAO{
 
-	private static final String SELECT_ALL = "SELECT * FROM ARTICLES_VENDUS";
+	private static final String SELECT_ALL = "SELECT "
+			+ "a.no_article as no_article,"
+			+ "a.nom_article as nom_article,"
+			+ "a.description as description_article,"
+			+ "a.date_debut_enchere as debut_enchere_article,"
+			+ "a.date_fin_enchere as fin_enchere_article,"
+			+ "a.prix_initial as prix_initial_article,"
+			+ "a.prix_vente as prix_vente_article,"
+			+ "a.etat_vente as etat_article,"
+			+ "c.no_categorie as no_categorie,"
+			+ "c.libelle as libelle,"
+			+ "u.no_utilisateur as num_user,"
+			+ "u.pseudo as pseudo_user,"
+			+ "r.code_postal as cp_retraits,"
+			+ "r.rue as rue_retraits,"
+			+ "r.ville as ville_retraits,"
+			+ "e.date_enchere as date_enchere,"
+			+ "e.montant_enchere as montant_enchere"
+			+ " FROM ARTICLES_VENDUS a "
+			+ "LEFT JOIN CATEGORIES c ON c.no_categorie = a.no_categorie "
+			+ "LEFT JOIN UTILISATEURS u ON u.no_utilisateur = a.no_utilisateur "
+			+ "LEFT JOIN RETRAITS r ON a.no_article = r.no_article "
+			+ "LEFT JOIN ENCHERES e ON (a.no_article = e.no_article "
+			+ "AND e.no_utilisateur = (SELECT TOP(1) ec.no_utilisateur FROM ENCHERES ec WHERE ec.no_article = a.no_article ORDER BY date_enchere DESC))";
+			
 	
 	private static final String SELECT_BY_ID = "SELECT "
 			+ "a.no_article as no_article,"
@@ -170,7 +194,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 				{
 					item.getListeEncheres().add(
 							new Enchere(
-									rs.getDate("ench_date"), 
+									rs.getDate("ench_date").toLocalDate(), 
 									rs.getInt("ench_montant"), 
 									rs.getInt("ench_no_utilisateur"),
 									rs.getInt("no_article")
@@ -194,21 +218,27 @@ public class ArticleDAOImpl implements ArticleDAO{
 	@Override
 	public List<ArticleVendu> selectAll() {
 		List<ArticleVendu> ListeArticles = new ArrayList<ArticleVendu>();
+		ArticleVendu ArticleConsulte=new ArticleVendu();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
-			ArticleVendu ArticleConsulte=new ArticleVendu();
 			while(rs.next()) {
-				if(rs.getInt("no_article")!=ArticleConsulte.getNoArticle()) {
-					ArticleConsulte = ArticleBuilder(rs);
-					ListeArticles.add(ArticleConsulte);
-				}
+				
+				ArticleConsulte = ArticleBuilder(rs);
+				
+				
 				//ici il faut ajouter la catégorie , l'utilisateur et le lieu de retrait
 				//à chaque article.
 				ArticleConsulte.setCategorie(categorieBuilder(rs));
 				ArticleConsulte.setUtilisateur(userBuilder(rs));
 				ArticleConsulte.setLieuRetrait(retraitBuilder(rs));
+				if(rs.getDate("date_enchere")!=null) {
+					ArticleConsulte.setEnchere(encherBuilder(rs));
+				}
+				
+				
+				ListeArticles.add(ArticleConsulte);
 			}
 		}
 		catch (Exception e)
@@ -219,16 +249,28 @@ public class ArticleDAOImpl implements ArticleDAO{
 		return ListeArticles;
 	}
 
+	private Enchere encherBuilder(ResultSet rs) throws SQLException {
+		Enchere enchere = new Enchere();
+		enchere.setNo_article(rs.getInt("no_article"));
+		enchere.setNo_utilisateur(rs.getInt("num_user"));
+		enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+		enchere.setMontant_enchere(rs.getInt("montant_enchere"));		
+		
+		
+		return enchere;
+	}
+
+
 	private ArticleVendu ArticleBuilder(ResultSet rs) throws SQLException {
 		ArticleVendu article = new ArticleVendu();
 		article.setNoArticle(rs.getInt("no_article"));
 		article.setNomArticle(rs.getString("nom_article"));
-		article.setDescription(rs.getString("description"));
-		article.setDateDebutEncheres(rs.getDate("date_debut_enchere").toLocalDate());
-		article.setDateFinEncheres(rs.getDate("date_fin_enchere").toLocalDate());
-		article.setMiseAPrix(rs.getInt("prix_initial"));
-		article.setPrixVente(rs.getInt("prix_vente"));
-		article.setEtatVente(rs.getString("etat_vente"));
+		article.setDescription(rs.getString("description_article"));
+		article.setDateDebutEncheres(rs.getDate("debut_enchere_article").toLocalDate());
+		article.setDateFinEncheres(rs.getDate("fin_enchere_article").toLocalDate());
+		article.setMiseAPrix(rs.getInt("prix_initial_article"));
+		article.setPrixVente(rs.getInt("prix_vente_article"));
+		article.setEtatVente(rs.getString("etat_article"));
 
 		return article;
 	}
@@ -243,14 +285,14 @@ public class ArticleDAOImpl implements ArticleDAO{
 		
 		Utilisateur user;
 		user = new Utilisateur();
-		user.setNoUtilisateur(rs.getInt("no_user"));
-		user.setPseudo(rs.getString("pseudo"));
+		user.setNoUtilisateur(rs.getInt("num_user"));
+		user.setPseudo(rs.getString("pseudo_user"));
 		
 		return user;
 	}
 	
 	private Retrait retraitBuilder(ResultSet rs) throws SQLException {
-		Retrait retrait = new Retrait(rs.getString("rue"), rs.getString("cp"), rs.getString("ville"));
+		Retrait retrait = new Retrait(rs.getString("rue_retraits"), rs.getString("cp_retraits"), rs.getString("ville_retraits"));
 		return retrait;
 	}
 }
