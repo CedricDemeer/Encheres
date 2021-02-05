@@ -65,7 +65,7 @@ public class Inscription extends HttpServlet {
 				
 				
 				try {
-					UserMgr.AjoutUtilisateur(user);
+					UserMgr.AjoutUtilisateur(user,confirm_password);
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					request.setAttribute("erreurs", e.getListeMessagesErreur());

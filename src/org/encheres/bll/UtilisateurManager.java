@@ -26,12 +26,7 @@ public class UtilisateurManager {
 		return UtilisateurDAO.selectAll();
 	}
 
-	public void Testmanager()
-	{
-		System.out.println("test");
-
-	}
-
+	
 	/**
 	 * @param id Le no_utilisateur
 	 * @return l'utilisateur
@@ -64,13 +59,19 @@ public class UtilisateurManager {
 	 * @return l'utilisateur
 	 * @throws BusinessException 
 	 */
-	public Utilisateur AjoutUtilisateur(Utilisateur  u) throws BusinessException {
+	public Utilisateur AjoutUtilisateur(Utilisateur  u, String motDePasse) throws BusinessException {
 		BusinessException exception =new BusinessException();
 		//vérif sur l'utilisateur, les champs obligatoire en BDD
 
+		this.validerUtilisateur(u, exception);
+		this.motDePasseidentique(u.getMotDePasse(), motDePasse, exception);
 
 
+		if(exception.hasErreurs())
+		{
+			throw exception;
 
+		}
 		UtilisateurDAO.insert(u);
 
 
@@ -113,8 +114,19 @@ public class UtilisateurManager {
 
 	public Utilisateur modifierUtilisateur (Utilisateur u) throws BusinessException 
 	{
-		BusinessException exception= new BusinessException();
 
+		BusinessException exception =new BusinessException();
+		//vérif sur l'utilisateur, les champs obligatoire en BDD
+		this.validerUtilisateur(u, exception);
+
+
+		if(exception.hasErreurs())
+		{
+			throw exception;
+
+		}
+
+	
 
 		UtilisateurDAO.Update(u);
 
@@ -124,69 +136,173 @@ public class UtilisateurManager {
 
 
 
-	public void validerUtilisateur(Utilisateur u, String motDePasse ) throws BusinessException
+	private  void validerUtilisateur(Utilisateur u,  BusinessException BusinessException ) 
 	{
-		BusinessException BusinessException= new BusinessException();
 
-		if(u.getPseudo().length()>30 || u.getPseudo()=="") {
 
-			BusinessException.ajouterErreur("Pseudo inexistant ou taille > � 30");
+
+
+		if(!is_Valid_AlphaNumeric(u.getPseudo())){
+
+			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30 ou ne contentant pas un caractère numérique ou alpha");
 
 		}
+
+
 		if(u.getNom().length()>30 || u.getNom()=="") {
 
-			BusinessException.ajouterErreur("Nom inexistant ou taille > � 30");
+			BusinessException.ajouterErreur("Nom inexistant ou taille > à 30");
 
 		}
 
 		if(u.getPrenom().length()>30 || u.getPrenom()=="") {
 
-			BusinessException.ajouterErreur("Prenom inexistant ou taille > � 30");
+			BusinessException.ajouterErreur("Prenom inexistant ou taille > à 30");
 
 		}
 
 		if(u.getEmail().length()>20 || u.getEmail()=="") {
 
-			BusinessException.ajouterErreur("Email inexistant ou taille > � 30");
+			BusinessException.ajouterErreur("Email inexistant ou taille > à 30");
 
 		}
 
 		if(u.getRue().length()>30 || u.getRue()=="") {
 
-			BusinessException.ajouterErreur("Rue inexistant ou taille > � 30");
+			BusinessException.ajouterErreur("Rue inexistant ou taille > à 30");
 
 		}
 		if(u.getCodePostal().length()>10 || u.getCodePostal()=="") {
 
-			BusinessException.ajouterErreur("CodePostale inexistant ou taille > � 30");
+			BusinessException.ajouterErreur("CodePostale inexistant ou taille > à 30");
 
 		}
 		if(u.getVille().length()>30 || u.getVille()=="") {
 
-			BusinessException.ajouterErreur("Pseudo inexistant ou taille > � 30");
+			BusinessException.ajouterErreur("Ville inexistant ou taille > à 30");
 
 
 		}	
-		if(!u.getMotDePasse().equals(motDePasse)) {
 
-			BusinessException.ajouterErreur("Mot de passe diff�rent");
+		if(!is_Valid_Password(u.getMotDePasse())) {
+
+			BusinessException.ajouterErreur("Format du mot de Passe invalide il faut ou moins un caratère numérique et un alpha");
+
 
 		}
 
-
-		if (BusinessException.hasErreurs())
-		{
-
-			throw BusinessException;
-
-		}
-
-
-		AjoutUtilisateur(u);
 
 	}
 
+
+	private void motDePasseidentique (String motPasse, String ConfirmMotDepasse, BusinessException BusinessException) {
+
+		if(!motPasse.equals(ConfirmMotDepasse)) {
+
+			BusinessException.ajouterErreur("Mot de passe différent");
+
+		}
+
+	}
+
+
+
 	
+	private static boolean is_Valid_AlphaNumeric (String mot){
+		
+		if (mot.length() <1 || mot.length()> 30) return false;
+
+
+
+		int charCount = 0;
+		int numCount = 0;
+		
+		for (int i = 0; i < mot.length(); i++) {
+
+			char ch = mot.charAt(i);
+
+			if (is_Numeric(ch)) numCount++;
+			else if (is_Letter(ch)) charCount++;
+			
+			else return false;
+		}
+
+		return (charCount >= 1 && numCount >= 1);
+		
+		
+		
+	}
 	
 
+	private static boolean is_Valid_Password(String password) {
+
+		if (password.length() <1 || password.length()> 30) return false;
+
+
+
+		int charCount = 0;
+		int numCount = 0;
+		int csCount=0;
+		for (int i = 0; i < password.length(); i++) {
+
+			char ch = password.charAt(i);
+
+			if (is_Numeric(ch)) numCount++;
+			else if (is_Letter(ch)) charCount++;
+			else if (is_caracteres(ch)) csCount++;
+			else return false;
+		}
+
+		return (charCount >= 1 && numCount >= 1);
+	}
+
+
+
+	private static boolean is_Letter(char ch) {
+		ch = Character.toUpperCase(ch);
+		return (ch >= 'A' && ch <= 'Z');
+	}
+
+
+
+	private static boolean is_Numeric(char ch) {
+
+		return (ch >= '0' && ch <= '9');
+	}
+
+
+
+	private static boolean is_caracteres (char ch) {
+
+		int count=0;
+		String CS="=$£&/*-+=";
+
+
+		for (int j=0;j<CS.length();j++) {
+
+			if (ch==CS.charAt(j))
+			{
+
+				count++;
+
+			}
+		}
+
+
+		if (count>0)
+		{
+
+			return true;
+		}
+		else {
+
+			return false;
+		}
+	}
+
+
+
+
 }
+
+
