@@ -38,16 +38,9 @@
                 <div class="col-3 p-2">
                     <img class="small-icon" src="images/error.svg">
                 </div>
-            
                 <ul class="col-9 list-unstyled p-2">
-                   
-                    
                     <li>${bool}
                      </li>
-                     
-                    
-                     
-                    <li> </li>
                 </ul>
             </div>
             </c:if>
@@ -64,10 +57,9 @@
                             <label for="categories-select">Catégories</label>
                             <select class="form-control" id="categories-select" name="categorie">
                                 <option selected>Toutes</option>
-                                <option name="categorie" value="">Informatique</option>
-                                <option name="categorie" value="">Ameublement</option>
-                                <option name="categorie" value="">Vétement</option>
-                                <option name="categorie" value="">Sport & Loisirs</option>
+                                <c:forEach var="c" items="${listCategories}">
+				      			<option name="categorie" value="${c.libelle}" >${c.libelle}</option>
+				        	</c:forEach>
                             </select>
                         </div>
                     </div>

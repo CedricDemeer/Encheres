@@ -53,7 +53,17 @@ public class UtilisateurManager {
 		user = UtilisateurDAO.selectByPseudoOrEmail(pseudo, email);	
 		return user;
 	}
-
+	
+	public Utilisateur selectUtilisateurParPseudo(String pseudo) {
+        
+        return selectUtilisateurParPseudoOuEmail(pseudo, "pasdemail");
+    }
+    public  Utilisateur selectUtisateurParEmail(String email) {
+        return selectUtilisateurParPseudoOuEmail("pasdepseudo", email);
+    }
+	
+	
+	
 	/**
 	 * @param u L'utilisateur a ajouter dans la BDD
 	 * @return l'utilisateur
