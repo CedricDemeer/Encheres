@@ -42,7 +42,9 @@ import org.encheres.exceptions.BusinessException;
 public class AjoutArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public static final int TAILLE_TAMPON = 10240;
-    public static final String CHEMIN_FICHIERS = "/WEB-INF/upload/images"; // A confirmer
+    //public static final String CHEMIN_FICHIERS = "${pageContext.request.contextPath}"
+    public static final String CHEMIN_FICHIERS = "/Users/pmichel2020/Documents/PROJET/Encheres/WebContent/images/upload/"; 
+    // A modifier
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -82,51 +84,38 @@ public class AjoutArticle extends HttpServlet {
 		art.setEtatVente("CR");
 		
 		//A gerer dans jsp + ici
-		
+
 		// On récupère le champ du fichier
-        Part part = request.getPart("photo");
+		Part part = request.getPart("photo");
 
-        // Si on a bien un fichier
-        if (part != null && part.getSize() > 0) {
-        	
-        	//On récupère le nom du fichier
-        	String nomImage = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-		     
-        	//séparer le nom et l’extension
-		    String[] fn = nomImage.split("(\\.)");
 
-		    //stocker l’extension
-		    String ext = fn[(fn.length-1)];
-		    
-		    if(!ext.isEmpty()) {
-		    	//mettre en place un mécanisme ici, pour générer  
-		    	//un nom de fichier unique afin d’éviter les écrasements de fichier
-		    	UUID uuid = UUID.randomUUID();
-		    	String random = uuid.toString();
-		    	//recréer le nom complet
-			     nomImage = random.toLowerCase() + "." + ext;
-			     
-			     InputStream fileContent = part.getInputStream();
-			   //Version Production
-			     //String sContext = //this.getServletContext().getRealPath("/");
-			   
-			     //TODO : A supprimer pour la production
-			     //Version eclipse (indiquer en dur le répertoire de stockage des images sur le serveur
-			     String sContext = "C:/"+ request.getContextPath() + "/WebContent/images/upload";
-			    
-			     File f = new File(sContext + "/images/upload/" + nomImage);
-			     try {
-			    	 TestSaveFile.receiveFile(fileContent, f); 
-				 //en base de données, ne stocker que le chemin d’accès et le nom du fichier image
-			    	 System.out.println(nomImage);
-			    	 art.setImage(nomImage); 
-			     }
-			     catch(IOException e) {
-			    	 e.printStackTrace();
-			     }
-			     
-		    }
-        }
+		//On récupère le nom du fichier
+		String nomImage = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+
+		//séparer le nom et l’extension
+		String[] fn = nomImage.split("(\\.)");
+
+		//stocker l’extension
+		String ext = fn[(fn.length-1)];
+
+		// Si on a bien un fichier
+		if (nomImage != null && !nomImage.isEmpty()) {
+			String nomChamp = part.getName();
+			//mettre en place un mécanisme ici, pour générer  
+			//un nom de fichier unique afin d’éviter les écrasements de fichier
+			UUID uuid = UUID.randomUUID();
+			String random = uuid.toString();
+			//recréer le nom complet
+			nomImage = random.toLowerCase() + "." + ext;
+
+			// On écrit définitivement le fichier sur le disque
+			ecrireFichier(part, nomImage, CHEMIN_FICHIERS);
+
+			//request.setAttribute(nomChamp, nomImage);
+			art.setImage(nomImage);
+		}
+		
+        
 		
 		//Connection à la BDD pour récup l'id de la Categorie
 		CategorieManager CatMgr = new CategorieManager();		
