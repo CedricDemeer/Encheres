@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.encheres.bo.ArticleVendu;
 import org.encheres.dal.ArticleDAO;
@@ -14,14 +15,14 @@ import org.encheres.exceptions.BusinessException;
 public class ArticleManager {
 
 	
-		private ArticleDAO ArticleDAO;
+		private ArticleDAO articleDAO;
 
 		/**
 		 * Le constructeur permet d'initialiser la variable membre AricleDAO pour 
 		 * permettre une communication avec la base de données. 
 		 */
 		public ArticleManager() {
-			this.ArticleDAO=DAOFactory.getArticleDAO();
+			this.articleDAO=DAOFactory.getArticleDAO();
 
 		}
 
@@ -30,11 +31,14 @@ public class ArticleManager {
 			//vérif sur l'utilisateur, les champs obligatoire en BDD
 
 
-			ArticleDAO.insert(article);
+			articleDAO.insert(article);
 
 
 		}
 		
+		public List<ArticleVendu> getListArticle(){
+			return articleDAO.selectAll();
+		}
 		
 		public static void receiveFile(InputStream is, File dest) throws IOException {
 	    	

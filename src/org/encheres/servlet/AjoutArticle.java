@@ -1,6 +1,9 @@
 package org.encheres.servlet;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -24,6 +27,7 @@ import org.encheres.bll.CategorieManager;
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
 import org.encheres.bo.Retrait;
+import org.encheres.bo.TestSaveFile;
 import org.encheres.bo.Utilisateur;
 import org.encheres.exceptions.BusinessException;
 
@@ -37,7 +41,10 @@ import org.encheres.exceptions.BusinessException;
 @MultipartConfig
 public class AjoutArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    public static final int TAILLE_TAMPON = 10240;
+    //public static final String CHEMIN_FICHIERS = "${pageContext.request.contextPath}"
+    public static final String CHEMIN_FICHIERS = "/Users/pmichel2020/Documents/PROJET/Encheres/WebContent/images/upload/"; 
+    // A modifier
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -77,38 +84,38 @@ public class AjoutArticle extends HttpServlet {
 		art.setEtatVente("CR");
 		
 		//A gerer dans jsp + ici
-		 //récupérer l’image provenant de la JSP	
-		 Part filePart = request.getPart("photo");
-		 
-		 //si l’utilisateur a saisi une image 		 
-		 if(filePart != null && filePart.getSize() > 0) 
-		 {
-			//récupérer le nom de l’image
-		     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-		     
-		     //séparer le nom et l’extension
-		     String[] fn = fileName.split("(\\.)");
-		     
-		     //stocker l’extension
-		     String ext = fn[(fn.length-1)];
-		     /*
-		     if(!ext.isEmpty()) {
-		    	 //mettre en place un mécanisme ici, pour générer un nom de fichier unique 
-		    	 //afin d’éviter les écrasements de fichier
-		    	 UUID uuid = UUID.randomUUID();
-	             String rand = uuid.toString();
 
-	             System.out.println("Random UUID String = " + rand);
-		     
-	             //recréer le nom complet
-			     fileName = rand.toLowerCase() + "." + ext;
-			     
-			     InputStream fileContent = filePart.getInputStream();
-		     }*/
+		// On récupère le champ du fichier
+		Part part = request.getPart("photo");
 
-		 }
-		art.setImage("");
+
+		//On récupère le nom du fichier
+		String nomImage = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+
+		//séparer le nom et l’extension
+		String[] fn = nomImage.split("(\\.)");
+
+		//stocker l’extension
+		String ext = fn[(fn.length-1)];
+
+		// Si on a bien un fichier
+		if (nomImage != null && !nomImage.isEmpty()) {
+			String nomChamp = part.getName();
+			//mettre en place un mécanisme ici, pour générer  
+			//un nom de fichier unique afin d’éviter les écrasements de fichier
+			UUID uuid = UUID.randomUUID();
+			String random = uuid.toString();
+			//recréer le nom complet
+			nomImage = random.toLowerCase() + "." + ext;
+
+			// On écrit définitivement le fichier sur le disque
+			ecrireFichier(part, nomImage, CHEMIN_FICHIERS);
+
+			//request.setAttribute(nomChamp, nomImage);
+			art.setImage(nomImage);
+		}
 		
+        
 		
 		//Connection à la BDD pour récup l'id de la Categorie
 		CategorieManager CatMgr = new CategorieManager();		
@@ -167,6 +174,39 @@ public class AjoutArticle extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);
 		}
-	}
+}
+
+	private void ecrireFichier( Part part, String nomFichier, String chemin ) throws IOException {
+    BufferedInputStream entree = null;
+    BufferedOutputStream sortie = null;
+    try {
+        entree = new BufferedInputStream(part.getInputStream(), TAILLE_TAMPON);
+        sortie = new BufferedOutputStream(new FileOutputStream(new File(chemin + nomFichier)), TAILLE_TAMPON);
+
+        byte[] tampon = new byte[TAILLE_TAMPON];
+        int longueur;
+        while ((longueur = entree.read(tampon)) > 0) {
+            sortie.write(tampon, 0, longueur);
+        }
+    } finally {
+        try {
+            sortie.close();
+        } catch (IOException ignore) {
+        }
+        try {
+            entree.close();
+        } catch (IOException ignore) {
+        }
+    }
+}
+
+private static String getNomFichier( Part part ) {
+    for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
+        if ( contentDisposition.trim().startsWith( "filename" ) ) {
+            return contentDisposition.substring( contentDisposition.indexOf( '=' ) + 1 ).trim().replace( "\"", "" );
+        }
+    }
+    return null;
+}   
 
 }

@@ -20,6 +20,9 @@ public class ArticleVendu {
 	private Categories categorie;
 	private Utilisateur utilisateur;
 	
+	//utiliser pou stocker l'enchere la + grande
+	private Enchere enchere;
+	
 	
 	public int getNoArticle() {
 		return noArticle;
@@ -238,6 +241,12 @@ public class ArticleVendu {
 	public ArticleVendu(String nomArticle2, String description2, LocalDate dateDebutEncheres2,
 			LocalDate dateFinEncheres2, String miseAPrix2) {
 		// TODO Auto-generated constructor stub
+	}
+	public Enchere getEnchere() {
+		return enchere;
+	}
+	public void setEnchere(Enchere m_enchere) {
+		enchere = m_enchere;
 	}
 	
 
