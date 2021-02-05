@@ -7,7 +7,7 @@ import org.encheres.exceptions.BusinessException;
 import org.encheres.exceptions.DALException;
 
 public interface UtilisateurDAO {
-	public void insert(Utilisateur user) throws DALException, BusinessException;
+	public void insert(Utilisateur user) throws BusinessException;
 	public void delete(Utilisateur user) throws DALException;
 	public List<Utilisateur> selectAll();
 	public Utilisateur selectById(int id);

@@ -71,14 +71,7 @@ public class UtilisateurManager {
 
 
 
-		try {
-			UtilisateurDAO.insert(u);
-		} catch (DALException e) {
-
-			e.printStackTrace();
-			exception.ajouterErreur(e.getMessage());
-			throw exception;
-		}
+		UtilisateurDAO.insert(u);
 
 
 		return u;

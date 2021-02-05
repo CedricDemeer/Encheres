@@ -90,7 +90,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 	private static String UPDATE_USER= "update UTILISATEURS set telephone=?, ville=?, administrateur=?, code_postal=?, credit=?, email=?, mot_de_passe=?, nom=?, prenom=?, pseudo=?, rue=? WHERE no_utilisateur=?";
 	
 	@Override
-	public void insert(Utilisateur user) throws DALException, BusinessException {
+	public void insert(Utilisateur user) throws BusinessException {
 		BusinessException erreurs = new BusinessException();
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -112,23 +112,19 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 			{
 				user.setNoUtilisateur(rs.getInt(1));
 			}
-			
-			
 		}
 		catch(SQLException e)
 		{
-			e.printStackTrace();
-			
 			if(e.getMessage().contains("utilisateurs_pseudo_uq")) {
 				erreurs.ajouterErreur("Pseudo déjà utilisé");
-			}
-			if(e.getMessage().contains("utilisateurs_email_uq")) {
+			}else if(e.getMessage().contains("utilisateurs_email_uq")) {
 				erreurs.ajouterErreur("Email déjà  utilisé");
+			}else{
+				erreurs.ajouterErreur(e.getMessage());
 			}
 			if (erreurs.hasErreurs()) {
 				throw erreurs;
 			}
-			throw new DALException (e.getMessage());
 		}
 		
 	}
