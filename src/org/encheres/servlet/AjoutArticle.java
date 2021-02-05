@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,17 +49,19 @@ public class AjoutArticle extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//récupération et affichage des infos en UTF-8
 		request.setCharacterEncoding("UTF-8");
+		
 		//récup de variable du formulaire
-		
-		
 		Boolean test=true;
 		String nomArticle = request.getParameter("nomArticle");
 		String description = request.getParameter("description");
 		LocalDate dateDebutEncheres = null;
 		LocalDate dateFinEncheres = null;
-		
 		int miseAPrix = Integer.parseInt(request.getParameter("prixInitial"));
+		
+		//Création d'un nouvel article à vendre
 		ArticleVendu art = new ArticleVendu();
+		
+		//On set les informations dans ce nouvel article
 		art.setNomArticle(nomArticle);
 		art.setDescription(description);
 		art.setMiseAPrix(miseAPrix);
@@ -67,59 +70,30 @@ public class AjoutArticle extends HttpServlet {
 		//A gerer dans jsp + ici
 		art.setImage("");
 		
-		/*int no_cat = 0;
-		String libelle = null;
 		
-		switch (request.getParameter("Categorie")) {
-		case "Ameublement":
-			no_cat = 2;
-			libelle = "Ameublement";
-			break;
-		case "Informatique":
-			no_cat = 1;
-			libelle = "Informatique";
-		break;
-		case "SportEtLoisirs":
-			no_cat = 4;
-			libelle = "Sport & Loisir";
-		break;
-		case "Vetement":
-			no_cat = 3;
-			libelle = "Vêtement";
-		break;
-
-		default:
-			break;
-		}*/
-		//lever une exception
-		
-		//if(no_cat != 0) 
-		//{
-		
-		//COnnection a la BDD pour récup l'id de la Categorie
+		//Connection à la BDD pour récup l'id de la Categorie
 		CategorieManager CatMgr = new CategorieManager();		
 		Categories cat = CatMgr.getCategorieByLibelle(request.getParameter("Categorie"));
 			
 		
-		//on récupère le no_categorie contenu dans cat pour le mettre dans notre article
-		
-		
+		//On créer un lieu de retrait avec les infos du formulaire
 		Retrait lieuRetrait = new Retrait(request.getParameter("street"), request.getParameter("zipcode"), request.getParameter("city"));
 		
 		//on récupère les infos du lieuRetrait pour le mettre dans notre article
-		
 		art.setLieuRetrait(lieuRetrait);
-		
 		art.setCategorie(cat);
 		
+		//On créer une image de l'utilisateur pour pouvoir récupérer son no_utilisateur
 		Utilisateur user = new Utilisateur();
 		
+		//les infos de l'utilisateur sont stockées dans la session
 		HttpSession session = request.getSession();
 		user = (Utilisateur) session.getAttribute("user");
+		
+		//on affecte à l'article les infos de l'utilisateur
 		art.setUtilisateur(user);
 		
-		System.out.println(request.getParameter("dateDebutEncheres"));
-		
+				
 		//lire la date
 		try
 		{
@@ -139,9 +113,6 @@ public class AjoutArticle extends HttpServlet {
 		//création d'un article manager
 		ArticleManager ArticleMgr = new ArticleManager();
 		
-		
-		
-		System.out.println(nomArticle + description);
 		//envoi a la BLL
 		
 		try {
@@ -152,7 +123,6 @@ public class AjoutArticle extends HttpServlet {
 			rd.forward(request, response);	
 			test=false;
 		}
-		//}
 		
 		if(test==true) {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
