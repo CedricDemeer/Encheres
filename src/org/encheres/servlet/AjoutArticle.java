@@ -5,7 +5,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +26,6 @@ import org.encheres.bll.CategorieManager;
 import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
 import org.encheres.bo.Retrait;
-import org.encheres.bo.TestSaveFile;
 import org.encheres.bo.Utilisateur;
 import org.encheres.exceptions.BusinessException;
 
@@ -80,11 +78,8 @@ public class AjoutArticle extends HttpServlet {
 		art.setMiseAPrix(miseAPrix);
 		art.setEtatVente("CR");
 		
-		//A gerer dans jsp + ici
-
 		// On récupère le champ du fichier
 		Part part = request.getPart("photo");
-
 
 		//On récupère le nom du fichier
 		String nomImage = Paths.get(part.getSubmittedFileName()).getFileName().toString();
@@ -97,23 +92,20 @@ public class AjoutArticle extends HttpServlet {
 
 		// Si on a bien un fichier
 		if (nomImage != null && !nomImage.isEmpty()) {
-			String nomChamp = part.getName();
 			//mettre en place un mécanisme ici, pour générer  
 			//un nom de fichier unique afin d’éviter les écrasements de fichier
 			UUID uuid = UUID.randomUUID();
 			String random = uuid.toString();
+			random = random.substring(0, 15);
+			System.out.println(random);
 			//recréer le nom complet
 			nomImage = random.toLowerCase() + "." + ext;
-			
 			String sContext = this.getServletContext().getRealPath("/");
 			sContext += "images\\upload\\";
-			
-			System.out.println(sContext);
 			// On écrit définitivement le fichier sur le disque
 			ecrireFichier(part, nomImage, sContext);
-
-			//request.setAttribute(nomChamp, nomImage);
-			art.setImage(nomImage);
+			sContext += nomImage;
+			art.setImage(sContext);
 		}
 		
         
@@ -201,13 +193,5 @@ public class AjoutArticle extends HttpServlet {
     }
 }
 
-private static String getNomFichier( Part part ) {
-    for ( String contentDisposition : part.getHeader( "content-disposition" ).split( ";" ) ) {
-        if ( contentDisposition.trim().startsWith( "filename" ) ) {
-            return contentDisposition.substring( contentDisposition.indexOf( '=' ) + 1 ).trim().replace( "\"", "" );
-        }
-    }
-    return null;
-}   
 
 }
