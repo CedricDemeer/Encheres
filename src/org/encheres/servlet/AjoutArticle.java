@@ -42,9 +42,6 @@ import org.encheres.exceptions.BusinessException;
 public class AjoutArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public static final int TAILLE_TAMPON = 10240;
-    //public static final String CHEMIN_FICHIERS = "${pageContext.request.contextPath}"
-    public static final String CHEMIN_FICHIERS = "/Users/pmichel2020/Documents/PROJET/Encheres/WebContent/images/upload/"; 
-    // A modifier
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -107,9 +104,13 @@ public class AjoutArticle extends HttpServlet {
 			String random = uuid.toString();
 			//recréer le nom complet
 			nomImage = random.toLowerCase() + "." + ext;
-
+			
+			String sContext = this.getServletContext().getRealPath("/");
+			sContext += "images\\upload\\";
+			
+			System.out.println(sContext);
 			// On écrit définitivement le fichier sur le disque
-			ecrireFichier(part, nomImage, CHEMIN_FICHIERS);
+			ecrireFichier(part, nomImage, sContext);
 
 			//request.setAttribute(nomChamp, nomImage);
 			art.setImage(nomImage);
