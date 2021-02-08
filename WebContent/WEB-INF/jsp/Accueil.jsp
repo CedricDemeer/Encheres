@@ -45,7 +45,7 @@
             </div>
             </c:if>
             <!--filtre-->
-            <form class="form-filter border mb-3" action="#" method="">
+            <form class="form-filter border mb-3" action="${pageContext.request.contextPath}/Accueil" method="get">
                 <div class="row">
                     <!--Partie gauche-->
                     <div class="col-md-6 mb-3">
@@ -133,7 +133,7 @@
                                 <li>Prix : ${article.miseAPrix} point(s)</li>
                                 <li>Meilleure enchère : ${article.enchere.montant_enchere} point(s)</li>
                                 <li>Fin de l'enchère : ${article.dateFinEncheres}</li>
-                                <li>Vendeur : ${article.utilisateur.pseudo}</li>
+                                <li>Vendeur :  <a href="${pageContext.request.contextPath}/AfficherProfil?profil=${article.utilisateur.pseudo}">   ${article.utilisateur.pseudo}  </a> </li>
                             </ul>
                         </div>
                         <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">

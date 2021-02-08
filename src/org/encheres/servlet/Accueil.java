@@ -1,6 +1,8 @@
 package org.encheres.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.encheres.bll.ArticleManager;
 import org.encheres.bll.CategorieManager;
+import org.encheres.bo.ArticleVendu;
 import org.encheres.bo.Categories;
+import org.encheres.bo.Utilisateur;
 
 /**
  * Servlet implementation class Accueil
@@ -31,16 +35,57 @@ public class Accueil extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private List<ArticleVendu> ListeArticles = new ArrayList<ArticleVendu>();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+    	//listeCategories
 		CategorieManager catManager = new CategorieManager();		
 		request.setAttribute("listCategories", catManager.getListCategories());
 		
+		//activer ts les articles pour test
+		boolean listecomplette = false;
+		//filtre Achat
+		boolean Achat = true;		
+		boolean EnchereOuverte = false;
+		boolean MesEnchereEnCours = false;
+		boolean MesEnchereRemporter = false;
+		//filtre Vente
+		boolean Vente = false;
+		boolean MesVenteEnCours = false;
+		
+		
+		//recup la liste des articles en BDD
 		ArticleManager ArtMgr = new ArticleManager();
-		request.setAttribute("listearticles", ArtMgr.getListArticle());
+		List<ArticleVendu> ListeBDD = ArtMgr.getListArticle();
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+		
+		if(listecomplette) {
+			ListeArticles = ListeBDD;
+		}
+		if(Achat) {
+			for(ArticleVendu a:ListeBDD) {
+				
+				
+				
+				
+				
+				if(user!=null) {
+					if(a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()) {
+						ListeArticles.add(a);
+					}
+				}else {
+					ListeArticles.add(a);
+				}				
+			}
+		}
+		if(Vente) {
+			
+		}
 		
 		
+		request.setAttribute("listearticles", ListeArticles);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);
 	}

@@ -9,16 +9,16 @@
                 <c:if test="${!empty sessionScope.user}">
                 <a class="navbar-brand" href="#" alt="Gérer mon profil" title="Gérer mon profil">
                     <img class="small-icon" src="images/user.svg">
-                    <span class="align-middle text-muted"></span>                   	
+                    <span class="align-middle text-muted">${user.getNom()} ${user.getPrenom()} ${user.getCredit()} crédits</span>                   	
                     
-                    ${user.getNom()} ${user.getPrenom()} ${user.getCredit()} crédits
+                    
                     
                    
                     
                 </a>
 				</c:if>
                 <ul class="navbar-nav ml-auto">
-                    <!-- Dropdown for small screen -->
+                    <!-- Dropdown for small screen 
                     <li class="nav-item dropdown d-lg-none">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             <img class="small-icon" src="images/menu.svg" alt="Menu ENI-Encheres">
@@ -34,21 +34,17 @@
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/Connexion" alt="Se connecter à ENI-Encheres">Me connecter</a>
                         </div>
                     </li>  
-                    <!-- Links for medium screen-->
-                      	<c:choose> 
-                    <c:when test="${sessionScope.user.isAdministrateur()==true}">
+                     Links for medium screen-->
+                      	
+                    <c:if test="${sessionScope.user.isAdministrateur()==true}">
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href=./Administrer alt="Administrer le site">Administrer</a>
-                    </li> 
-                    </c:when>
-                    <c:when test="${sessionScope.user.isAdministrateur()==false}">
+                    </li>                     
+                    </c:if>
+                   <c:if test="${!empty sessionScope.user}">
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href=./AfficherProfil?profil=${user.pseudo}  alt="Gerer Profil">Mon Profil</a>
-                    </li> 
-                    </c:when>
-                 
-                    </c:choose>
-                   <c:if test="${!empty sessionScope.user}">
+                    </li>
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="${pageContext.request.contextPath}/AjoutArticle" alt="Vendre un article">Vendre un article</a>
                     </li>
