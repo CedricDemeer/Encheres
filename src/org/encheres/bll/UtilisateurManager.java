@@ -123,13 +123,13 @@ public class UtilisateurManager {
 	 * @throws BusinessException
 	 */
 
-	public Utilisateur modifierUtilisateur (Utilisateur u) throws BusinessException 
+	public Utilisateur modifierUtilisateur (Utilisateur u, String motDePasse) throws BusinessException 
 	{
 
 		BusinessException exception =new BusinessException();
 		//vérif sur l'utilisateur, les champs obligatoire en BDD
 		this.validerUtilisateur(u, exception);
-
+		this.motDePasseidentique(u.getMotDePasse(), motDePasse, exception);
 
 		if(exception.hasErreurs())
 		{

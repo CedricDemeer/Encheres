@@ -67,7 +67,7 @@
 							</div>
 						</div>
 						<c:if test="${sessionScope.user.noUtilisateur == utilisateur.noUtilisateur }">
-                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="${pageContext.request.contextPath}/Inscription" title="Modifier">
+                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="${pageContext.request.contextPath}/ModifierProfil" title="Modifier">
                             Modifier
                         </a>
                         

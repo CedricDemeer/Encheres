@@ -254,7 +254,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 				pstmt.setString(9, user.getPrenom()); //prenom
 				pstmt.setString(10, user.getPseudo()); //pseudo
 				pstmt.setString(11, user.getRue()); //rue
-				pstmt.setInt(11, user.getNoUtilisateur()); //no_utilisateur
+				pstmt.setInt(12, user.getNoUtilisateur()); //no_utilisateur
 				pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
