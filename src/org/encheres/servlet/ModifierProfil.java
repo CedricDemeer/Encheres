@@ -52,15 +52,55 @@ public class ModifierProfil extends HttpServlet {
 		String confirm_password= request.getParameter("confirm_password");
 		
 		//création de l'utilisateur
-		Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, password);
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+		if(user.getPrenom() != prenom) {
+			user.setPrenom(prenom);
+		}
+		
+		if(user.getNom() != nom) {
+			user.setNom(nom);
+		}
+		
+		if(user.getPseudo() != pseudo) {
+			user.setPseudo(pseudo);
+		}
+		
+		if(user.getEmail() != email) {
+			user.setEmail(email);
+		}
+		
+		if(user.getTelephone() != telephone) {
+			user.setTelephone(telephone);
+		}
+		
+		if(user.getRue() != rue) {
+			user.setRue(rue);
+		}
+		
+		if(user.getCodePostal() != code_postal) {
+			user.setCodePostal(code_postal);
+		}
+		
+		if(user.getVille()!= ville) {
+			user.setVille(ville);
+		}
+
+		if(oldPassword != password && password == confirm_password) {
+			user.setMotDePasse(password);
+		}
+		
+		
 		System.out.println(pseudo + " " + nom + " " + prenom);
 		//envoi a la BLL
 		
 		try {
-			userMng.modifierUtilisateur(user, confirm_password);
+			userMng.modifierUtilisateur(user, password);
 		} catch (BusinessException e) {
 			request.setAttribute("erreurs", e.getListeMessagesErreur());
 		}
+		
+		System.out.println(user.toString());
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);
 		
