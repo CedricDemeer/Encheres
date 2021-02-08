@@ -85,7 +85,7 @@ public class ModifierProfil extends HttpServlet {
 			user.setVille(ville);
 		}
 
-		if(oldPassword != password && password == confirm_password) {
+		if(user.getMotDePasse() != password) {
 			user.setMotDePasse(password);
 		}
 		
