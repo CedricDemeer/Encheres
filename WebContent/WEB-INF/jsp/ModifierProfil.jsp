@@ -28,9 +28,9 @@
 <body>
 	<div class="container-fluid">
 		<!--emptyHeader-->
-		 <header>
-           <%@ include file="navbar.html"%>
-        </header>
+		<header>
+			<%@ include file="navbar.html"%>
+		</header>
 
 		<!--main bloc-->
 		<main>
@@ -40,7 +40,7 @@
 				<img class="mb-4 large-icon rounded-circle" src="images/user.svg"
 					alt="">
 			</div>
-			
+
 			<!--formulaire-->
 			<form class="form-register needs-validation" novalidate method="post"
 				action="">
@@ -64,14 +64,16 @@
 					<div class="col-md-6 mb-3">
 						<label for="firstname">Prénom</label> <input type="text"
 							class="form-control" id="firstname" name="firstname"
-							placeholder="" value="${sessionScope.user.prenom}" maxlength="30" required>
+							placeholder="" value="${sessionScope.user.prenom}" maxlength="30"
+							required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 
 					<div class="col-md-6 mb-3">
 						<label for="email">Email</label> <input type="email"
 							class="form-control" id="email" name="email"
-							placeholder="you@example.com" value="${sessionScope.user.email}" maxlength="20" required>
+							placeholder="you@example.com" value="${sessionScope.user.email}"
+							maxlength="20" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 				</div>
@@ -80,7 +82,8 @@
 					<div class="col-md-6 mb-3">
 						<label for="phone">Téléphone <span class="text-muted">(Optional)</span></label>
 						<input type="text" class="form-control" id="phone" name="phone"
-							placeholder="" value="${sessionScope.user.telephone}" maxlength="15">
+							placeholder="" value="${sessionScope.user.telephone}"
+							maxlength="15">
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="street">Rue</label> <input type="text"
@@ -94,7 +97,8 @@
 					<div class="col-md-6 mb-3">
 						<label for="zipcode">Code postal</label> <input type="number"
 							class="form-control" id="zipcode" name="zipcode" placeholder=""
-							min="01000" max="99999" value="${sessionScope.user.codePostal}" required>
+							min="01000" max="99999" value="${sessionScope.user.codePostal}"
+							required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 					<div class="col-md-6 mb-3">
@@ -106,8 +110,8 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 mb-3">
-						<label for="password">Ancien mot de passe</label> <input type="password"
-							class="form-control" id="oldpassword"
+						<label for="password">Ancien mot de passe</label> <input
+							type="password" class="form-control" id="oldpassword"
 							name="oldpassword" placeholder="" minlength="6" maxlength="30"
 							value="${sessionScope.user.motDePasse}">
 						<div class="invalid-feedback">Ce champ est invalide !</div>
@@ -115,33 +119,37 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6 mb-3">
-						<label for="password">Nouveau mot de passe</label> <input type="password"
-							class="form-control" id="password" name="password" placeholder=""
-							minlength="6" maxlength="30" value="${sessionScope.user.motDePasse}" required>
+						<label for="password">Nouveau mot de passe</label> <input
+							type="password" class="form-control" id="password"
+							name="password" placeholder="" minlength="6" maxlength="30"
+							value="${sessionScope.user.motDePasse}" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 
 					<div class="col-md-6 mb-3">
 						<label for="confirm_password">Confirmation</label> <input
 							type="password" class="form-control" id="confirm_password"
-							name="confirm_password" placeholder="" value="${sessionScope.user.motDePasse}" required>
+							name="confirm_password" placeholder=""
+							value="${sessionScope.user.motDePasse}" required>
 						<div class="invalid-feedback">Ce champ est invalide ou les
 							mots de passe sont différents !</div>
 					</div>
 				</div>
 				<div class="row">
-				<div class="col-md-6 mb-3">
-				<button name="update" class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer ces modifications</button>
-				</div>
-				<div class="col-md-6 mb-3">
-				<a class="btn btn-danger btn-lg btn-block" href="SuppProfil?id=${sessionScope.user.noUtilisateur }">Supprimer mon compte</a>
-				</div>
-				<div class="col-md-6 mb-3">
-				<button name="delete" class="btn btn-danger btn-lg btn-block" type="submit">Supprimer mon compte</button>
-				</div>
+					<div class="col-md-6 mb-3">
+						<button name="update" class="btn btn-primary btn-lg btn-block"
+							type="submit">Enregistrer ces modifications</button>
+					</div>
 				</div>
 			</form>
-			<c:if test="${!empty erreurs}">
+			<form action="<%=request.getContextPath()%>/SuppProfil" method="post">
+				<input class="btn btn-danger btn-lg btn-block" type="submit"
+					name="buttonDelete" value="Supprimer mon compte" />
+
+			</form></div>
+
+
+	<c:if test="${!empty erreurs}">
 				<ul>
 		<c:forEach var="erreur" items="${erreurs}">
 			<li>${erreur}</li>
