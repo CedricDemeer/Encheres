@@ -134,6 +134,9 @@
 				<button name="update" class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer ces modifications</button>
 				</div>
 				<div class="col-md-6 mb-3">
+				<a class="btn btn-danger btn-lg btn-block" href="SuppProfil?id=${sessionScope.user.noUtilisateur }">Supprimer mon compte</a>
+				</div>
+				<div class="col-md-6 mb-3">
 				<button name="delete" class="btn btn-danger btn-lg btn-block" type="submit">Supprimer mon compte</button>
 				</div>
 				</div>
