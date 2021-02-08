@@ -56,12 +56,20 @@
             <!--formulaire-->
              <form class="form-login" action="<%=request.getContextPath()%>/Connexion" method="post">
                 <label for="inputIdentifiant" class="sr-only">Identifiant</label>
-                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo" placeholder="Pseudo" value="<%=request.getParameter("pseudo")%>" required autofocus>
+                <input type="text" id="inputIdentifiant" class="form-control" name="pseudo" placeholder="Pseudo"  required autofocus>
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Mot de passe" required>
                 <div class="checkbox mb-3">
                     <label>
-                    <input type="checkbox" name="remember" value="remember"> Se souvenir de moi
+                    
+                   <c:if test="${!empty sessionScope.user}">
+                    <input type="checkbox" name="remember" value="remember" checked>
+                  </c:if>
+                   <c:if test="${empty sessionScope.user}">
+                    <input type="checkbox" name="remember" value="remember"> 
+                   </c:if>
+                    Se souvenir de moi
+                   	
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" title="Me connecter">

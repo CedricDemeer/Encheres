@@ -137,7 +137,6 @@ public class UtilisateurManager {
 
 		}
 
-	
 
 		UtilisateurDAO.Update(u);
 
