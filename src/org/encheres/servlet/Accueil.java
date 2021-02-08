@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encheres.bll.ArticleManager;
 import org.encheres.bll.CategorieManager;
 import org.encheres.bo.Categories;
 
@@ -35,6 +36,10 @@ public class Accueil extends HttpServlet {
 		
 		CategorieManager catManager = new CategorieManager();		
 		request.setAttribute("listCategories", catManager.getListCategories());
+		
+		ArticleManager ArtMgr = new ArticleManager();
+		request.setAttribute("listearticles", ArtMgr.getListArticle());
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);

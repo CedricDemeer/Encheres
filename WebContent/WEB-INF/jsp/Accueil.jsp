@@ -119,20 +119,21 @@
 
             <!--enchÃ¨res-->
             <div class="row justify-content-center border-top card-deck">
+               <c:forEach var="article" items="${listearticles}" >
                 <div class="col-12 col-sm-6 p-2" >
                     <div class="card">
                         <div class="card-header text-center">
-                            <h4 class="my-0 font-weight-normal">Article 1</h4>
+                            <h4 class="my-0 font-weight-normal">${article.nomArticle}</h4>
                         </div>
                         <div class="d-flex">
                             <div class="col-3 p-2">
                                 <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
                             </div>
                             <ul class="col-9 list-unstyled p-2">
-                                <li>Prix : 0 point(s)</li>
-                                <li>Meilleure enchère : 0 point(s)</li>
-                                <li>Fin de l'enchère : dd-MM-yyyy HH:mm</li>
-                                <li>Vendeur : xxxxxxxxx</li>
+                                <li>Prix : ${article.miseAPrix} point(s)</li>
+                                <li>Meilleure enchère : ${article.enchere.montant_enchere} point(s)</li>
+                                <li>Fin de l'enchère : ${article.dateFinEncheres}</li>
+                                <li>Vendeur : ${article.utilisateur.pseudo}</li>
                             </ul>
                         </div>
                         <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
@@ -140,7 +141,8 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 p-2" >
+                </c:forEach>
+               <!--   <div class="col-12 col-sm-6 p-2" >
                     <div class="card">
                         <div class="card-header text-center">
                             <h4 class="my-0 font-weight-normal">Article 2</h4>
@@ -180,7 +182,7 @@
                     <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
                         <img class="small-icon" src="images/bid.svg">
                     </a>
-                </div>
+                </div>-->
 	        </div>
         </main>
 

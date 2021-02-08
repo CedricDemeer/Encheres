@@ -226,7 +226,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 				}
 				if(rs.getString("no_user_enchere")!=null) //si il y a une enchere
 				{
-					user.getListeEncheres().add(new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"), rs.getInt("no_user_enchere"),rs.getInt("no_article_enchere")));
+					user.getListeEncheres().add(new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"), rs.getInt("no_user_enchere"),rs.getInt("no_article_enchere")));
 				}
 				
 			}
@@ -337,7 +337,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 				}
 				if(rs.getString("no_user_enchere")!=null) //si il y a une enchere
 				{
-					user.getListeEncheres().add(new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"), rs.getInt("no_user_enchere"),rs.getInt("no_article_enchere")));
+					user.getListeEncheres().add(new Enchere(rs.getDate("date_enchere").toLocalDate(), rs.getInt("montant_enchere"), rs.getInt("no_user_enchere"),rs.getInt("no_article_enchere")));
 				}
 				
 			}
