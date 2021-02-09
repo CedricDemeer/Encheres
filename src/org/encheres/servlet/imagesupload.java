@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class images
  */
-@WebServlet(name="images", urlPatterns = {"/images/*"})
-public class images extends HttpServlet {
+@WebServlet(name="imagesupload", urlPatterns = {"/imagesupload/*"})
+public class imagesupload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public images() {
+    public imagesupload() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,8 +46,10 @@ public class images extends HttpServlet {
     private BufferedImage getImage(String uri) throws IOException {
     	String sContext = this.getServletContext().getRealPath("/");
 		sContext += "images\\upload\\";
-    	sContext += uri.substring("/Encheres/images/".length());
-    	System.out.println();
+		System.out.println(uri);
+		System.out.println(sContext);
+    	sContext += uri.substring("/Encheres/imagesupload/".length());
+    	System.out.println(sContext);
 		return ImageIO.read(new File(sContext));
     }
 	

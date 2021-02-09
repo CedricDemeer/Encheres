@@ -67,10 +67,6 @@ public class Accueil extends HttpServlet {
 		if(Achat) {
 			for(ArticleVendu a:ListeBDD) {
 				
-				
-				
-				
-				
 				if(user!=null) {
 					if(a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()) {
 						ListeArticles.add(a);

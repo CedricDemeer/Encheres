@@ -133,7 +133,7 @@
                         <div class="d-flex">
                             <div class="col-3 p-2">
                                 <img class="img-fluid img-thumbnail" 
-                                <c:if test="${!empty article.image}"> src="images/${article.image}  " </c:if> 
+                                <c:if test="${!empty article.image}"> src="imagesupload/${article.image}" </c:if> 
                                 <c:if test="${empty article.image}"> src="images/photo.svg"  </c:if>                                 
                                 alt="pas de photo" />
                             </div>
