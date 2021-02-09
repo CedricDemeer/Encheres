@@ -33,6 +33,8 @@ public class UtilisateurManager {
 	 */
 	public Utilisateur selectUtilisateurParID(int id) {
 
+		
+		
 		Utilisateur user = null;
 		if (id>=0) {
 			user = UtilisateurDAO.selectById(id);
@@ -47,11 +49,16 @@ public class UtilisateurManager {
 	 * @param email L'email de l'utilisateur
 	 * @return l'utilisateur
 	 */
+	
+	
 	public Utilisateur selectUtilisateurParPseudoOuEmail(String pseudo, String email) {
 
 		Utilisateur user = null;		
 		user = UtilisateurDAO.selectByPseudoOrEmail(pseudo, email);	
 		return user;
+		
+		
+		
 	}
 	
 	public Utilisateur selectUtilisateurParPseudo(String pseudo) {
@@ -144,15 +151,15 @@ public class UtilisateurManager {
 	}
 
 
+	
+	
 
 
 	private  void validerUtilisateur(Utilisateur u,  BusinessException BusinessException ) 
 	{
 
 
-
-
-		if(!is_Valid_AlphaNumeric(u.getPseudo())){
+		if(u.getPseudo().length()>30 || u.getNom()==""){
 
 			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30 ou ne contentant pas un caractère numérique ou alpha");
 

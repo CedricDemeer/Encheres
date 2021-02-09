@@ -32,8 +32,11 @@ abstract class ConnectionProvider {
 	 * @return
 	 * @throws SQLException
 	 */
+	
+	
 	public static Connection getConnection() throws SQLException
 	{
+		
 		return ConnectionProvider.dataSource.getConnection();
 	}
 }

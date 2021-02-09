@@ -131,6 +131,7 @@ public class UtilisateurDAOJDBCImpl implements UtilisateurDAO {
 
 	@Override
 	public void delete(Utilisateur user) throws DALException {
+		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
