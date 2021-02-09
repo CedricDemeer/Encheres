@@ -76,7 +76,9 @@ public class ArticleDAOImpl implements ArticleDAO{
 	//private static final String UPDATE_PRIXVENTE_FINAL_ARTICLE="update ARTICLES_VENDUS set prix_vente=? where no_article=?";
 	//private static final String UPDATE_IMAGE_ARTICLE="update ARTICLES_VENDUS set image=? where no_article=?";
 	private static String UPDATE_ARTICLE= "update ARTICLES_VENDUS set date_debut_enchere=?, date_fin_enchere=?, description=?, etat_vente=?, image=?, nom_article=?, prix_initial=?, prix_vente=? where no_article=?";
-    
+	private static final String INSERT_LIEU_RETRAIT = "INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES(?,?,?,?)";
+	private static final String UPDATE_LIEU_RETRAIT ="UPDATE RETRAITS set rue=?,code_postal=?,ville=? WHERE no_article = ?";
+	
 	
     @Override
     public void update(ArticleVendu article) {
@@ -109,7 +111,31 @@ public class ArticleDAOImpl implements ArticleDAO{
         }
     }
 	
-	
+    public void updateRetrait (ArticleVendu article) {
+    	try(Connection cnx = ConnectionProvider.getConnection())
+        {
+            try
+            {
+                PreparedStatement pstmt = cnx.prepareStatement(UPDATE_LIEU_RETRAIT);                
+                pstmt.setString(1, article.getLieuRetrait().getRue()); 
+                pstmt.setString(2, article.getLieuRetrait().getCode_postal()); 
+                pstmt.setString(3, article.getLieuRetrait().getVille()); 
+                pstmt.setInt(4, article.getNoArticle()); 
+                
+                pstmt.executeUpdate();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                cnx.rollback();
+                throw e;
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();            
+        }
+	}
+    
 	@Override
 	public void insert(ArticleVendu article) {
 		
@@ -140,9 +166,23 @@ public class ArticleDAOImpl implements ArticleDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-				
-				
+	}
+	
+	public void insertRetrait (ArticleVendu article) {
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			//cnx.setAutoCommit(false);
+			PreparedStatement pstmt = cnx.prepareStatement(INSERT_LIEU_RETRAIT);
+			pstmt.setInt(1, article.getNoArticle());
+			pstmt.setString(2, article.getLieuRetrait().getRue());
+			pstmt.setString(3, article.getLieuRetrait().getCode_postal());
+			pstmt.setString(4, article.getLieuRetrait().getVille());
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -211,11 +251,6 @@ public class ArticleDAOImpl implements ArticleDAO{
 		return item;
 	}
 
-	
-	
-
-
-
 	@Override
 	public List<ArticleVendu> selectAll() {
 		List<ArticleVendu> ListeArticles = new ArrayList<ArticleVendu>();
@@ -261,7 +296,6 @@ public class ArticleDAOImpl implements ArticleDAO{
 		return enchere;
 	}
 
-
 	private ArticleVendu ArticleBuilder(ResultSet rs) throws SQLException {
 		ArticleVendu article = new ArticleVendu();
 		article.setNoArticle(rs.getInt("no_article"));
@@ -276,7 +310,6 @@ public class ArticleDAOImpl implements ArticleDAO{
 
 		return article;
 	}
-
 
 	private Categories categorieBuilder(ResultSet rs) throws SQLException {
 		Categories categorie = new Categories(rs.getInt("no_categorie"), rs.getString("libelle"));
