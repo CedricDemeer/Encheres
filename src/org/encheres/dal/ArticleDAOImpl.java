@@ -55,7 +55,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "u.pseudo as pseudo_user,"
 			+ "a.no_categorie as no_categorie,"
 			+ "etat_vente as etat_article,"
-			+ "image,"
+			+ "image as image_article,"
 			+ "r.rue as rue,"
 			+ "r.code_postal as cp,"
 			+ "r.ville as ville, "

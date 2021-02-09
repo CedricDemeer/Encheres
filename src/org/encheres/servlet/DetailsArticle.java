@@ -33,7 +33,7 @@ public class DetailsArticle extends HttpServlet {
 		
 		//les infos en attribut dans la requête 
 		//le user contient toutes les infos issues de la BDD
-		request.setAttribute("numArticle", art);
+		request.setAttribute("article", art);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/DetailsArticle.jsp");
 		rd.forward(request, response);
