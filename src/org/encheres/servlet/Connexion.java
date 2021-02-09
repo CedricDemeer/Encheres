@@ -86,11 +86,12 @@ public class Connexion extends HttpServlet {
 
 		user=utilisateurManager.selectUtilisateurParPseudo(identifiant);
 
-
-		if (user.getPseudo().equals(identifiant) && user.getMotDePasse().equals(password))
-		{
-			cnx=true;
-
+		if(user!=null) {
+			if (user.getPseudo().equals(identifiant) && user.getMotDePasse().equals(password))
+			{
+				cnx=true;
+	
+			}
 		}
 
 		
@@ -106,8 +107,9 @@ public class Connexion extends HttpServlet {
 			cookie.setMaxAge(3600);
 			response.addCookie(cookie);}
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/Accueil");
+			//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
+			//rd.forward(request, response);
 
 		}else
 		{

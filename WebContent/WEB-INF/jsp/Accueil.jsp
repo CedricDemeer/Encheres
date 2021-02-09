@@ -64,12 +64,14 @@
                         </div>
                     </div>
                     <!--Partie droite-->
+                    <c:if test="${!empty sessionScope.user}">
                     <div class="col-md-6 mb-3">  	
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" checked name="type-encheres" value="achats" id="achats">Achats
                             </label>
                         </div>
+                        
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
@@ -87,6 +89,7 @@
                                 </label>
                             </div>
                         </div>
+                        
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="type-encheres" value="ventes" id="ventes">Ventes
@@ -109,8 +112,10 @@
                                 </label>
                             </div>
                         </div>
+                        
 
                     </div>
+                    </c:if>
                 </div>
                 <button class="btn btn-primary btn-lg btn-block" type="submit">
                 	<img class="small-icon" src="images/search.svg" alt="Eni Ecole">

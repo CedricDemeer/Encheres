@@ -62,10 +62,7 @@ public class Accueil extends HttpServlet {
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		
 		if(listecomplette) {
-			ListeArticles = ListeBDD;
-			for(ArticleVendu a : ListeArticles) {
-				System.err.println(a.getImage());
-			}
+			ListeArticles = ListeBDD;			
 		}
 		if(Achat) {
 			for(ArticleVendu a:ListeBDD) {

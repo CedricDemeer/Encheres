@@ -32,6 +32,7 @@ public class images extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Chargement d'une image depuis un emplacement sécurisé du serveur
+		System.out.println(request.getContextPath());
         BufferedImage image = getImage(request.getRequestURI());
         //Définition de l'en-tête de la réponse
         response.setContentType("image/jpeg");
@@ -46,7 +47,7 @@ public class images extends HttpServlet {
     	String sContext = this.getServletContext().getRealPath("/");
 		sContext += "images\\upload\\";
     	sContext += uri.substring("/Encheres/images/".length());
-    	System.out.println(sContext);
+    	System.out.println();
 		return ImageIO.read(new File(sContext));
     }
 	
