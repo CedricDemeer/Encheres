@@ -117,10 +117,6 @@ public class AjoutArticle extends HttpServlet {
 		
 		//On créer un lieu de retrait avec les infos du formulaire
 		Retrait lieuRetrait = new Retrait(request.getParameter("street"), request.getParameter("zipcode"), request.getParameter("city"));
-		//lieuRetrait.setNoArticle(Integer.parseInt(request.getParameter(noArticle)));
-		//lieuRetrait.setRue(request.getParameter("street"));
-		//lieuRetrait.setCode_postal(request.getParameter("zipcode"));
-		//lieuRetrait.setVille(request.getParameter("city"));
 		//on récupère les infos du lieuRetrait pour le mettre dans notre article
 		art.setLieuRetrait(lieuRetrait);
 		art.setCategorie(cat);

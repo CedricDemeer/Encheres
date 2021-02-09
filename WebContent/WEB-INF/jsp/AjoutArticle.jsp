@@ -45,9 +45,12 @@
 				<div class="row">
 					<div class="col-md-12">
 						<label for="nomArticle">Nom de l'article <span
-							class="text-muted">*</span></label> <input type="text"
+							class="text-muted">*</span></label> 
+							<input type="text"
 							class="form-control" id="nomArticle" name="nomArticle"
-							maxlength="30" required>
+							maxlength="30" <c:if test="${!empty article.nomArticle}">value ="${article.nomArticle }"</c:if> required>
+							
+							
 						<div class="invalid-feedback">Il manque le nom de votre
 							article !</div>
 					</div>

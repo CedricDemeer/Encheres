@@ -121,10 +121,15 @@
 								<label for="monEnchere">Faire une proposition :</label>
 							</h6>
 							<input type="number" class="form-control" id="encherir"
-								name="encherir" placeholder="¤${article.enchere}">
+								name="encherir" placeholder="${article.enchere}">
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Faire
 								une offre</button>
 						</form>
+						<c:if test="${sessionScope.user.noUtilisateur == article.utilisateur.noUtilisateur && article.etatVente == 'CR' }">
+						<a class="mt-3 btn btn-lg btn-block btn-primary" href="${pageContext.request.contextPath}/ModifierArticle" title="Modifier">
+                            Modifier
+                        </a>
+						</c:if>
 					</div>
 				</div>
 			</div>
