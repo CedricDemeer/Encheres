@@ -45,15 +45,15 @@ public class ArticleDAOImpl implements ArticleDAO{
 	private static final String SELECT_BY_ID = "SELECT "
 			+ "a.no_article as no_article,"
 			+ "nom_article,"
-			+ "description,"
-			+ "date_debut_enchere,"
-			+ "date_fin_enchere,"
-			+ "prix_initial,"
-			+ "prix_vente, "
-			+ "u.no_utilisateur as no_user, "
-			+ "u.pseudo as pseudo,"
+			+ "description as description_article,"
+			+ "date_debut_enchere as debut_enchere_article,"
+			+ "date_fin_enchere as fin_enchere_article,"
+			+ "prix_initial as prix_initial_article,"
+			+ "prix_vente as prix_vente_article, "
+			+ "u.no_utilisateur as num_user, "
+			+ "u.pseudo as pseudo_user,"
 			+ "a.no_categorie as no_categorie,"
-			+ "etat_vente,"
+			+ "etat_vente as etat_article,"
 			+ "image,"
 			+ "r.rue as rue,"
 			+ "r.code_postal as cp,"
@@ -175,7 +175,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 					premiereLigne = false;
 				}
 				//si il y a bien un utilisateur (normalement oui)
-				if(rs.getString("no_user")!=null) {
+				if(rs.getString("num_user")!=null) {
 					item.setUtilisateur(userBuilder(rs));
 				}
 				//si il y a bien un lieu de retrait

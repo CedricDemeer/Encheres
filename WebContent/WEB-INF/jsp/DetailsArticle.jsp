@@ -43,7 +43,7 @@
 				<div class="row">
 					<div class="col">
 					<c:if test="${!empty article.image}">
-						<img class="mb-4 large-icon" src="${article.image}" alt="">
+						<img class="img-fluid img-thumbnail" src="images/${article.image}" alt="">
 						</c:if>
 						<c:if test="${empty article.image}">
 						<img class="mb-4 large-icon" src="images/article.svg" alt="">

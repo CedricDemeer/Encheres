@@ -26,10 +26,14 @@ public class DetailsArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//récupérer l'article depuis l'url
-		//int noArticle = Integer.parseInt(request.getParameter("article"));
-				
+		int noArticle = Integer.parseInt(request.getParameter("numArticle"));
+				System.out.println(noArticle);
 		//récupération des info du user dans la BDD via le manager
-		//art = artMng.selectArticleParID(noArticle);
+		art = artMng.selectArticleParID(noArticle);
+		
+		//les infos en attribut dans la requête 
+		//le user contient toutes les infos issues de la BDD
+		request.setAttribute("numArticle", art);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/DetailsArticle.jsp");
 		rd.forward(request, response);
