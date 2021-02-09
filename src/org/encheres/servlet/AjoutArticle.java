@@ -167,8 +167,9 @@ public class AjoutArticle extends HttpServlet {
 		}
 		
 		if(test==true) {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
-		rd.forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/Accueil");
+		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
+		//rd.forward(request, response);
 		}
 }
 

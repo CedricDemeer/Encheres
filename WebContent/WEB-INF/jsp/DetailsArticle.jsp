@@ -44,7 +44,7 @@
 					<div class="col">
 						<c:if test="${!empty article.image}">
 							<img class="img-fluid img-thumbnail"
-								src="images/${article.image}" alt="">
+								src="imagesupload/${article.image}" alt="">
 						</c:if>
 						<c:if test="${empty article.image}">
 							<img class="mb-4 large-icon" src="images/article.svg" alt="">
@@ -65,23 +65,28 @@
 									<p>Voici une description fictive de l'article</p>
 								</c:if>
 								<p>${article.description}</p>
+								
 								<h6>Catégorie :</h6>
 								<c:if test="${empty article.categorie.libelle}">
 									<p>Voici la catégorie</p>
 								</c:if>
 								<p>${article.categorie.libelle}</p>
+								
 								<h6>Meilleur offre :</h6>
 								<c:if test="${empty article.listeEncheres}">
 									<p>Meilleur enchère</p>
 								</c:if>
 								<p>${article.enchere}</p>
+								
 								<h6>Mise à prix :</h6>
 								<c:if test="${empty article.miseAPrix}">
 									<p>Montant initial de l'article</p>
 								</c:if>
 								<p>${article.miseAPrix}</p>
+								
 								<h6>Date de fin d'enchère :</h6>
 								<p>${article.dateFinEncheres}</p>
+								
 								<h6>Retrait :</h6>
 								<c:if test="${empty article.lieuRetrait.rue}">
 									<p>pas de rue</p>
@@ -96,11 +101,13 @@
 								<p>${article.lieuRetrait.rue}</p>
 								<p>${article.lieuRetrait.code_postal}</p>
 								<p>${article.lieuRetrait.ville}</p>
+								
 								<h6>Vendeur :</h6>
 								<c:if test="${empty article.utilisateur.pseudo}">
 									<p>Le vendeur</p>
 								</c:if>
 								<p>${article.utilisateur.pseudo }</p>
+								
 							</div>
 						</div>
 					</div>
