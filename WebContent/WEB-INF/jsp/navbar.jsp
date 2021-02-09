@@ -67,16 +67,16 @@
                         <a class="nav-link" href="${pageContext.request.contextPath}/Deconnexion" alt="Me déconnecter">Me déconnecter</a>
                     </li>
                     </c:if>
-                    <c:when test="${!empty sessionScope.user}">
+                    <c:if test="${empty sessionScope.user}">
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="${pageContext.request.contextPath}/Inscription" alt="S'inscrire à ENI-Encheres">M'inscrire</a>
                     </li>
-                    </c:when>
-                    <c:when test="${!empty sessionScope.user}">
+                    </c:if>
+                    <c:if test="${empty sessionScope.user}">
                     <li class="nav-item d-none d-lg-block">
                         <a class="nav-link" href="${pageContext.request.contextPath}/Connexion" alt="Se connecter à ENI-Encheres">Me connecter</a>
                     </li>
-                    </c:when>
+                    </c:if>
                 </ul>
             </nav>
 
