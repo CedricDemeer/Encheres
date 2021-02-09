@@ -36,6 +36,18 @@ public class ArticleManager {
 
 		}
 		
+		public ArticleVendu selectArticleParID (int id) {
+			ArticleVendu art = null;
+			if(id>=0) {
+				art = articleDAO.selectById(id);
+			}
+			else {
+				System.out.println("Vous souhaitez afficher un article dont l'id est négatif.");
+			}
+			return art;
+			
+		}
+		
 		public List<ArticleVendu> getListArticle(){
 			return articleDAO.selectAll();
 		}
