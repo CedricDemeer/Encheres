@@ -104,8 +104,8 @@ public class AjoutArticle extends HttpServlet {
 			sContext += "images\\upload\\";
 			// On écrit définitivement le fichier sur le disque
 			ecrireFichier(part, nomImage, sContext);
-			sContext += nomImage;
-			art.setImage(sContext);
+			//sContext += nomImage;
+			art.setImage(nomImage);
 		}
 		
         
