@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <!--emptyHeader-->
        <header>
-           <%@ include file="navbar.html"%>
+            <%@ include file="navbar.jsp"%>
         </header>
 
         <!--main bloc-->
