@@ -127,7 +127,10 @@
                         </div>
                         <div class="d-flex">
                             <div class="col-3 p-2">
-                                <img class="img-fluid img-thumbnail" src="images/${article.image}" alt="pas de photo" />
+                                <img class="img-fluid img-thumbnail" 
+                                <c:if test="${!empty article.image}"> src="images/${article.image}  " </c:if> 
+                                <c:if test="${empty article.image}"> src="images/photo.svg"  </c:if>                                 
+                                alt="pas de photo" />
                             </div>
                             <ul class="col-9 list-unstyled p-2">
                                 <li>Prix : ${article.miseAPrix} point(s)</li>

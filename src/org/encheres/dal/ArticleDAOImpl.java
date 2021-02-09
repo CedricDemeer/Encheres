@@ -25,6 +25,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "a.prix_initial as prix_initial_article,"
 			+ "a.prix_vente as prix_vente_article,"
 			+ "a.etat_vente as etat_article,"
+			+ "a.image as image_article,"
 			+ "c.no_categorie as no_categorie,"
 			+ "c.libelle as libelle,"
 			+ "u.no_utilisateur as num_user,"
@@ -271,6 +272,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		article.setMiseAPrix(rs.getInt("prix_initial_article"));
 		article.setPrixVente(rs.getInt("prix_vente_article"));
 		article.setEtatVente(rs.getString("etat_article"));
+		article.setImage(rs.getString("image_article"));
 
 		return article;
 	}

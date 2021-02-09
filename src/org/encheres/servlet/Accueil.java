@@ -63,6 +63,9 @@ public class Accueil extends HttpServlet {
 		
 		if(listecomplette) {
 			ListeArticles = ListeBDD;
+			for(ArticleVendu a : ListeArticles) {
+				System.err.println(a.getImage());
+			}
 		}
 		if(Achat) {
 			for(ArticleVendu a:ListeBDD) {
