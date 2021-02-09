@@ -44,9 +44,9 @@ public class Accueil extends HttpServlet {
 		request.setAttribute("listCategories", catManager.getListCategories());
 		
 		//activer ts les articles pour test
-		boolean listecomplette = false;
+		boolean listecomplette = true;
 		//filtre Achat
-		boolean Achat = true;		
+		boolean Achat = false;		
 		boolean EnchereOuverte = false;
 		boolean MesEnchereEnCours = false;
 		boolean MesEnchereRemporter = false;

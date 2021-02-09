@@ -136,7 +136,7 @@
                                 <li>Vendeur :  <a href="${pageContext.request.contextPath}/AfficherProfil?profil=${article.utilisateur.pseudo}">   ${article.utilisateur.pseudo}  </a> </li>
                             </ul>
                         </div>
-                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
+                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="${pageContext.request.contextPath}/DetailsArticle?numArticle=${article.noArticle}" title="faire une enchère">
                             <img class="small-icon" src="images/bid.svg">
                         </a>
                     </div>
