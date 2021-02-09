@@ -127,7 +127,10 @@
                         </div>
                         <div class="d-flex">
                             <div class="col-3 p-2">
-                                <img class="img-fluid img-thumbnail" src="images/photo.svg" alt="pas de photo" />
+                                <img class="img-fluid img-thumbnail" 
+                                <c:if test="${!empty article.image}"> src="images/${article.image}  " </c:if> 
+                                <c:if test="${empty article.image}"> src="images/photo.svg"  </c:if>                                 
+                                alt="pas de photo" />
                             </div>
                             <ul class="col-9 list-unstyled p-2">
                                 <li>Prix : ${article.miseAPrix} point(s)</li>
@@ -136,7 +139,7 @@
                                 <li>Vendeur :  <a href="${pageContext.request.contextPath}/AfficherProfil?profil=${article.utilisateur.pseudo}">   ${article.utilisateur.pseudo}  </a> </li>
                             </ul>
                         </div>
-                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="#" title="faire une enchÃ¨re">
+                        <a class="mt-3 btn btn-lg btn-block btn-primary" href="${pageContext.request.contextPath}/DetailsArticle?numArticle=${article.noArticle}" title="faire une enchère">
                             <img class="small-icon" src="images/bid.svg">
                         </a>
                     </div>
