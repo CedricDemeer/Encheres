@@ -12,6 +12,4 @@ public interface ArticleDAO {
 	public List<ArticleVendu> selectAll();
 	public ArticleVendu selectById(int noArticle);
 	public void update(ArticleVendu article) throws BusinessException;
-	public void updateRetrait (ArticleVendu article);
-	public void insertRetrait (ArticleVendu article);
 }

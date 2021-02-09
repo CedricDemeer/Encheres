@@ -56,9 +56,9 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "a.no_categorie as no_categorie,"
 			+ "etat_vente as etat_article,"
 			+ "image as image_article,"
-			+ "r.rue as rue,"
-			+ "r.code_postal as cp,"
-			+ "r.ville as ville, "
+			+ "r.rue as rue_retraits,"
+			+ "r.code_postal as cp_retraits,"
+			+ "r.ville as ville_retraits, "
 			+ "c.libelle as libelle,"
 			+ "e.no_utilisateur as ench_no_utilisateur, "
 			+ "e.date_enchere as ench_date, "
@@ -96,7 +96,7 @@ public class ArticleDAOImpl implements ArticleDAO{
                 pstmt.setInt(7, article.getMiseAPrix()); //prix_initial
                 pstmt.setInt(8, article.getPrixVente()); //prix_vente
                 pstmt.setInt(9, article.getNoArticle()); //no_article
-                
+                updateRetrait(article);
                 pstmt.executeUpdate();
             }
             catch(Exception e)
@@ -111,7 +111,7 @@ public class ArticleDAOImpl implements ArticleDAO{
         }
     }
 	
-    public void updateRetrait (ArticleVendu article) {
+    private void updateRetrait (ArticleVendu article) {
     	try(Connection cnx = ConnectionProvider.getConnection())
         {
             try
@@ -161,6 +161,10 @@ public class ArticleDAOImpl implements ArticleDAO{
 				{
 					article.setNoArticle(rs.getInt(1));
 					System.err.println(rs.getInt(1));
+					
+					insertRetrait(article);
+					
+					
 				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -168,7 +172,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 		}
 	}
 	
-	public void insertRetrait (ArticleVendu article) {
+	private void insertRetrait (ArticleVendu article) {
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
 			//cnx.setAutoCommit(false);
@@ -221,7 +225,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 				}
 				//si il y a bien un lieu de retrait
 				//Alors on récupère le RETRAIT
-				if(rs.getString("rue")!=null) {
+				if(rs.getString("rue_retraits")!=null) {
 					item.setLieuRetrait(retraitBuilder(rs));
 				}
 				

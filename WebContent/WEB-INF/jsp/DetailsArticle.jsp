@@ -44,7 +44,7 @@
 					<div class="col">
 						<c:if test="${!empty article.image}">
 							<img class="img-fluid img-thumbnail"
-								src="imagesupload/${article.image}" alt="">
+								src="images/${article.image}" alt="">
 						</c:if>
 						<c:if test="${empty article.image}">
 							<img class="mb-4 large-icon" src="images/article.svg" alt="">
@@ -86,6 +86,7 @@
 								<c:if test="${empty article.lieuRetrait.rue}">
 									<p>pas de rue</p>
 								</c:if>
+								
 								<c:if test="${empty article.lieuRetrait.code_postal}">
 									<p>pas de CP</p>
 								</c:if>
