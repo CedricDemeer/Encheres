@@ -2,10 +2,17 @@ package org.encheres.bo;
 
 public class Retrait {
 
+	private int noArticle;
 	private String rue; 
 	private String code_postal; 
 	private String ville;
 	
+	public int getNoArticle() {
+		return noArticle;
+	}
+	public void setNoArticle(int noArticle) {
+		this.noArticle = noArticle;
+	}
 	public String getRue() {
 		return rue;
 	}
@@ -38,6 +45,13 @@ public class Retrait {
 	
 	public Retrait(String rue, String code_postal, String ville) {
 		super();
+		this.rue = rue;
+		this.code_postal = code_postal;
+		this.ville = ville;
+	}
+	public Retrait(int noArticle, String rue, String code_postal, String ville) {
+		super();
+		this.noArticle = noArticle;
 		this.rue = rue;
 		this.code_postal = code_postal;
 		this.ville = ville;
