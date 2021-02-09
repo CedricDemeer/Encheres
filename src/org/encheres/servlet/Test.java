@@ -1,6 +1,7 @@
 package org.encheres.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.encheres.bll.EnchereManager;
 import org.encheres.bll.UtilisateurManager;
+import org.encheres.bo.Enchere;
 import org.encheres.bo.Utilisateur;
 
 /**
@@ -28,8 +31,17 @@ public class Test extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		List<Utilisateur> utilisateurs=new ArrayList<>();
 		UtilisateurManager test=new UtilisateurManager();
+		
+		EnchereManager mgr= new EnchereManager();
+		
+		mgr.modifierArticle(3,10,75);
+		
+		
+		
 		
 		utilisateurs=test.selectToutLesUtilisateur();
 		request.setAttribute("liste", utilisateurs);
