@@ -1,5 +1,6 @@
 package org.encheres.dal;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -16,14 +17,18 @@ abstract class ConnectionProvider {
 	 */
 	static
 	{
+		
 		Context context;
 		try {
 			context = new InitialContext();
 			ConnectionProvider.dataSource = (DataSource)context.lookup("java:comp/env/jdbc/pool_cnx");
+			
 		} catch (NamingException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Impossible d'accéder à la base de données");
 		}
+		
+		
 	}
 	
 	/**
@@ -32,11 +37,25 @@ abstract class ConnectionProvider {
 	 * @return
 	 * @throws SQLException
 	 */
+	public static void procedureStockee( Connection cnx) throws SQLException{
 	
+	try(CallableStatement cstmt= cnx.prepareCall("{call dbo.updateArticle()}")){
+		
+		System.out.println("la valeur de la procedure stockée est ");
+		cstmt.execute();
+		
+	}
+	
+	
+	
+}
 	
 	public static Connection getConnection() throws SQLException
 	{
 		
+		procedureStockee(ConnectionProvider.dataSource.getConnection());
+		
 		return ConnectionProvider.dataSource.getConnection();
+		
 	}
 }
