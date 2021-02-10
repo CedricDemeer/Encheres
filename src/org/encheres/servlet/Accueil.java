@@ -104,8 +104,6 @@ public class Accueil extends HttpServlet {
 			}
 			return false;
 		}
-		
-		
 		return true;
 	}
 	private boolean persofiltercat(HttpServletRequest request, ArticleVendu a) {
