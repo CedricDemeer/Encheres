@@ -37,6 +37,7 @@ public class Accueil extends HttpServlet {
 	 */
 	private List<ArticleVendu> ListeArticles = new ArrayList<ArticleVendu>();
 	private List<ArticleVendu> ListeBDD = new ArrayList<ArticleVendu>();
+	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
     	
@@ -51,89 +52,121 @@ public class Accueil extends HttpServlet {
 		ArticleManager ArtMgr = new ArticleManager();
 		ListeBDD = ArtMgr.getListArticle();
 		
+		//actualisation liste actuel
+		ListeArticles.clear();
+		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		//pour test
 		if(listecomplette) {
-			ListeArticles = this.ListeBDD;			
+			ListeArticles = this.ListeBDD;
 		}
+		
 		if(user!=null) //si utilisateur connecter 
 		{
 			if(request.getParameter("encheres") != null) {
-				if(request.getParameter("encheres").equals("ouvertes"))
-					ajoutOuverte(user);			
-				if(request.getParameter("encheres").equals("encours"))
-					ajoutMesEnCours(user);
-				if(request.getParameter("encheres").equals("remportees"))
-					ajoutMesEnchereRemportees(user);
+				if(request.getParameter("encheresouv").equals("ouvertes"))
+					ajoutOuverte(user, request);			
+				if(request.getParameter("encheresenc").equals("encours"))
+					ajoutMesEnCours(user, request);
+				if(request.getParameter("encheresrem").equals("remportees"))
+					ajoutMesEnchereRemportees(user, request);
 			}
 			if(request.getParameter("ventes") != null) {
 				if(request.getParameter("ventes").equals("venteencours"))
-					ajoutMesVentesEnCours(user);
+					ajoutMesVentesEnCours(user, request);
 				if(request.getParameter("ventes").equals("nondebutees"))	
-					ajoutMesVentesNonDebutees(user);
+					ajoutMesVentesNonDebutees(user, request);
 				if(request.getParameter("ventes").equals("terminees"))	
-					ajoutMesVentesTerminees(user);
+					ajoutMesVentesTerminees(user, request);
 			}
 			
 			
 		}else //utilisateur non connecter 
 		{
-			ajoutEnCours();
+			ajoutEnCours(request);
 		}
 		
 		request.setAttribute("listearticles", ListeArticles);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);
+		//response.sendRedirect(request.getContextPath() + "/Accueil");
 	}
 
-	private void ajoutMesVentesTerminees(Utilisateur user) {
+	private boolean persofilter(HttpServletRequest request, ArticleVendu a ) {
+		
+		if(request.getParameter("q") !=null) {
+			if(request.getParameter("q").equals("")) {
+				return true;
+			}
+			
+			if(a.getNomArticle().contains(request.getParameter("q"))) {
+				return true;
+			}
+			return false;
+		}
+		
+		
+		return true;
+	}
+	private boolean persofiltercat(HttpServletRequest request, ArticleVendu a) {
+		if(request.getParameter("categorie") != null) {
+			if(a.getCategorie().getLibelle().equals(request.getParameter("categorie")) || request.getParameter("categorie").equals("Toutes") ) {
+				return true;
+			}
+			return false;
+		}
+		
+		return true;
+	}	
+	
+	private void ajoutMesVentesTerminees(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est terminer + article a l'utilisateur
-			if((a.getEtatVente().equals("RT") || a.getEtatVente()=="VD") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+			if((a.getEtatVente().equals("RT") || a.getEtatVente()=="VD") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
+				
 				ListeArticles.add(a);
 			}
 		}
 		
 	}
 
-	private void ajoutMesVentesNonDebutees(Utilisateur user) {
+	private void ajoutMesVentesNonDebutees(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est Créer + article a l'utilisateur
-			if(a.getEtatVente().equals("CR") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+			if(a.getEtatVente().equals("CR") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
 				ListeArticles.add(a);
 			}
 		}
 		
 	}
 
-	private void ajoutMesVentesEnCours(Utilisateur user) {
+	private void ajoutMesVentesEnCours(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est En cour + article a l'utilisateur
-			if(a.getEtatVente().equals("EC") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+			if(a.getEtatVente().equals("EC") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
 				ListeArticles.add(a);
 			}
 		}	
 		
 	}
 
-	private void ajoutMesEnchereRemportees(Utilisateur user) {
+	private void ajoutMesEnchereRemportees(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est vendu ou retirer + article pas a l'utilisateur
-			if((a.getEtatVente().equals("VD") || a.getEtatVente()=="RT")&& a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()) {
+			if((a.getEtatVente().equals("VD") || a.getEtatVente()=="RT") && a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
 				ListeArticles.add(a);
 			}
 		}	
 		
 	}
 
-	private void ajoutMesEnCours(Utilisateur user) {
+	private void ajoutMesEnCours(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est En Cour + enchere sur l'article    //LE getEnchere() return null
 			
-			if(a.getEnchere() != null) {
-				if(a.getEtatVente().equals("EC") && a.getEnchere().getNo_utilisateur() == user.getNoUtilisateur()) {
+			if(a.getEtatVente().equals("EC") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
 					ListeArticles.add(a);
-				}
+			
 			}
 			
 		}	
@@ -141,22 +174,21 @@ public class Accueil extends HttpServlet {
 	}
 	
 
-	private void ajoutOuverte(Utilisateur user) {
+	private void ajoutOuverte(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est En Cour + pas d'enchere sur l'article
-			if(a.getEnchere() != null) {
-				if(a.getEtatVente().equals("EC") && a.getEnchere().getNo_utilisateur() != user.getNoUtilisateur()) {
+			if(a.getEtatVente().equals("EC") && a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
 					ListeArticles.add(a);
-				}
+				
 			}
 		}		
 	}
 
 	
 
-	private void ajoutEnCours() {
+	private void ajoutEnCours(HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
-			if(a.getEtatVente().equals("EC")) {
+			if(a.getEtatVente().equals("EC") && persofilter(request, a ) && persofiltercat(request, a)) {
 				ListeArticles.add(a);
 			}
 		}		

@@ -75,17 +75,17 @@
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" checked name="encheres" value="ouvertes" id="ouvertes">Enchères ouvertes
+                                    <input type="checkbox" class="form-check-input" checked name="encheresouv" value="ouvertes" id="ouvertes">Enchères ouvertes
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="encours" id="encours">Mes enchères en cours
+                                    <input type="checkbox" class="form-check-input" name="encheresenc" value="encours" id="encours">Mes enchères en cours
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="remportees" id="remportees">Mes enchères remportées
+                                    <input type="checkbox" class="form-check-input" name="encheresrem" value="remportees" id="remportees">Mes enchères remportées
                                 </label>
                             </div>
                         </div>
