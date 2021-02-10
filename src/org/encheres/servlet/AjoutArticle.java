@@ -67,7 +67,7 @@ public class AjoutArticle extends HttpServlet {
 		String description = request.getParameter("description");
 		LocalDate dateDebutEncheres = null;
 		LocalDate dateFinEncheres = null;
-		int miseAPrix = Integer.parseInt(request.getParameter("prixInitial"));
+		
 		
 		//Création d'un nouvel article à vendre
 		ArticleVendu art = new ArticleVendu();
@@ -75,7 +75,12 @@ public class AjoutArticle extends HttpServlet {
 		//On set les informations dans ce nouvel article
 		art.setNomArticle(nomArticle);
 		art.setDescription(description);
-		art.setMiseAPrix(miseAPrix);
+		
+		if(request.getParameter("prixInitiale") != null) {
+			int miseAPrix = Integer.parseInt(request.getParameter("prixInitial"));
+			art.setMiseAPrix(miseAPrix);
+			}
+		
 		art.setEtatVente("CR");
 		
 		// On récupère le champ du fichier
@@ -163,6 +168,7 @@ public class AjoutArticle extends HttpServlet {
 		}
 		
 		if(test==true) {
+		
 		response.sendRedirect(request.getContextPath() + "/Accueil");
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		//rd.forward(request, response);

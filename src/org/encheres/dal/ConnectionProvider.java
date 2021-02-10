@@ -27,6 +27,8 @@ abstract class ConnectionProvider {
 			e.printStackTrace();
 			throw new RuntimeException("Impossible d'accéder à la base de données");
 		}
+		
+		
 	}
 	
 	/**

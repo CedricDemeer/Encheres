@@ -16,7 +16,8 @@ public class Test {
 
 		UtilisateurManager user=new UtilisateurManager();
 		Utilisateur utilisateur=new Utilisateur("yoyo12","moise","martin","martin@gmail.com","rue de la paix","22000","quimper","Pa$$w0rd");
-		user.AjoutUtilisateur(utilisateur, "Pa$$w0rd");		
+		user.AjoutUtilisateur(utilisateur, "Pa$$w0rd");
+		
 		
 		EnchereManager mgr= new EnchereManager();
 		Enchere nvlle= new Enchere(LocalDate.now(),30,2,12);
