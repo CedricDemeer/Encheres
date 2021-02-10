@@ -84,8 +84,7 @@ public class Accueil extends HttpServlet {
 		}else //utilisateur non connecter 
 		{
 			ajoutEnCours(request);
-		}
-		
+		}		
 		request.setAttribute("listearticles", ListeArticles);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);

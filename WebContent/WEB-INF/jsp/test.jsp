@@ -17,7 +17,6 @@
 
 <!-- Personnal CSS-->
 <link rel="stylesheet" href="css/style.css">
-
 <!--icons-->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"

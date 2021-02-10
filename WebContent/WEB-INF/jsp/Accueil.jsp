@@ -26,7 +26,7 @@
         <header>
            <%@ include file="navbar.jsp"%>
         </header>
-        <!--main bloc-->
+        <!--main bloc--> 
         <main>
             <!--title-->
             <div class="mx-auto text-center">

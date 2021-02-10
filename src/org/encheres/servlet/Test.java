@@ -38,8 +38,7 @@ public class Test extends HttpServlet {
 		
 		EnchereManager mgr= new EnchereManager();
 		
-		mgr.modifierArticle(3,10,75);
-		
+		mgr.modifierArticle(3,10,75);		
 		
 		
 		
