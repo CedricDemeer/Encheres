@@ -30,10 +30,13 @@ public class ArticleManager {
 			//BusinessException exception =new BusinessException();
 			//vérif sur l'utilisateur, les champs obligatoire en BDD
 
-
 			articleDAO.insert(article);
 
-
+		}
+		
+		public void ModifierArticle (ArticleVendu article) throws BusinessException {
+			
+			articleDAO.update(article);
 		}
 		
 		public ArticleVendu selectArticleParID (int id) {
