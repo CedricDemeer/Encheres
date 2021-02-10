@@ -36,56 +36,133 @@ public class Accueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	private List<ArticleVendu> ListeArticles = new ArrayList<ArticleVendu>();
+	private List<ArticleVendu> ListeBDD = new ArrayList<ArticleVendu>();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+    	
     	//listeCategories
 		CategorieManager catManager = new CategorieManager();		
 		request.setAttribute("listCategories", catManager.getListCategories());
 		
 		//activer ts les articles pour test
-		boolean listecomplette = true;
-		//filtre Achat
-		boolean Achat = false;		
-		boolean EnchereOuverte = false;
-		boolean MesEnchereEnCours = false;
-		boolean MesEnchereRemporter = false;
-		//filtre Vente
-		boolean Vente = false;
-		boolean MesVenteEnCours = false;
-		
+		boolean listecomplette = false;
 		
 		//recup la liste des articles en BDD
 		ArticleManager ArtMgr = new ArticleManager();
-		List<ArticleVendu> ListeBDD = ArtMgr.getListArticle();
+		ListeBDD = ArtMgr.getListArticle();
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-		
+		//pour test
 		if(listecomplette) {
-			ListeArticles = ListeBDD;			
+			ListeArticles = this.ListeBDD;			
 		}
-		if(Achat) {
-			for(ArticleVendu a:ListeBDD) {
-				
-				if(user!=null) {
-					if(a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()) {
-						ListeArticles.add(a);
-					}
-				}else {
-					ListeArticles.add(a);
-				}				
+		if(user!=null) //si utilisateur connecter 
+		{
+			if(request.getParameter("encheres") != null) {
+				if(request.getParameter("encheres").equals("ouvertes"))
+					ajoutOuverte(user);			
+				if(request.getParameter("encheres").equals("encours"))
+					ajoutMesEnCours(user);
+				if(request.getParameter("encheres").equals("remportees"))
+					ajoutMesEnchereRemportees(user);
 			}
-		}
-		if(Vente) {
+			if(request.getParameter("ventes") != null) {
+				if(request.getParameter("ventes").equals("venteencours"))
+					ajoutMesVentesEnCours(user);
+				if(request.getParameter("ventes").equals("nondebutees"))	
+					ajoutMesVentesNonDebutees(user);
+				if(request.getParameter("ventes").equals("terminees"))	
+					ajoutMesVentesTerminees(user);
+			}
 			
+			
+		}else //utilisateur non connecter 
+		{
+			ajoutEnCours();
 		}
-		
 		
 		request.setAttribute("listearticles", ListeArticles);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);
 	}
 
+	private void ajoutMesVentesTerminees(Utilisateur user) {
+		for(ArticleVendu a:ListeBDD) {
+			//si etatVente est terminer + article a l'utilisateur
+			if((a.getEtatVente().equals("RT") || a.getEtatVente()=="VD") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+				ListeArticles.add(a);
+			}
+		}
+		
+	}
+
+	private void ajoutMesVentesNonDebutees(Utilisateur user) {
+		for(ArticleVendu a:ListeBDD) {
+			//si etatVente est Créer + article a l'utilisateur
+			if(a.getEtatVente().equals("CR") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+				ListeArticles.add(a);
+			}
+		}
+		
+	}
+
+	private void ajoutMesVentesEnCours(Utilisateur user) {
+		for(ArticleVendu a:ListeBDD) {
+			//si etatVente est En cour + article a l'utilisateur
+			if(a.getEtatVente().equals("EC") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur()) {
+				ListeArticles.add(a);
+			}
+		}	
+		
+	}
+
+	private void ajoutMesEnchereRemportees(Utilisateur user) {
+		for(ArticleVendu a:ListeBDD) {
+			//si etatVente est vendu ou retirer + article pas a l'utilisateur
+			if((a.getEtatVente().equals("VD") || a.getEtatVente()=="RT")&& a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()) {
+				ListeArticles.add(a);
+			}
+		}	
+		
+	}
+
+	private void ajoutMesEnCours(Utilisateur user) {
+		for(ArticleVendu a:ListeBDD) {
+			//si etatVente est En Cour + enchere sur l'article    //LE getEnchere() return null
+			
+			if(a.getEnchere() != null) {
+				if(a.getEtatVente().equals("EC") && a.getEnchere().getNo_utilisateur() == user.getNoUtilisateur()) {
+					ListeArticles.add(a);
+				}
+			}
+			
+		}	
+		
+	}
+	
+
+	private void ajoutOuverte(Utilisateur user) {
+		for(ArticleVendu a:ListeBDD) {
+			//si etatVente est En Cour + pas d'enchere sur l'article
+			if(a.getEnchere() != null) {
+				if(a.getEtatVente().equals("EC") && a.getEnchere().getNo_utilisateur() != user.getNoUtilisateur()) {
+					ListeArticles.add(a);
+				}
+			}
+		}		
+	}
+
+	
+
+	private void ajoutEnCours() {
+		for(ArticleVendu a:ListeBDD) {
+			if(a.getEtatVente().equals("EC")) {
+				ListeArticles.add(a);
+			}
+		}		
+	}
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
