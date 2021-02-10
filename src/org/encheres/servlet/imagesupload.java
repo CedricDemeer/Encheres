@@ -46,10 +46,10 @@ public class imagesupload extends HttpServlet {
     private BufferedImage getImage(String uri) throws IOException {
     	String sContext = this.getServletContext().getRealPath("/");
 		sContext += "images\\upload\\";
-		System.out.println(uri);
-		System.out.println(sContext);
+		//System.out.println(uri);
+		//System.out.println(sContext);
     	sContext += uri.substring("/Encheres/imagesupload/".length());
-    	System.out.println(sContext);
+    	//System.out.println(sContext);
 		return ImageIO.read(new File(sContext));
     }
 	

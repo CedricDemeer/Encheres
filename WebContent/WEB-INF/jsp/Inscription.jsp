@@ -41,18 +41,24 @@
 					alt="">
 			</div>
 			<!--erreur-->
-			<!--
+			<c:if test="${!empty erreurs}">
+			
             <div class="d-flex alert-danger">
                 <div class="col-3 p-2">
                     <img class="small-icon" src="images/error.svg">
                 </div>
             
                 <ul class="col-9 list-unstyled p-2">
-                    <li>un message d'erreur éventuellement !</li>
-                    <li>un autre message....</li>
+                   <c:forEach var="erreur" items="${erreurs}">
+					<li>${erreur}</li>
+					</c:forEach>
                 </ul>
-            </div>     
-            -->
+            </div> 
+            
+            </c:if>
+            
+                
+            
 			<!--formulaire-->
 			<form class="form-register needs-validation" novalidate method="post"
 				action="">
@@ -60,14 +66,14 @@
 					<div class="col-md-6 mb-3">
 						<label for="pseudo">Pseudo</label> <input type="text"
 							class="form-control" id="pseudo" name="pseudo" placeholder=""
-							maxlength="30" required value="">
+							maxlength="30" required value="${param.pseudo}">
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 
 					<div class="col-md-6 mb-3">
 						<label for="lastname">Nom</label> <input type="text"
 							class="form-control" id="lastname" name="lastname" placeholder=""
-							value="" maxlength="30" required>
+							value="${param.lastname}" maxlength="30" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 				</div>
@@ -76,14 +82,14 @@
 					<div class="col-md-6 mb-3">
 						<label for="firstname">Prénom</label> <input type="text"
 							class="form-control" id="firstname" name="firstname"
-							placeholder="" value="" maxlength="30" required>
+							placeholder="" value="${param.firstname}" maxlength="30" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 
 					<div class="col-md-6 mb-3">
 						<label for="email">Email</label> <input type="email"
 							class="form-control" id="email" name="email"
-							placeholder="you@example.com" value="" maxlength="20" required>
+							placeholder="you@example.com" value="${param.email}" maxlength="20" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 				</div>
@@ -92,12 +98,12 @@
 					<div class="col-md-4 mb-3">
 						<label for="phone">Téléphone <span class="text-muted">(Optional)</span></label>
 						<input type="text" class="form-control" id="phone" name="phone"
-							placeholder="" value="" maxlength="15">
+							placeholder="" value="${param.phone}" maxlength="15">
 					</div>
 					<div class="col-md-8 mb-3">
 						<label for="street">Rue</label> <input type="text"
 							class="form-control" id="street" name="street" placeholder=""
-							value="" maxlength="30" required>
+							value="${param.street}" maxlength="30" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 				</div>
@@ -106,13 +112,13 @@
 					<div class="col-md-4 mb-3">
 						<label for="zipcode">Code postal</label> <input type="number"
 							class="form-control" id="zipcode" name="zipcode" placeholder=""
-							min="01000" max="99999" value="" required>
+							min="01000" max="99999" value="${param.zipcode}" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 					<div class="col-md-8 mb-3">
 						<label for="city">Ville</label> <input type="text"
 							class="form-control" id="city" name="city" placeholder=""
-							maxlength="30" value="" required>
+							maxlength="30" value="${param.city}" required>
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 				</div>
@@ -137,14 +143,7 @@
 				<button class="btn btn-primary btn-lg btn-block" type="submit">Créer
 					mon compte</button>
 			</form>
-			<c:if test="${!empty erreurs}">
-				<ul>
-		<c:forEach var="erreur" items="${erreurs}">
-			<li>${erreur}</li>
-		</c:forEach>
-	</ul>
-	
-	</c:if>
+			
 
 		</main>
 		<!--footer-->

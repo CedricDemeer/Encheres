@@ -67,48 +67,48 @@
                     <c:if test="${!empty sessionScope.user}">
                     <div class="col-md-6 mb-3">  	
                         <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" checked name="type-encheres" value="achats" id="achats">Achats
-                            </label>
+                            <!-- <label class="form-check-label">
+                                <input type="radio" class="form-check-input" <c:if test="${!empty param.achats}">checked </c:if> name="type-encheres" value="achats" id="achats">Achats
+                            </label>-->Achats
                         </div>
                         
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" checked name="encheres" value="ouvertes" id="ouvertes">Enchères ouvertes
+                                    <input type="checkbox" class="form-check-input" <c:if test="${!empty param.encheresouv}">checked </c:if> name="encheresouv" value="ouvertes" id="ouvertes">Enchères ouvertes
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="encours" id="encours">Mes enchères en cours
+                                    <input type="checkbox" class="form-check-input" <c:if test="${!empty param.encheresenc}">checked </c:if> name="encheresenc" value="encours" id="encours">Mes enchères en cours
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="encheres" value="remportees" id="remportees">Mes enchères remportées
+                                    <input type="checkbox" class="form-check-input" <c:if test="${!empty param.encheresrem}">checked </c:if> name="encheresrem" value="remportees" id="remportees">Mes enchères remportées
                                 </label>
                             </div>
                         </div>
                         
                         <div class="form-check">
-                            <label class="form-check-label">
+                            <!--  <label class="form-check-label">
                                 <input type="radio" class="form-check-input" name="type-encheres" value="ventes" id="ventes">Ventes
-                            </label>
+                            </label>-->Ventes
                         </div>
                         <div class="form-group">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="venteencours" id="venteencours">Mes ventes en cours
+                                    <input type="checkbox" class="form-check-input" <c:if test="${!empty param.ventesenc}">checked </c:if> name="ventesenc" value="venteencours" id="venteencours">Mes ventes en cours
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="nondebutees" id="nondebutees">Mes ventes non débutées
+                                    <input type="checkbox" class="form-check-input" <c:if test="${!empty param.ventesnon}">checked </c:if> name="ventesnon" value="nondebutees" id="nondebutees">Mes ventes non débutées
                                 </label>
                             </div>
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="ventes" value="terminees" id="terminees">Mes ventes terminées
+                                    <input type="checkbox" class="form-check-input" <c:if test="${!empty param.ventester}">checked </c:if> name="ventester" value="terminees" id="terminees">Mes ventes terminées
                                 </label>
                             </div>
                         </div>

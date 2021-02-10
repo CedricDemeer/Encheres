@@ -62,20 +62,32 @@ public class Accueil extends HttpServlet {
 		
 		if(user!=null) //si utilisateur connecter 
 		{
-			if(request.getParameter("encheres") != null) {
+			if(request.getParameter("encheresouv") != null) {
 				if(request.getParameter("encheresouv").equals("ouvertes"))
-					ajoutOuverte(user, request);			
+					ajoutOuverte(user, request);
+			}
+			if(request.getParameter("encheresenc") != null) {
 				if(request.getParameter("encheresenc").equals("encours"))
 					ajoutMesEnCours(user, request);
+			}
+			if(request.getParameter("encheresrem") != null) {
 				if(request.getParameter("encheresrem").equals("remportees"))
 					ajoutMesEnchereRemportees(user, request);
 			}
-			if(request.getParameter("ventes") != null) {
-				if(request.getParameter("ventes").equals("venteencours"))
+			
+				
+			
+			
+			if(request.getParameter("ventesenc") != null) {
+				if(request.getParameter("ventesenc").equals("venteencours"))
 					ajoutMesVentesEnCours(user, request);
-				if(request.getParameter("ventes").equals("nondebutees"))	
+			}
+			if(request.getParameter("ventesnon")!=null) {
+			if(request.getParameter("ventesnon").equals("nondebutees"))	
 					ajoutMesVentesNonDebutees(user, request);
-				if(request.getParameter("ventes").equals("terminees"))	
+			}
+			if(request.getParameter("ventester")!=null) {
+			if(request.getParameter("ventester").equals("terminees"))	
 					ajoutMesVentesTerminees(user, request);
 			}
 			
@@ -151,10 +163,15 @@ public class Accueil extends HttpServlet {
 
 	private void ajoutMesEnchereRemportees(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
-			//si etatVente est vendu ou retirer + article pas a l'utilisateur
-			if((a.getEtatVente().equals("VD") || a.getEtatVente()=="RT") && a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
-				ListeArticles.add(a);
+			//si etatVente est vendu ou retirer + article a l'utilisateur
+			if(a.getEnchere() != null && (a.getEtatVente().equals("VD") || a.getEtatVente()=="RT")) {
+				if(a.getEnchere().getNo_utilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
+					ListeArticles.add(a);
+				}
 			}
+			/*if((a.getEtatVente().equals("VD") || a.getEtatVente()=="RT") && a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
+				ListeArticles.add(a);
+			}*/
 		}	
 		
 	}
@@ -162,12 +179,14 @@ public class Accueil extends HttpServlet {
 	private void ajoutMesEnCours(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est En Cour + enchere sur l'article    //LE getEnchere() return null
-			
-			if(a.getEtatVente().equals("EC") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
-					ListeArticles.add(a);
-			
-			}
-			
+			if(a.getEnchere() != null
+					&& a.getEtatVente().equals("EC") 
+					&& a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()
+					&& persofilter(request, a )
+					&& persofiltercat(request, a))
+			{
+				ListeArticles.add(a);			
+			}			
 		}	
 		
 	}
