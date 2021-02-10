@@ -148,7 +148,7 @@
 						</div>
 						<div class="col-md-6 mb-3">
 							<label for="prixInitial">Prix de départ <span
-								class="text-muted">(Optionel)</span></label> <input type="number"
+								class="text-muted">(Optionnel)</span></label> <input type="number"
 								class="form-control" id="prixInitial" name="prixInitial"
 								placeholder=""
 								<c:if test="${!empty article.miseAPrix}">value ="${article.miseAPrix }"</c:if>
@@ -193,49 +193,17 @@
 					<hr class="mb-4">
 					<button class="btn btn-primary btn-lg btn-block" type="submit">Ajouter
 						mon article</button>
-					<button class="btn btn-primary btn-lg btn-block" type="submit">Annuler</button>
+					
+					<a class="btn btn-warning btn-lg btn-block"	href="${pageContext.request.contextPath}/Accueil">Annuler</a>
+					<c:if test="${!empty article }">
+					<button class="btn btn-danger btn-lg btn-block" type="submit">Supprimer mon article</button>
+					</c:if>
 				</form>
 				</div>
 			</div>
-				<fieldset>
-					<legend>Lieu du retrait</legend>
-
-					<div class="row">
-						<div class="col-md-8 mb-3">
-							<label for="street">Rue <span class="text-muted">*</span></label>
-							<input type="text" class="form-control" id="street" name="street"
-								placeholder="" value="" maxlength="30" required>
-							<div class="invalid-feedback">Il nous faut le lieu de
-								retrait (rue) !</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-4 mb-3">
-							<label for="zipcode">Code postal <span class="text-muted">*</span></label>
-							<input type="number" class="form-control" id="zipcode"
-								name="zipcode" placeholder="" min="01000" max="99999" value=""
-								required>
-							<div class="invalid-feedback">Il nous faut le lieu de
-								retrait (cp) !</div>
-						</div>
-						<div class="col-md-8 mb-3">
-							<label for="city">Ville <span class="text-muted">*</span></label>
-							<input type="text" class="form-control" id="city" name="city"
-								placeholder="" maxlength="30" value="" required>
-							<div class="invalid-feedback">Il nous faut le lieu de
-								retrait (ville) !</div>
-						</div>
-					</div>
-				</fieldset>
-
-				<hr class="mb-4">
-				<button class="btn btn-primary btn-lg btn-block" type="submit"
-				>Ajouter mon article </button>
-				<button class="btn btn-primary btn-lg btn-block" type="submit">Annuler</button>
+				
 							
 			
-			</form>
 		</main>
 		<!--footer-->
 		<footer class="border-top text-center align-bottom">
@@ -316,31 +284,7 @@
 							}, false);
 		})();
 	</script>
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                //validation du mot de passe
-                var password = document.getElementById("password")
-                , confirm_password = document.getElementById("confirm_password");
-                if(password.value != confirm_password.value) {
-                    confirm_password.setCustomValidity("Les mots de passe sont différents");
-                    event.preventDefault();
-                    event.stopPropagation();
-                } else {
-                    confirm_password.setCustomValidity('');
-                }
-                //validations des saisies obligatoires
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-                
-            }, false);
-        });            
-    }, false);
-    })();
-    </script>
+
 
 </body>
 </html>
