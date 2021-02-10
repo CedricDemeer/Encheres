@@ -1,8 +1,11 @@
 package org.encheres.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -33,18 +36,13 @@ public class Test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		List<Utilisateur> utilisateurs=new ArrayList<>();
-		UtilisateurManager test=new UtilisateurManager();
+		response.setIntHeader("/Test", 5);
+		 
 		
-		EnchereManager mgr= new EnchereManager();
-		
-		mgr.modifierArticle(3,10,75);
-		
+		response.setContentType("text/html;charset=UTF-8");
+	 
 		
 		
-		
-		utilisateurs=test.selectToutLesUtilisateur();
-		request.setAttribute("liste", utilisateurs);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/test.jsp");
 		rd.forward(request, response);

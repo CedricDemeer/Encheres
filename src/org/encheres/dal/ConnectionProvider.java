@@ -53,7 +53,7 @@ abstract class ConnectionProvider {
 	public static Connection getConnection() throws SQLException
 	{
 		
-		procedureStockee(ConnectionProvider.dataSource.getConnection());
+		//procedureStockee(ConnectionProvider.dataSource.getConnection());
 		
 		return ConnectionProvider.dataSource.getConnection();
 		
