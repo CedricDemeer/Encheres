@@ -117,6 +117,7 @@
 						<!--Formulaire pour enchérir-->
 						<form class="form-register needs-validation" novalidate
 							method="post" action="">
+							<c:if test="${article.etatVente =='EC' }">
 							<h6>
 								<label for="monEnchere">Faire une proposition :</label>
 							</h6>
@@ -124,9 +125,15 @@
 								name="encherir" placeholder="${article.enchere}">
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Faire
 								une offre</button>
+							</c:if>
+							
+						<c:if test="${article.etatVente == 'CR' } ">
+							<p>Article bientôt en vente !<p>
+						</c:if>
+						
 						</form>
 						<c:if test="${sessionScope.user.noUtilisateur == article.utilisateur.noUtilisateur && article.etatVente == 'CR' }">
-						<a class="mt-3 btn btn-lg btn-block btn-primary" href="${pageContext.request.contextPath}/ModifierArticle" title="Modifier">
+						<a class="mt-3 btn btn-lg btn-block btn-warning" href="${pageContext.request.contextPath}/ModifierArticle?article=${article.noArticle}" title="Modifier">
                             Modifier
                         </a>
 						</c:if>
