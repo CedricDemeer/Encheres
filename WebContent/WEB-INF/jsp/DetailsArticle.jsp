@@ -117,7 +117,7 @@
 						<!--Formulaire pour enchérir-->
 						<form class="form-register needs-validation" novalidate
 							method="post" action="">
-							<c:if test="${article.etatVente =='EC' }">
+							<c:if test="${article.etatVente =='EC' && !empty sessionScope.user}">
 							<h6>
 								<label for="monEnchere">Faire une proposition :</label>
 							</h6>
