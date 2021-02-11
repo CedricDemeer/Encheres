@@ -35,17 +35,16 @@ public class SuppArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Création de l'utilisateur
-		HttpSession session = request.getSession();
-		ArticleVendu art = (ArticleVendu) session.getAttribute("article");
+		//récupérer l'article depuis l'url
+		int noArticle = Integer.parseInt(request.getParameter("numArticle"));
+		System.out.println(noArticle);
+				
+			
+		ArticleVendu art = artMng.selectArticleParID(noArticle);
 		
 		//envoi a la BLL
 				try {
 					artMng.supprimerArticle(art);
-					
-					//si l'article est bien supprimé on clean la session
-					session.removeAttribute("article");
-					
 					//retour à l'accueil si la suppression s'est effectuée
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/Accueil");
 					dispatcher.forward(request, response);

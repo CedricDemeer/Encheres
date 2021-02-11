@@ -62,7 +62,7 @@ public class ModifierArticle extends HttpServlet {
 		request.setAttribute("article", art);
 		
 		//art = (ArticleVendu) request.getSession().getAttribute("article");
-		System.out.println(art);
+		System.out.println(art.toString());
 				
 		Boolean test = true;
 		String nomArticle = request.getParameter("nomArticle");
@@ -70,18 +70,19 @@ public class ModifierArticle extends HttpServlet {
 		LocalDate dateDebutEncheres = null;
 		LocalDate dateFinEncheres = null;
 
+		System.out.println(nomArticle);
 		
-		
-		System.out.println(nomArticle + art.getNomArticle());
+		//System.out.println(nomArticle + art.getNomArticle());
 		
 		if(art.getNomArticle() != nomArticle) {
 			art.setNomArticle(nomArticle);
+			//System.out.println(art.getNomArticle());
 		}
-
+		/*
 		if(art.getDescription() != description) {
 			art.setDescription(description);
 		}
-/*
+
 		if(art.getDateDebutEncheres() != dateDebutEncheres) {
 			art.setDateDebutEncheres(dateDebutEncheres);
 		}

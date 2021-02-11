@@ -211,11 +211,15 @@
 
 						</c:if>
 					</form>
+					
+					<a class="mt-3 btn btn-lg btn-block btn-danger" href="${pageContext.request.contextPath}/SuppArticle?numArticle=${article.noArticle}" title="faire une enchère">
+                        Supprimer cet article</a>
 					<c:if test="${!empty article.noArticle }">
+					
 						<form action="<%=request.getContextPath()%>/SuppArticle"
 							method="post">
 							<input class="btn btn-danger btn-lg btn-block" type="submit"
-								name="buttonDelete" value="Supprimer mon compte" />
+								name="buttonDelete" value="Supprimer l'article" />
 						</form>
 					</c:if>
 				</div>

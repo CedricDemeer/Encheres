@@ -248,6 +248,14 @@ public class ArticleVendu {
 	public void setEnchere(Enchere m_enchere) {
 		enchere = m_enchere;
 	}
+	@Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
+				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", listeEncheres="
+				+ listeEncheres + ", lieuRetrait=" + lieuRetrait + ", image=" + image + ", categorie=" + categorie
+				+ ", utilisateur=" + utilisateur + ", enchere=" + enchere + "]";
+	}
 	
 
 	
