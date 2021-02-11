@@ -81,7 +81,7 @@ public class ModifierArticle extends HttpServlet {
 		if(art.getDescription() != description) {
 			art.setDescription(description);
 		}
-
+/*
 		if(art.getDateDebutEncheres() != dateDebutEncheres) {
 			art.setDateDebutEncheres(dateDebutEncheres);
 		}
@@ -163,7 +163,7 @@ public class ModifierArticle extends HttpServlet {
 			e.printStackTrace();
 			//listeCodesErreur.add(CodesResultatServlets.FORMAT_ARTICLE_DATE_ERREUR);
 		}
-		
+		*/
 		try {
 			artMng.ModifierArticle(art);
 		} catch (BusinessException e) {

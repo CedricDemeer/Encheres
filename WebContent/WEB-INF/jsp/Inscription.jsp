@@ -66,7 +66,7 @@
 					<div class="col-md-6 mb-3">
 						<label for="pseudo">Pseudo</label> <input type="text"
 							class="form-control" id="pseudo" name="pseudo" placeholder=""
-							maxlength="30" required value="${param.pseudo}">
+							value="${param.pseudo}" maxlength="30">
 						<div class="invalid-feedback">Ce champ est invalide !</div>
 					</div>
 
