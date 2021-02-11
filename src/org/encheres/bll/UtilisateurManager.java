@@ -159,7 +159,7 @@ public class UtilisateurManager {
 	{
 
 
-		if(u.getPseudo().length()>30 || u.getNom()==""){
+		if(u.getPseudo().length()>30 || u.getPseudo()==""){
 
 			BusinessException.ajouterErreur("Pseudo inexistant ou taille > à 30 ou ne contentant pas un caractère numérique ou alpha");
 
