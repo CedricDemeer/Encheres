@@ -73,10 +73,10 @@
 								<p>${article.categorie.libelle}</p>
 								
 								<h6>Meilleur offre :</h6>
-								<c:if test="${empty article.listeEncheres}">
+								<c:if test="${empty article.enchere}">
 									<p>Meilleur enchère</p>
 								</c:if>
-								<p>${article.enchere}</p>
+								<p>${article.enchere.montant_enchere}</p>
 								
 								<h6>Mise à prix :</h6>
 								<c:if test="${empty article.miseAPrix}">

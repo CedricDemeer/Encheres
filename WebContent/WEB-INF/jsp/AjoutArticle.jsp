@@ -87,7 +87,6 @@
 									Il vous reste <input readonly type=text name="indicateur"
 										size="3" maxlength=3 value="300"> caractères.
 								</p>
-								<textarea></textarea>
 
 							</div>
 						</div>
