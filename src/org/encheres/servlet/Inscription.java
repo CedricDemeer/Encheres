@@ -43,6 +43,7 @@ public class Inscription extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		//récup de variable du formulaire
 				Boolean test=true;
 				String pseudo = request.getParameter("pseudo");
