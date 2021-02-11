@@ -92,19 +92,23 @@ public class Connexion extends HttpServlet {
 				cnx=true;
 
 			}
-		}
+		}else
+		{
 
-		user=utilisateurManager.selectUtisateurParEmail(identifiant);
+			user=utilisateurManager.selectUtisateurParEmail(identifiant);
 
-		if(user!=null){
-			if(user.getEmail().equals(identifiant)&& user.getMotDePasse().equals(password)) 
-			{
+			if(user!=null){
+				if(user.getEmail().equals(identifiant)&& user.getMotDePasse().equals(password)) 
+				{
 
-				cnx=true;
+					cnx=true;
+
+				}
 
 			}
-
 		}
+
+
 
 
 		if(cnx==true) {
