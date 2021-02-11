@@ -122,7 +122,7 @@
 								<label for="monEnchere">Faire une proposition :</label>
 							</h6>
 							<input type="number" class="form-control" id="encherir"
-								name="encherir" placeholder="${article.enchere}">
+								name="encherir" placeholder="${article.enchere.montant_enchere +1}">
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Faire
 								une offre</button>
 							</c:if>
