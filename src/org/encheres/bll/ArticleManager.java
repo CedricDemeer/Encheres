@@ -10,6 +10,7 @@ import org.encheres.bo.ArticleVendu;
 import org.encheres.dal.ArticleDAO;
 import org.encheres.dal.DAOFactory;
 import org.encheres.exceptions.BusinessException;
+import org.encheres.exceptions.DALException;
 
 
 public class ArticleManager {
@@ -54,6 +55,26 @@ public class ArticleManager {
 		public List<ArticleVendu> getListArticle(){
 			return articleDAO.selectAll();
 		}
+		
+		
+		public ArticleVendu supprimerArticle (ArticleVendu art) throws BusinessException {
+	        BusinessException exception= new BusinessException();
+	        try {
+	            articleDAO.delete(art.getNoArticle());
+	        }catch (DALException e) {
+	            e.printStackTrace();
+	            exception.ajouterErreur(e.getMessage());
+	            throw exception;
+	        }
+	        return art;
+	    }
+		
+		
+		
+		
+		
+		
+		
 		
 		public static void receiveFile(InputStream is, File dest) throws IOException {
 	    	
