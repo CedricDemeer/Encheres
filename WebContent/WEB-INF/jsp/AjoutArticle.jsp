@@ -59,8 +59,8 @@
 						alt="pas de photo" />
 				</div>
 				<div class="col-9 p-1">
-					<form name="formulaire" class="form-register needs-validation" novalidate
-						method="post" action="" enctype="multipart/form-data">
+					<form name="formulaire" class="form-register needs-validation"
+						novalidate method="post" action="" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-md-12">
 								<label for="nomArticle">Nom de l'article <span
@@ -79,15 +79,17 @@
 							<div class="col-md-12">
 								<label for="description">Décrivez votre article <span
 									class="text-muted">*</span></label><br>
-								<textarea name="description" id="description" cols="60" rows="5" placeholder="Décrivez votre article le plus précisément possible."
-									 onKeyDown="limiteur();" onKeyUp="limiteur();">
-									 <c:if test="${!empty article.description}">${article.description }</c:if>
-									 </textarea>
-								<br> <p>Il vous reste <input readonly type=text
-									name="indicateur" size="3" maxlength=3 value="300">
-								caractères. </p>
-								
-								
+								<textarea name="description" id="description" cols="60" rows="5"
+									placeholder="Décrivez votre article le plus précisément possible"
+									onKeyDown="limiteur();" onKeyUp="limiteur();"><c:if test="${!empty article.description}">${article.description }</c:if></textarea>
+								<br>
+								<p>
+									Il vous reste <input readonly type=text name="indicateur"
+										size="3" maxlength=3 value="300"> caractères.
+								</p>
+								<textarea></textarea>
+
+
 								<!-- <input type="text" class="form-control"
 									id="description" name="description"
 									placeholder="Décrivez votre article le plus précisément possible."
@@ -216,10 +218,16 @@
 						<c:if test="${!empty article.noArticle }">
 							<button class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer</button>
 							<button class="btn btn-warning btn-lg btn-block" type="submit">Annuler</button>
-							<button class="btn btn-danger btn-lg btn-block" type="submit">Supprimer
-								cette article</button>
+
 						</c:if>
 					</form>
+					<c:if test="${!empty article.noArticle }">
+						<form action="<%=request.getContextPath()%>/SuppArticle"
+							method="post">
+							<input class="btn btn-danger btn-lg btn-block" type="submit"
+								name="buttonDelete" value="Supprimer mon compte" />
+						</form>
+					</c:if>
 				</div>
 			</div>
 		</main>
