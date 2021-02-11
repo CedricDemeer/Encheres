@@ -89,15 +89,6 @@
 								</p>
 								<textarea></textarea>
 
-
-								<!-- <input type="text" class="form-control"
-									id="description" name="description"
-									placeholder="Décrivez votre article le plus précisément possible."
-									maxlength="60"
-									<c:if test="${!empty article.description}">value ="${article.description }"</c:if>
-									required>
-								<div class="invalid-feedback">Il vous faut donner une
-									description à votre article !</div> -->
 							</div>
 						</div>
 						<div class="row">
