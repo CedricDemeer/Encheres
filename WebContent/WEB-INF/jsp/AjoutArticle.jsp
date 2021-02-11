@@ -162,7 +162,9 @@
 							<div class="col-md-8 mb-3">
 								<label for="street">Rue <span class="text-muted">*</span></label>
 								<input type="text" class="form-control" id="street"
-									name="street" placeholder="" value="${sessionScope.user.rue }"
+									name="street" placeholder="" 
+									<c:if test="${!empty article.nomArticle}">value ="${article.lieuRetrait.rue }"</c:if>
+									<c:if test="${empty article.nomArticle}">value="${sessionScope.user.rue}"</c:if>
 									maxlength="30" required>
 								<div class="invalid-feedback">Il nous faut le lieu de
 									retrait (rue) !</div>
@@ -172,18 +174,29 @@
 						<div class="row">
 							<div class="col-md-4 mb-3">
 								<label for="zipcode">Code postal <span
-									class="text-muted">*</span></label> <input type="number"
-									class="form-control" id="zipcode" name="zipcode" placeholder=""
-									min="01000" max="99999" value="${sessionScope.user.codePostal}"
+									class="text-muted">*</span></label> 
+									<input type="number"
+									class="form-control" 
+									id="zipcode" 
+									name="zipcode" 
+									placeholder=""
+									min="01000" 
+									max="99999" 
+									<c:if test="${!empty article.nomArticle}">value ="${article.lieuRetrait.code_postal }"</c:if>
+									<c:if test="${empty article.nomArticle}">value="${sessionScope.user.codePostal}"</c:if>
 									required>
-								<div class="invalid-feedback">Il nous faut le lieu de
-									retrait (cp) !</div>
+								<div class="invalid-feedback">Il nous faut le lieu de  retrait (cp) !</div>
 							</div>
 							<div class="col-md-8 mb-3">
 								<label for="city">Ville <span class="text-muted">*</span></label>
 								<input type="text" class="form-control" id="city" name="city"
-									placeholder="" maxlength="30"
-									value="${sessionScope.user.ville}" required>
+									placeholder="" 
+									maxlength="30"
+									<c:if test="${!empty article.nomArticle}">value ="${article.lieuRetrait.code_postal }"</c:if>
+									<c:if test="${empty article.nomArticle}">
+									value="${sessionScope.user.ville}" 
+									</c:if>
+									required>
 								<div class="invalid-feedback">Il nous faut le lieu de
 									retrait (ville) !</div>
 							</div>
@@ -191,52 +204,20 @@
 					</fieldset>
 
 					<hr class="mb-4">
-					<button class="btn btn-primary btn-lg btn-block" type="submit">Ajouter
-						mon article</button>
-					<button class="btn btn-primary btn-lg btn-block" type="submit">Annuler</button>
+					<c:if test="${empty article.noArticle }">
+					<button class="btn btn-primary btn-lg btn-block" type="submit">Ajouter mon article</button>
+					<button class="btn btn-warning btn-lg btn-block" type="submit">Annuler</button>
+					</c:if>
+					<c:if test="${!empty article.noArticle }">
+					<button class="btn btn-primary btn-lg btn-block" type="submit">Enregistrer</button>
+					<button class="btn btn-warning btn-lg btn-block" type="submit">Annuler</button>
+					<button class="btn btn-danger btn-lg btn-block" type="submit">Supprimer cette article</button>
+					</c:if>
 				</form>
 				</div>
 			</div>
-				<fieldset>
-					<legend>Lieu du retrait</legend>
-
-					<div class="row">
-						<div class="col-md-8 mb-3">
-							<label for="street">Rue <span class="text-muted">*</span></label>
-							<input type="text" class="form-control" id="street" name="street"
-								placeholder="" value="" maxlength="30" required>
-							<div class="invalid-feedback">Il nous faut le lieu de
-								retrait (rue) !</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-4 mb-3">
-							<label for="zipcode">Code postal <span class="text-muted">*</span></label>
-							<input type="number" class="form-control" id="zipcode"
-								name="zipcode" placeholder="" min="01000" max="99999" value=""
-								required>
-							<div class="invalid-feedback">Il nous faut le lieu de
-								retrait (cp) !</div>
-						</div>
-						<div class="col-md-8 mb-3">
-							<label for="city">Ville <span class="text-muted">*</span></label>
-							<input type="text" class="form-control" id="city" name="city"
-								placeholder="" maxlength="30" value="" required>
-							<div class="invalid-feedback">Il nous faut le lieu de
-								retrait (ville) !</div>
-						</div>
-					</div>
-				</fieldset>
-
-				<hr class="mb-4">
-				<button class="btn btn-primary btn-lg btn-block" type="submit"
-				>Ajouter mon article </button>
-				<button class="btn btn-primary btn-lg btn-block" type="submit">Annuler</button>
-							
-			
-			</form>
 		</main>
+		
 		<!--footer-->
 		<footer class="border-top text-center align-bottom">
 			<div class="mt-3">
@@ -316,31 +297,6 @@
 							}, false);
 		})();
 	</script>
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                //validation du mot de passe
-                var password = document.getElementById("password")
-                , confirm_password = document.getElementById("confirm_password");
-                if(password.value != confirm_password.value) {
-                    confirm_password.setCustomValidity("Les mots de passe sont différents");
-                    event.preventDefault();
-                    event.stopPropagation();
-                } else {
-                    confirm_password.setCustomValidity('');
-                }
-                //validations des saisies obligatoires
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-                
-            }, false);
-        });            
-    }, false);
-    })();
-    </script>
 
 </body>
 </html>
