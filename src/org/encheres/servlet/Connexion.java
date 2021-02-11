@@ -24,7 +24,7 @@ import org.encheres.dal.UtilisateurDAOJDBCImpl;
 @WebServlet("/Connexion")
 public class Connexion extends HttpServlet {
 
-	
+
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -40,27 +40,27 @@ public class Connexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+
 		String RememberMe=getCookieValue(request, "user");
 		if(RememberMe!=null)
 		{
-			
+
 			Utilisateur user= new Utilisateur();
 			UtilisateurManager utilisateurManager=new UtilisateurManager();
 			user=utilisateurManager.selectUtilisateurParPseudo(RememberMe);
 			HttpSession session=request.getSession();
 			session.setAttribute("user", user);
-			
-			
+
+
 			//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 			//rd.forward(request, response);
-			
-			
+
+
 		} 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Connexion.jsp");
 		rd.forward(request, response);
-		
-		
+
+
 
 	}
 
@@ -73,14 +73,14 @@ public class Connexion extends HttpServlet {
 		String password;
 		String remember;
 		boolean cnx=false;
-	
-		
+
+
 		identifiant=request.getParameter("pseudo");
 		password=request.getParameter("password");
 		remember=request.getParameter("remember");
-		
-		
-		
+
+
+
 		Utilisateur user= new Utilisateur();
 		UtilisateurManager utilisateurManager=new UtilisateurManager();
 
@@ -90,23 +90,33 @@ public class Connexion extends HttpServlet {
 			if (user.getPseudo().equals(identifiant) && user.getMotDePasse().equals(password))
 			{
 				cnx=true;
-	
+
 			}
 		}
 
-		
-		
-		
+		user=utilisateurManager.selectUtisateurParEmail(identifiant);
+
+		if(user!=null){
+			if(user.getEmail().equals(identifiant)&& user.getMotDePasse().equals(password)) 
+			{
+
+				cnx=true;
+
+			}
+
+		}
+
+
 		if(cnx==true) {
 
 			HttpSession session=request.getSession();
 			session.setAttribute("user", user);
-			
+
 			if(remember!=null) {
-			Cookie cookie= new Cookie("user",user.getPseudo());
-			cookie.setMaxAge(3600);
-			response.addCookie(cookie);}
-			
+				Cookie cookie= new Cookie("user",user.getPseudo());
+				cookie.setMaxAge(3600);
+				response.addCookie(cookie);}
+
 			response.sendRedirect(request.getContextPath() + "/Accueil");
 			//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 			//rd.forward(request, response);
