@@ -52,44 +52,44 @@ public class ModifierProfil extends HttpServlet {
 		
 		//création de l'utilisateur
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-		if(user.getPrenom() != prenom) {
+		if(!user.getPrenom().equals(prenom)) {
 			user.setPrenom(prenom);
 		}
 		
-		if(user.getNom() != nom) {
+		if(!user.getNom().equals(nom)) {
 			user.setNom(nom);
 		}
 		
-		if(user.getPseudo() != pseudo) {
+		if(!user.getPseudo().equals(pseudo)) {
 			user.setPseudo(pseudo);
 		}
 		
-		if(user.getEmail() != email) {
+		if(!user.getEmail().equals(email)) {
 			user.setEmail(email);
 		}
 		
-		if(user.getTelephone() != telephone) {
+		if(!user.getTelephone().equals(telephone)) {
 			user.setTelephone(telephone);
 		}
 		
-		if(user.getRue() != rue) {
+		if(!user.getRue().equals(rue)) {
 			user.setRue(rue);
 		}
 		
-		if(user.getCodePostal() != code_postal) {
+		if(user.getCodePostal().equals(code_postal)) {
 			user.setCodePostal(code_postal);
 		}
 		
-		if(user.getVille()!= ville) {
+		if(user.getVille().equals(ville)) {
 			user.setVille(ville);
 		}
 
-		if(user.getMotDePasse() != password) {
+		if(user.getMotDePasse().equals(password)) {
 			user.setMotDePasse(password);
 		}
 		
 		
-		System.out.println(pseudo + " " + nom + " " + prenom);
+		//System.out.println(pseudo + " " + nom + " " + prenom);
 		//envoi a la BLL
 		
 		try {
@@ -98,7 +98,7 @@ public class ModifierProfil extends HttpServlet {
 			request.setAttribute("erreurs", e.getListeMessagesErreur());
 		}
 		
-		System.out.println(user.toString());
+		//System.out.println(user.toString());
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/Accueil.jsp");
 		rd.forward(request, response);

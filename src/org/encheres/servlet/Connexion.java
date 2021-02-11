@@ -39,7 +39,8 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//récupération et affichage des infos en UTF-8
+		request.setCharacterEncoding("UTF-8");
 
 		String RememberMe=getCookieValue(request, "user");
 		if(RememberMe!=null)
@@ -68,7 +69,8 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		//récupération et affichage des infos en UTF-8
+				request.setCharacterEncoding("UTF-8");
 		String identifiant;
 		String password;
 		String remember;

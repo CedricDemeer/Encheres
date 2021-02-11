@@ -76,8 +76,9 @@ public class AjoutArticle extends HttpServlet {
 		art.setNomArticle(nomArticle);
 		art.setDescription(description);
 		
-		if(request.getParameter("prixInitiale") != null) {
+		if(request.getParameter("prixInitial") != null) {
 			int miseAPrix = Integer.parseInt(request.getParameter("prixInitial"));
+			System.out.println(miseAPrix);
 			art.setMiseAPrix(miseAPrix);
 			}
 		
