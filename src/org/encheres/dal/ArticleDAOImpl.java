@@ -34,7 +34,8 @@ public class ArticleDAOImpl implements ArticleDAO{
 			+ "r.rue as rue_retraits,"
 			+ "r.ville as ville_retraits,"
 			+ "e.date_enchere as date_enchere,"
-			+ "e.montant_enchere as montant_enchere"
+			+ "e.montant_enchere as montant_enchere,"
+			+ "e.no_utilisateur as enchere_user"
 			+ " FROM ARTICLES_VENDUS a "
 			+ "LEFT JOIN CATEGORIES c ON c.no_categorie = a.no_categorie "
 			+ "LEFT JOIN UTILISATEURS u ON u.no_utilisateur = a.no_utilisateur "
@@ -297,7 +298,7 @@ public class ArticleDAOImpl implements ArticleDAO{
 	private Enchere encherBuilder(ResultSet rs) throws SQLException {
 		Enchere enchere = new Enchere();
 		enchere.setNo_article(rs.getInt("no_article"));
-		enchere.setNo_utilisateur(rs.getInt("num_user"));
+		enchere.setNo_utilisateur(rs.getInt("enchere_user"));
 		enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
 		enchere.setMontant_enchere(rs.getInt("montant_enchere"));		
 		

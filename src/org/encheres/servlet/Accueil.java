@@ -133,9 +133,10 @@ public class Accueil extends HttpServlet {
 	private void ajoutMesVentesTerminees(Utilisateur user, HttpServletRequest request) {
 		for(ArticleVendu a:ListeBDD) {
 			//si etatVente est terminer + article a l'utilisateur
-			if((a.getEtatVente().equals("RT") || a.getEtatVente()=="VD") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
+			if((a.getEtatVente().equals("VD") || a.getEtatVente()=="RT") && a.getUtilisateur().getNoUtilisateur() == user.getNoUtilisateur() && persofilter(request, a ) && persofiltercat(request, a)) {
 				
 				ListeArticles.add(a);
+				//dzd
 			}
 		}
 		

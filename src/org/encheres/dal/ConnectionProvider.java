@@ -41,7 +41,7 @@ abstract class ConnectionProvider {
 	
 	try(CallableStatement cstmt= cnx.prepareCall("{call dbo.updateArticle()}")){
 		
-		System.out.println("la valeur de la procedure stockée est ");
+		//System.out.println("la valeur de la procedure stockée est ");
 		cstmt.execute();
 		
 	}
