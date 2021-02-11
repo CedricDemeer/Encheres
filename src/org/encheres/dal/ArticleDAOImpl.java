@@ -237,13 +237,18 @@ public class ArticleDAOImpl implements ArticleDAO{
 				
 				if(rs.getString("ench_no_utilisateur")!=null) //si il y a une enchere
 				{
-					item.getListeEncheres().add(
+					/*item.getListeEncheres().add(
 							new Enchere(
 									rs.getDate("ench_date").toLocalDate(), 
 									rs.getInt("ench_montant"), 
 									rs.getInt("ench_no_utilisateur"),
 									rs.getInt("no_article")
-									));
+									));*/
+					item.setEnchere(new Enchere(
+									rs.getDate("ench_date").toLocalDate(), 
+									rs.getInt("ench_montant"), 
+									rs.getInt("ench_no_utilisateur"),
+									rs.getInt("no_article")));
 				}
 						
 			}
