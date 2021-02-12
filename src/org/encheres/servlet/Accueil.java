@@ -183,6 +183,7 @@ public class Accueil extends HttpServlet {
 			if(a.getEnchere() != null
 					&& a.getEtatVente().equals("EC") 
 					&& a.getUtilisateur().getNoUtilisateur() != user.getNoUtilisateur()
+					&& a.getEnchere().getNo_utilisateur() == user.getNoUtilisateur()
 					&& persofilter(request, a )
 					&& persofiltercat(request, a))
 			{
